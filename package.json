@@ -1,0 +1,12 @@
+{
+  "name": "ribosomalrtf",
+  "version": "0.0.1",
+  "description": "Parses .rtf files into navigatable objects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RB",
+  "license": "ISC",
+  "private": "true"
+}
