@@ -27,45 +27,34 @@ function parse(rtf) {
 			chunk.toString().split("").forEach(char => this.push(char));
 			callback();
 		}
-	})
+	});
 
 	function errorHandler(error) {
-		console.log("Error encountered! Shutting down!");
-		writer.destroy(error);
-		reader.destroy(error);
-		charStreamSplitter.destroy(error);
+		console.error(error);
+		writer.destroy(Error("Error encountered! Shutting down Writer!"));
+		reader.destroy(Error("Error encountered! Shutting down Reader!"));
+		charStreamSplitter.destroy(Error("Error encountered! Shutting down Splitter!"));
 	}
 
 	charStreamSplitter.on("error", errorHandler);
 	reader.on("error", errorHandler);
 	writer.on("error", errorHandler);
 
-	rtf.on("end", () => {
-		console.log("RTF!");
-		charStreamSplitter.end("waa");
-	});
-
 	charStreamSplitter.on("end", () => {
-		console.log("Splitter!");
 		reader.end("Finished!");
 	});
 
-	reader.on("finish", () => {
-		console.log("Reader!");
+	return new Promise((resolve, reject) => {
+		try {
+			rtf.pipe(charStreamSplitter)
+			.pipe(reader).output
+			.pipe(writer)
+			.on("finish",()=>resolve(writer.output));
+		}
+		catch(err) {
+			console.log(err);
+		}
+		
 	});
-
-	reader.output.on("end", () => {
-		console.log("Reader Output!");
-	});
-
-	writer.on("finish", () => {
-		console.log("Writer!");
-	});
-
-	rtf.pipe(charStreamSplitter, {end:false})
-		.pipe(reader).output
-		.pipe(writer)
-		.on('error', errorHandler)
-		.on("finish",()=>console.dir(writer.output));
 }
 

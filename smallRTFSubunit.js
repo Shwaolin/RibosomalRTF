@@ -10,7 +10,6 @@ class SmallRTFSubunit extends Writable {
 					this.curChar = chunk;
 					this.operation(this.curChar);
 				} else {
-					console.log("Hello!");
 					this.setInstruction({type:"documentEnd"});
 					this.output.push(null);
 				}
