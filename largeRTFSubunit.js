@@ -396,6 +396,15 @@ class LargeRTFSubunit extends Writable{
 	cmd$fbias(val) {
 		this.curGroup.attributes.bias = val;
 	}
+	cmd$falt() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "alternate");
+	}
+	cmd$panose() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "panose");
+	}
+	cmd$fname() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "taggedname");
+	}
 	cmd$fnil() {
 		this.curGroup.attributes.family = "nil";
 	}

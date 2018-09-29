@@ -21,7 +21,7 @@ class RTFDoc extends RTFObj {
 		this.fontTable = [];
 		this.listTable = [];
 		this.listOverrideTable = [];
-		this.type = "Document";
+		this.type = "document";
 	}
 	dumpContents() {
 		return {
@@ -212,7 +212,7 @@ class Fldrslt extends RTFObj {
 		super(parent);
 	}
 	dumpContents() {
-		this.parent.style = this.style;
+		this.parent.style = this.curstyle;
 		this.parent.contents = this.contents[0];
 	}
 }

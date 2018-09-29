@@ -30,7 +30,6 @@ function parse(rtf) {
 	});
 
 	function errorHandler(error) {
-		console.error(error);
 		writer.destroy(Error("Error encountered! Shutting down Writer!"));
 		reader.destroy(Error("Error encountered! Shutting down Reader!"));
 		charStreamSplitter.destroy(Error("Error encountered! Shutting down Splitter!"));
