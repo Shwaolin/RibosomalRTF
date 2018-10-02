@@ -5,11 +5,14 @@ const {
 	RTFGroup, 
 	ParameterGroup, 
 	DocTable, 
-	ColourTable,
+	ColourTable, 
 	FontTable, 
 	Font, 
 	FileTable,
 	File,
+	Default,
+	Stylesheet,
+	Style,
 	ListTable, 
 	List, 
 	ListLevel, 
@@ -91,16 +94,20 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 	parseControl(instruction) {
-		const numPos = instruction.search(/\d|\-/);
-		let val = null;
-		if (numPos !== -1) {
-			val = parseFloat(instruction.substr(numPos).replace(/,/g,""));
-			instruction = instruction.substr(0,numPos);
-		}
-		const command = "cmd$" + instruction;
-		if (this[command]) {
-			this[command](val);
-		}
+		if (this.curGroup.parent instanceof Stylesheet && !(this.curGroup instanceof Style)) {
+			this.curGroup = new Style(this.curGroup.parent, instruction);
+		} else {
+			const numPos = instruction.search(/\d|\-/);
+			let val = null;
+			if (numPos !== -1) {
+				val = parseFloat(instruction.substr(numPos).replace(/,/g,""));
+				instruction = instruction.substr(0,numPos);
+			}
+			const command = "cmd$" + instruction;
+			if (this[command]) {
+				this[command](val);
+			}
+		}	
 	}
 	newGroup(type) {
 		this.curGroup = new RTFGroup(this.curGroup, type);
@@ -319,6 +326,91 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$defpap() {
 		this.curGroup = new Default(this.doc, this.defParStyle, "paragraph");
+	}
+
+	/* Stylesheet */
+	cmd$stylesheet() {
+		this.curGroup = new Stylesheet(this.doc);
+	}
+	cmd$additive() {
+		this.curGroup.attributes.additive = true;
+	}
+	cmd$sbasedon(val) {
+		this.curGroup.attributes.basedon = val;
+	}
+	cmd$snext(val) {
+		this.curGroup.attributes.next = val;
+	}
+	cmd$sautoupd() {
+		this.curGroup.attributes.autoupdate = true;
+	}
+	cmd$shidden() {
+		this.curGroup.attributes.hidden = true;
+	}
+	cmd$slink(val) {
+		this.curGroup.attributes.link = true;
+	}
+	cmd$slocked() {
+		this.curGroup.attributes.locked = true;
+	}
+	cmd$spersonal() {
+		this.curGroup.attributes.emailstyle = "personal";
+	}
+	cmd$scompose() {
+		this.curGroup.attributes.emailstyle = "compose";
+	}
+	cmd$reply() {
+		this.curGroup.attributes.emailstyle = "reply";
+	}
+	cmd$styrsid(val) {
+		this.curGroup.attributes.rsid = val;
+	}
+	cmd$ssemihidden(val) {
+		if (val === null) {val = 0}
+		this.curGroup.attributes.semihidden = val;
+	}
+	cmd$keycode() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "keycode");
+	}
+	cmd$alt() {
+		this.curGroup.contents.push("ALT ");
+	}
+	cmd$shift() {
+		this.curGroup.contents.push("SHIFT ");
+	}
+	cmd$ctrl() {
+		this.curGroup.contents.push("CTRL ");
+	}
+	cmd$fn(val) {
+		this.curGroup.contents.push("FN" + val + " ");
+	}
+	cmd$sqformat() {
+		this.curGroup.attributes.primary = true;
+	}
+	cmd$spriority(val) {
+		this.curGroup.attributes.priority = val;
+	}
+	cmd$sunhideused(val) {
+		this.curGroup.attributes.unhideused = val;
+	}
+
+
+
+
+	cmd$s(val) {
+
+	}
+	cmd$cs(val) {
+
+	}
+	cmd$ds(val) {
+
+	}
+	cmd$ts(val) {
+
+	}
+	cmd$tsrowd() {
+
 	}
 
 	/* Paragraphs */

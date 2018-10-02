@@ -20,6 +20,7 @@ class RTFDoc extends RTFObj {
 		this.colourTable = [];
 		this.fontTable = [];
 		this.fileTable = [];
+		this.styleSheet = [];
 		this.listTable = [];
 		this.listOverrideTable = [];
 		this.defaults = {};
@@ -30,6 +31,7 @@ class RTFDoc extends RTFObj {
 			colourtable: this.colourTable,
 			fonttable: this.fontTable,
 			filetable: this.fileTable,
+			stylesheet: this.styleSheet,
 			listtable: this.listTable,
 			listoverridetable: this.listOverrideTable,
 			style: this.curstyle,
@@ -163,12 +165,36 @@ class File extends RTFObj {
 	constructor (parent) {
 		super(parent);
 		this.attributes = {};
-		this.contents = [];
 	}
 	dumpContents() {
 		this.parent.table.push({
 			attributes: this.attributes,
 			filename: this.contents[0].replace(";","")
+		});
+	}
+}
+
+class Stylesheet extends DocTable {
+	constructor(doc) {
+		super(doc);
+		this.sheet = {};
+		this.contents = [];
+	}
+	dumpContents() {
+		this.doc.styleSheet = this.sheet;
+	}
+}
+
+class Style extends RTFObj {
+	constructor(parent, designation) {
+		super(parent);
+		this.designation = designation;
+	}
+	dumpContents() {
+		this.parent.sheet[this.designation] = ({
+			style: this.curstyle,
+			attributes: this.curattributes,
+			name: this.contents[0].replace(/;/g,"")
 		});
 	}
 }
@@ -295,6 +321,9 @@ module.exports = {
 	Font, 
 	FileTable,
 	File,
+	Default,
+	Stylesheet,
+	Style,
 	ListTable, 
 	List, 
 	ListLevel, 
