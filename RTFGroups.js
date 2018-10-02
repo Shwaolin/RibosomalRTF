@@ -30,6 +30,7 @@ class RTFDoc extends RTFObj {
 			listtable: this.listTable,
 			listoverridetable: this.listOverrideTable,
 			style: this.curstyle,
+			attributes: this.curattributes,
 			contents: this.contents
 		};
 	}
