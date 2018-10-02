@@ -332,6 +332,9 @@ class LargeRTFSubunit extends Writable{
 	cmd$stylesheet() {
 		this.curGroup = new Stylesheet(this.doc);
 	}
+	cmd$tsrowd() {
+		this.curGroup.attributes.tsrowd = true;
+	}
 	cmd$additive() {
 		this.curGroup.attributes.additive = true;
 	}
@@ -394,23 +397,32 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.unhideused = val;
 	}
 
+	setStyleFromSheet(designation) {
+		this.curGroup.attributes.styledesignation = designation;
+		const sheetStyle = this.doc.styleSheet[designation];
+		if (sheetStyle.attributes.next) {
 
-
+		}
+		if (sheetStyle.attributes.additive) {
+			Object.keys(sheetStyle.style).forEach(key => {
+				this.curGroup.style[key] = sheetStyle.style[key];	
+			});
+		} else {
+			this.curGroup.style = JSON.parse(JSON.stringify(sheetStyle.style));
+		}
+	}
 
 	cmd$s(val) {
-
+		this.setStyleFromSheet("s"+val);	
 	}
 	cmd$cs(val) {
-
+		this.setStyleFromSheet("cs"+val);
 	}
 	cmd$ds(val) {
-
+		this.setStyleFromSheet("ds"+val);
 	}
 	cmd$ts(val) {
-
-	}
-	cmd$tsrowd() {
-
+		this.setStyleFromSheet("ts"+val);
 	}
 
 	/* Paragraphs */

@@ -20,7 +20,7 @@ class RTFDoc extends RTFObj {
 		this.colourTable = [];
 		this.fontTable = [];
 		this.fileTable = [];
-		this.styleSheet = [];
+		this.styleSheet = {};
 		this.listTable = [];
 		this.listOverrideTable = [];
 		this.defaults = {};
