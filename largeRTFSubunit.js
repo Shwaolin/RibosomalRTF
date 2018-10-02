@@ -69,6 +69,9 @@ class LargeRTFSubunit extends Writable{
 			case "groupEnd":
 				this.endGroup();
 				break;
+			case "ignorable":
+				this.curGroup.attributes.ignorable = true;
+				break;
 			case "break":
 				if (this.curGroup.type === "fragment") {this.endGroup();}
 				break;
@@ -79,10 +82,10 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 	parseControl(instruction) {
-		const numPos = instruction.search(/\d/);
+		const numPos = instruction.search(/\d|\-/);
 		let val = null;
 		if (numPos !== -1) {
-			val = parseInt(instruction.substr(numPos));
+			val = parseFloat(instruction.substr(numPos).replace(/,/g,""));
 			instruction = instruction.substr(0,numPos);
 		}
 		const command = "cmd$" + instruction;
@@ -102,6 +105,73 @@ class LargeRTFSubunit extends Writable{
 			this.curGroup = this.doc;
 		}
 	}
+
+	/* Header */
+	cmd$rtf(val) {
+		this.doc.attributes.rtfversion = val;
+	}
+	cmd$ansi() {
+		this.doc.attributes.charset = "ansi";
+	}
+	cmd$mac() {
+		this.doc.attributes.charset = "mac";
+	}
+	cmd$pc() {
+		this.doc.attributes.charset = "pc";
+	}
+	cmd$pca() {
+		this.doc.attributes.charset = "pca";
+	}
+	cmd$ansicpg(val) {
+		this.doc.attributes.ansipg = val;
+	}
+	cmd$fbidis() {
+		this.doc.attributes.fbidis = true;
+	}
+
+	/* Default Fonts and Languages */
+	cmd$fromtext() {
+		this.doc.attributes.fromtext = true;
+	}
+	cmd$fromhtml(val) {
+		this.doc.attributes.fromhtml = val;
+	}
+	cmd$deff(val) {
+		this.doc.attributes.defaultfont = val;
+	}
+	cmd$adeff(val) {
+		this.doc.attributes.defaultbidifont = val;
+	}
+	cmd$stshfdbch(val) {
+		this.doc.attributes.defaulteastasian = val;
+	}
+	cmd$stshfloch(val) {
+		this.doc.attributes.defaultascii = val;
+	}
+	cmd$stshfhich(val) {
+		this.doc.attributes.defaulthighansi = val;
+	}
+	cmd$stshfbi(val) {
+		this.doc.attributes.defaultbidi = val;
+	}
+	cmd$deflang(val) {
+		this.doc.attributes.defaultlanguage = val;
+	}
+	cmd$deflangfe(val) {
+		this.doc.attributes.defaultlanguageeastasia = val;
+	}
+	cmd$adeflang(val) {
+		this.doc.attributes.defaultlanguagesouthasia = val;
+	}
+
+	/*Themes */
+	cmd$themedata() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "themedata");
+	}
+	cmd$colorschememapping() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "colorschememapping");
+	}
+
 
 	/* Paragraphs */
 	cmd$par() {
@@ -428,6 +498,12 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$fbidi() {
 		this.curGroup.attributes.family = "bidi";
+	}
+	cmd$ftnil() {
+		this.curGroup.attributes.type = "nil";
+	}
+	cmd$fttruetype() {
+		this.curGroup.attributes.type = "truetype";
 	}
 
 	/* Colour Table */

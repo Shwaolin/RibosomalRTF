@@ -65,9 +65,11 @@ class SmallRTFSubunit extends Writable {
 		}
 	}
 	parseControl(char) {
-		if (char.search(/[ \\{}\t'\n;]/) === -1) {
+		if (char.search(/[ \\{}\t'\n;*]/) === -1) {
 			this.curInstruction.type = "control";
 			this.curInstruction.value += char;
+		} else if (char === "*") {
+			this.setInstruction({type:"ignorable"});
 		} else if (char === "'") {
 			this.operation = this.parseHex;
 			this.curInstruction.type = "control";
