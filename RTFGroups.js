@@ -17,23 +17,12 @@ class RTFObj {
 class RTFDoc extends RTFObj {
 	constructor(parent) {
 		super(null);
-		this.colourTable = [];
-		this.fontTable = [];
-		this.fileTable = [];
-		this.styleSheet = {};
-		this.listTable = [];
-		this.listOverrideTable = [];
-		this.defaults = {};
+		this.tables = {};
 		this.type = "document";
 	}
 	dumpContents() {
 		return {
-			colourtable: this.colourTable,
-			fonttable: this.fontTable,
-			filetable: this.fileTable,
-			stylesheet: this.styleSheet,
-			listtable: this.listTable,
-			listoverridetable: this.listOverrideTable,
+			tables:this.tables,
 			style: this.curstyle,
 			attributes: this.curattributes,
 			contents: this.contents
@@ -70,7 +59,7 @@ class ParameterGroup extends RTFObj {
 			this.contents = this.contents.join("");
 		}
 		if (this.contents[0]) {
-			this.parent[this.param] = this.contents[0].replace(/[;"]/g,"");
+			this.parent[this.param] = this.contents[0].replace(/["]/g,"");
 		}		
 	}
 }
@@ -80,7 +69,7 @@ class Default extends RTFObj {
 		super(parent);
 	}
 	dumpContents() {
-		this.parent[styletype] = {
+		this.parent.tables.defaults[styletype] = {
 			style: this.curstyle,
 			attributes: this.curattributes
 		}
@@ -119,7 +108,7 @@ class ColourTable extends DocTable {
 		this.attributes = {};
 	}
 	dumpContents() {
-		this.doc.colourTable = this.table;
+		this.doc.tables.colourTable = this.table;
 	}
 }
 
@@ -136,7 +125,7 @@ class FontTable extends DocTable {
 				attributes: this.attributes
 			});
 		}
-		this.doc.fontTable = this.table;	
+		this.doc.tables.fontTable = this.table;	
 	}
 }
 
@@ -157,7 +146,7 @@ class FileTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.fileTable = this.table;	
+		this.doc.tables.fileTable = this.table;	
 	}
 }
 
@@ -181,7 +170,7 @@ class Stylesheet extends DocTable {
 		this.contents = [];
 	}
 	dumpContents() {
-		this.doc.styleSheet = this.sheet;
+		this.doc.tables.styleSheet = this.sheet;
 	}
 }
 
@@ -199,12 +188,29 @@ class Style extends RTFObj {
 	}
 }
 
+class StyleRestrictions extends DocTable {
+	constructor(doc) {
+		super(doc);
+		this.attributes = {};
+		this.lockedexceptions = "";
+	}
+	dumpContents() {
+		if (typeof this.lockedexceptions === "string") {
+			this.lockedexceptions = this.lockedexceptions.split(";");
+		}
+		this.doc.tables.styleRestrictions = {
+			attributes: this.attributes,
+			lockedexceptions: this.lockedexceptions
+		}
+	}
+}
+
 class ListTable extends DocTable {
 	constructor(doc) {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.listTable = this.table;
+		this.doc.tables.listTable = this.table;
 	}
 }
 
@@ -245,7 +251,7 @@ class ListOverrideTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.listOverrideTable = this.table;
+		this.doc.tables.listOverrideTable = this.table;
 	}
 }
 
@@ -324,6 +330,7 @@ module.exports = {
 	Default,
 	Stylesheet,
 	Style,
+	StyleRestrictions,
 	ListTable, 
 	List, 
 	ListLevel, 

@@ -13,6 +13,7 @@ const {
 	Default,
 	Stylesheet,
 	Style,
+	StyleRestrictions,
 	ListTable, 
 	List, 
 	ListLevel, 
@@ -70,7 +71,7 @@ class LargeRTFSubunit extends Writable{
 				} else {
 					this.newGroup("fragment");
 					this.curGroup.contents.push(instruction.value);
-				}		
+				}
 				break;
 			case "groupStart":
 				this.newGroup("span");
@@ -533,6 +534,47 @@ class LargeRTFSubunit extends Writable{
 		theis.curGroup.style.cellbandcount = val;
 	}
 
+	/* Style Restrictions */
+	cmd$latentstyles() {
+		this.curGroup = new StyleRestrictions(this.doc);
+	}
+	cmd$lsdstimax(val) {
+		this.curGroup.attributes.dstimax = val;
+	}
+	cmd$lsdlockeddef(val) {
+		this.curGroup.attributes.lockeddef = val;
+	}
+	cmd$lsdlockedexcept() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "lockedexceptions");
+	}
+	cmd$lsdsemihiddendef(val) {
+		this.curGroup.attributes.ssemihiddendefault = val;
+	}
+	cmd$lsdunhideuseddef(val) {
+		this.curGroup.attributes.sunhideuseddefault = val;
+	}
+	cmd$lsdqformatdef(val) {
+		this.curGroup.attributes.sqformatdefault= val;
+	}
+	cmd$lsdprioritydef(val) {
+		this.curGroup.attributes.sprioritydefault = val;
+	}
+	cmd$lsdpriority(val) {
+		this.curGroup.attributes.sprioritylatentdefault = val;
+	}
+	cmd$lsdunhideused(val) {
+		this.curGroup.attributes.sunhideusedlatentdefault = val;
+	}
+	cmd$lsdsemihidden(val) {
+		this.curGroup.attributes.ssemihiddenlatentdefault = val;
+	}
+	cmd$lsdqformat(val) {
+		this.curGroup.attributes.sqformatlatentdefault = val;
+	}
+	cmd$lsdlocked(val) {
+		this.curGroup.attributes.slockedlatentdefault = val;
+	}
+
 	/* Paragraphs */
 	cmd$par() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
@@ -612,10 +654,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.superscript = false;
 	}
 	cmd$cf(val) {
-		this.curGroup.style.foreground = this.doc.colourTable[val - 1];
+		this.curGroup.style.foreground = this.doc.tables.colourTable[val - 1];
 	}
 	cmd$cb(val) {
-		this.curGroup.style.background = this.doc.colourTable[val - 1];
+		this.curGroup.style.background = this.doc.tables.colourTable[val - 1];
 	}
 
 	/* Lists */
