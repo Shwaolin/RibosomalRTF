@@ -397,32 +397,17 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.unhideused = val;
 	}
 
-	setStyleFromSheet(designation) {
-		this.curGroup.attributes.styledesignation = designation;
-		const sheetStyle = this.doc.styleSheet[designation];
-		if (sheetStyle.attributes.next) {
-
-		}
-		if (sheetStyle.attributes.additive) {
-			Object.keys(sheetStyle.style).forEach(key => {
-				this.curGroup.style[key] = sheetStyle.style[key];	
-			});
-		} else {
-			this.curGroup.style = JSON.parse(JSON.stringify(sheetStyle.style));
-		}
-	}
-
 	cmd$s(val) {
-		this.setStyleFromSheet("s"+val);	
+		this.curGroup.attributes.styledesignation = "s" + val;
 	}
 	cmd$cs(val) {
-		this.setStyleFromSheet("cs"+val);
+		this.curGroup.attributes.styledesignation = "cs" + val;
 	}
 	cmd$ds(val) {
-		this.setStyleFromSheet("ds"+val);
+		this.curGroup.attributes.styledesignation = "ds" + val;
 	}
 	cmd$ts(val) {
-		this.setStyleFromSheet("ts"+val);
+		this.curGroup.attributes.styledesignation = "ts" + val;
 	}
 
 	/* Paragraphs */
