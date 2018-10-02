@@ -410,6 +410,129 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.styledesignation = "ts" + val;
 	}
 
+	cmd$noqfpromote() {
+		this.doc.attributes.noqfpromote = true;
+	}
+
+	/* Table Styles */
+	cmd$tscellwidth(val) {
+		this.curGroup.style.cellwidth = val;
+	}
+	cmd$tscellwidthfts(val) {
+		this.curGroup.style.cellwidthfts = val;
+	}
+	cmd$tscellpaddt(val) {
+		this.curGroup.style.toppadding = val;
+	}
+	cmd$tscellpaddl(val) {
+		this.curGroup.style.leftpadding = val;
+	}
+	cmd$tscellpaddr(val) {
+		this.curGroup.style.rightpadding = val;
+	}
+	cmd$tscellpaddb(val) {
+		this.curGroup.style.bottompadding = val;
+	}
+	cmd$tscellpaddft(val) {
+		this.curGroup.style.toppaddingunits = val;
+	}
+	cmd$tscellpaddfl(val) {
+		this.curGroup.style.leftpaddingunits = val;
+	}
+	cmd$tscellpaddfr(val) {
+		this.curGroup.style.rightpaddingunits = val;
+	}
+	cmd$tscellpaddfb(val) {
+		this.curGroup.style.bottompaddingunits = val;
+	}
+	cmd$tsvertalt() {
+		this.curGroup.style.cellalignment = "top";
+	}
+	cmd$tsvertalc() {
+		this.curGroup.style.cellalignment = "center";
+	}
+	cmd$tsvertalb() {
+		this.curGroup.style.cellalignment = "bottom";
+	}
+	cmd$tsnowrap() {
+		this.curGroup.style.nowrap = true;
+	}
+	cmd$tscellcfpat(val) {
+		this.curGroup.style.foregroundshading = val;
+	}
+	cmd$tscellcbpat(val) {
+		this.curGroup.style.backgroundshading = val;
+	}
+	cmd$tscellpct(val) {
+		this.curGroup.style.shadingpercentage = val;
+	}
+	cmd$tsbgbdiag() {
+		this.curGroup.style.shadingpattern = "backwardsdiagonal";
+	}
+	cmd$tsbgfdiag() {
+		this.curGroup.style.shadingpattern = "forwardsdiagonal";
+	}
+	cmd$tsbgdkbdiag() {
+		this.curGroup.style.shadingpattern = "darkbackwardsdiagonal";
+	}
+	cmd$tsbgdkfdiag() {
+		this.curGroup.style.shadingpattern = "darkforwardsdiagonal";
+	}
+	cmd$tsbgcross() {
+		this.curGroup.style.shadingpattern = "cross";
+	}
+	cmd$tsbgdcross() {
+		this.curGroup.style.shadingpattern = "diagonalcross";
+	}
+	cmd$tsbgdkcross() {
+		this.curGroup.style.shadingpattern = "darkcross";
+	}
+	cmd$tsbgdkdcross() {
+		this.curGroup.style.shadingpattern = "darkdiagonalcross";
+	}
+	cmd$tsbghoriz() {
+		this.curGroup.style.shadingpattern = "horizontal";
+	}
+	cmd$tsbgvert() {
+		this.curGroup.style.shadingpattern = "vertical";
+	}
+	cmd$tsbgdkhor() {
+		this.curGroup.style.shadingpattern = "darkhorizontal";
+	}
+	cmd$tsbgdkvert() {
+		this.curGroup.style.shadingpattern = "darkvertical";
+	}
+	cmd$tsbrdrt() {
+		theis.curGroup.style.cellborder = "top";
+	}
+	cmd$tsbrdrb() {
+		theis.curGroup.style.cellborder = "bottom";
+	}
+	cmd$tsbrdrl() {
+		theis.curGroup.style.cellborder = "left";
+	}
+	cmd$tsbrdrr() {
+		theis.curGroup.style.cellborder = "right";
+	}
+	cmd$tsbrdrh() {
+		theis.curGroup.style.cellborder = "horizontal";
+	}
+	cmd$tsbrdrv() {
+		theis.curGroup.style.cellborder = "vertical";
+	}
+	cmd$tsbrdrdgl() {
+		theis.curGroup.style.cellborder = "diagonalullr";
+	}
+	cmd$tsbrdrdgr() {
+		theis.curGroup.style.cellborder = "diagonalllur";
+	}
+	cmd$tscbandsh(val) {
+		theis.curGroup.style.rowbandcount = val;
+	}
+	cmd$tscbandsv(val) {
+		theis.curGroup.style.cellbandcount = val;
+	}
+
 	/* Paragraphs */
 	cmd$par() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
