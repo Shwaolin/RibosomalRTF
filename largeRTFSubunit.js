@@ -5,9 +5,11 @@ const {
 	RTFGroup, 
 	ParameterGroup, 
 	DocTable, 
-	ColourTable, 
+	ColourTable,
 	FontTable, 
 	Font, 
+	FileTable,
+	File,
 	ListTable, 
 	List, 
 	ListLevel, 
@@ -71,6 +73,9 @@ class LargeRTFSubunit extends Writable{
 				break;
 			case "ignorable":
 				this.curGroup.attributes.ignorable = true;
+				break;
+			case "listBreak":
+				if (this.curGroup.listType) {this.curGroup.flush();}
 				break;
 			case "break":
 				if (this.curGroup.type === "fragment") {this.endGroup();}
@@ -234,6 +239,74 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$fnonfilesys() {
 		this.curGroup.attributes.nonfilesys = true;
+	}
+
+	/* Colour Table */
+	cmd$colortbl() {
+		this.curGroup = new ColourTable(this.doc);
+	}
+	cmd$red(val) {
+		this.curGroup.red = val
+	}
+	cmd$blue(val) {
+		this.curGroup.blue = val
+	}
+	cmd$green(val) {
+		this.curGroup.green = val	
+	}
+	cmd$ctint(val) {
+		this.curGroup.attributes.tint = val;
+	}
+	cmd$cshade(val) {
+		this.curGroup.attributes.shade = val;
+	}
+	cmd$cmaindarkone() {
+		this.curGroup.attributes.themecolour = "maindarkone";
+	}
+	cmd$cmaindarktwo() {
+		this.curGroup.attributes.themecolour = "maindarktwo";
+	}
+	cmd$cmainlightone() {
+		this.curGroup.attributes.themecolour = "mainlightone";
+	}
+	cmd$cmainlighttwo() {
+		this.curGroup.attributes.themecolour = "mainlighttwo";
+	}
+	cmd$caccentone() {
+		this.curGroup.attributes.themecolour = "accentone";
+	}
+	cmd$caccenttwo() {
+		this.curGroup.attributes.themecolour = "accenttwo";
+	}
+	cmd$caccentthree() {
+		this.curGroup.attributes.themecolour = "accentthree";
+	}
+	cmd$caccentfour() {
+		this.curGroup.attributes.themecolour = "accentfour";
+	}
+	cmd$caccentfive() {
+		this.curGroup.attributes.themecolour = "accentfive";
+	}
+	cmd$caccentsix() {
+		this.curGroup.attributes.themecolour = "accentsix";
+	}
+	cmd$chyperlink() {
+		this.curGroup.attributes.themecolour = "hyperlink";
+	}
+	cmd$cfollowedhyperlink() {
+		this.curGroup.attributes.themecolour = "followedhyperlink";
+	}
+	cmd$cbackgroundone() {
+		this.curGroup.attributes.themecolour = "backgroundone";
+	}
+	cmd$cbackgroundtwo() {
+		this.curGroup.attributes.themecolour = "backgroundtwo";
+	}
+	cmd$ctextone() {
+		this.curGroup.attributes.themecolour = "textone";
+	}
+	cmd$ctexttwo() {
+		this.curGroup.attributes.themecolour = "texttwo";
 	}
 
 	/* Paragraphs */
@@ -567,26 +640,6 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$fttruetype() {
 		this.curGroup.attributes.type = "truetype";
-	}
-
-	/* Colour Table */
-	cmd$colortbl() {
-		this.curGroup = new ColourTable(this.doc);
-	}
-	cmd$red(val) {
-		if (this.curGroup instanceof ColourTable) {
-			this.curGroup.addColour("red", val);
-		}
-	}
-	cmd$blue(val) {
-		if (this.curGroup instanceof ColourTable) {
-			this.curGroup.addColour("blue", val);
-		}
-	}
-	cmd$green(val) {
-		if (this.curGroup instanceof ColourTable) {
-			this.curGroup.addColour("green", val);
-		}
 	}
 
 	/* List Table */

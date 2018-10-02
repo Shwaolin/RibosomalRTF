@@ -82,14 +82,25 @@ class DocTable {
 class ColourTable extends DocTable {
 	constructor(doc) {
 		super(doc);
-		this.rgb = {};
+		this.listType = true;
+		this.red = null;
+		this.blue = null;
+		this.green = null;
+		this.attributes = {};
 	}
-	addColour(colour, value) {
-		this.rgb[colour] = value;
-		if (Object.keys(this.rgb).length === 3) {
-			this.table.push(this.rgb);
-			this.rgb = {};
+	flush() {
+		if (this.red !== null) {
+			this.table.push({
+				red: this.red,
+				green: this.green,
+				blue: this.blue,
+				attributes: this.attributes
+			});
 		}
+		this.red = null;
+		this.blue = null;
+		this.green = null;
+		this.attributes = {};
 	}
 	dumpContents() {
 		this.doc.colourTable = this.table;
@@ -142,8 +153,8 @@ class File extends RTFObj {
 	}
 	dumpContents() {
 		this.parent.table.push({
-			attributes: this.attributes;
-			filename: this.contents[0].replace(";","");
+			attributes: this.attributes,
+			filename: this.contents[0].replace(";","")
 		});
 	}
 }

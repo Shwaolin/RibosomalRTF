@@ -74,8 +74,12 @@ class SmallRTFSubunit extends Writable {
 			this.operation = this.parseHex;
 			this.curInstruction.type = "control";
 			this.curInstruction.value += "hex";
-		} else if (char === " " || char === ";") {
+		} else if (char === " ") {
 			this.setInstruction();
+			this.operation = this.parseText;
+		} else if (char === ";") {
+			this.setInstruction();
+			this.setInstruction({type:"listBreak"});
 			this.operation = this.parseText;
 		} else {
 			this.setInstruction();
