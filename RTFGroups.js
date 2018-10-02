@@ -22,6 +22,7 @@ class RTFDoc extends RTFObj {
 		this.fileTable = [];
 		this.listTable = [];
 		this.listOverrideTable = [];
+		this.defaults = {};
 		this.type = "document";
 	}
 	dumpContents() {
@@ -69,6 +70,19 @@ class ParameterGroup extends RTFObj {
 		if (this.contents[0]) {
 			this.parent[this.param] = this.contents[0].replace(/[;"]/g,"");
 		}		
+	}
+}
+
+class Default extends RTFObj {
+	constructor(parent, writer, styletype) {
+		super(parent);
+	}
+	dumpContents() {
+		this.parent[styletype] = {
+			style: this.curstyle,
+			attributes: this.curattributes
+		}
+		writer = Object.assign(this.curstyle, this.curattributes)
 	}
 }
 

@@ -34,7 +34,7 @@ class LargeRTFSubunit extends Writable{
 		this.curInstruction = {};
 		this.output = {};
 		this.curIndex = 0;
-		this.defState = {
+		this.defCharState = {
 			font:0,
 			fontsize:22,
 			bold:false,
@@ -47,6 +47,10 @@ class LargeRTFSubunit extends Writable{
 			foreground:false,
 			background:false
 		};
+		this.defParState = {
+			alignment:"left",
+			direction: 'ltr'
+		}
 		this.doc = new RTFDoc;
 		this.curGroup = this.doc;
 		this.paraTypes = ["paragraph", "listitem"];
@@ -100,7 +104,7 @@ class LargeRTFSubunit extends Writable{
 	}
 	newGroup(type) {
 		this.curGroup = new RTFGroup(this.curGroup, type);
-		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defState;
+		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defCharState;
 	}
 	endGroup() {
 		this.curGroup.dumpContents();
@@ -309,6 +313,14 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.themecolour = "texttwo";
 	}
 
+	/* Defaults */
+	cmd$defchp() {
+		this.curGroup = new Default(this.doc, this.defCharStyle, "character");
+	}
+	cmd$defpap() {
+		this.curGroup = new Default(this.doc, this.defParStyle, "paragraph");
+	}
+
 	/* Paragraphs */
 	cmd$par() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
@@ -322,16 +334,16 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$pard() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
-			this.curGroup.style = JSON.parse(JSON.stringify(this.defState));
+			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 		} else {
 			this.newGroup("paragraph");
-			this.curGroup.style = JSON.parse(JSON.stringify(this.defState));
+			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 		}
 	}
 	cmd$plain() {
-		Object.keys(this.defState).forEach(key => {
+		Object.keys(this.defCharState).forEach(key => {
 			if (this.curGroup.style[key]) {
-				this.curGroup.style[key] = this.defState[key];
+				this.curGroup.style[key] = this.defCharState[key];
 			}	
 		});
 	}
