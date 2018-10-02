@@ -19,6 +19,7 @@ class RTFDoc extends RTFObj {
 		super(null);
 		this.colourTable = [];
 		this.fontTable = [];
+		this.fileTable = [];
 		this.listTable = [];
 		this.listOverrideTable = [];
 		this.type = "document";
@@ -27,6 +28,7 @@ class RTFDoc extends RTFObj {
 		return {
 			colourtable: this.colourTable,
 			fonttable: this.fontTable,
+			filetable: this.fileTable,
 			listtable: this.listTable,
 			listoverridetable: this.listOverrideTable,
 			style: this.curstyle,
@@ -119,6 +121,29 @@ class Font extends RTFObj{
 		this.parent.table.push({
 			fontname: this.contents[0].replace(";",""),
 			attributes: this.curattributes
+		});
+	}
+}
+
+class FileTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+	}
+	dumpContents() {
+		this.doc.fileTable = this.table;	
+	}
+}
+
+class File extends RTFObj {
+	constructor (parent) {
+		super(parent);
+		this.attributes = {};
+		this.contents = [];
+	}
+	dumpContents() {
+		this.parent.table.push({
+			attributes: this.attributes;
+			filename: this.contents[0].replace(";","");
 		});
 	}
 }
@@ -243,6 +268,8 @@ module.exports = {
 	ColourTable, 
 	FontTable, 
 	Font, 
+	FileTable,
+	File,
 	ListTable, 
 	List, 
 	ListLevel, 

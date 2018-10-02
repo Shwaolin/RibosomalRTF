@@ -171,7 +171,70 @@ class LargeRTFSubunit extends Writable{
 	cmd$colorschememapping() {
 		this.curGroup = new ParameterGroup(this.curGroup.parent, "colorschememapping");
 	}
+	cmd$flomajor() {
+		this.doc.attributes.fmajor = "ascii";
+	}
+	cmd$fhimajor() {
+		this.doc.attributes.fmajor = "default";
+	}
+	cmd$fdbmajor() {
+		this.doc.attributes.fmajor = "eastasian";
+	}
+	cmd$fbimajor() {
+		this.doc.attributes.fmajor = "complexscripts";
+	}
+	cmd$flominor() {
+		this.doc.attributes.fminor = "ascii";
+	}
+	cmd$fhiminor() {
+		this.doc.attributes.fminor = "default";
+	}
+	cmd$fdbminor() {
+		this.doc.attributes.fminor = "eastasian";
+	}
+	cmd$fbiminor() {
+		this.doc.attributes.fminor = "complexscripts";
+	}
 
+	/* Code Page */
+	cmd$cpg(val) {
+		this.curGroup.attributes.codepage = val;
+	}
+
+	/* File Table */
+	cmd$filetbl() {
+		this.curGroup = new FileTable(this.doc);
+	}
+	cmd$file() {
+		this.curGroup = new File(this.doc);
+	}
+	cmd$fid(val) {
+		this.curGroup.attributes.id = val;
+	}
+	cmd$frelative(val) {
+		this.curGroup.attributes.relative = val;
+	}
+	cmd$fosnum(val) {
+		this.curGroup.attributes.osnumber = val;
+	}
+	cmd$fvalidmac() {
+		this.curGroup.attributes.filesystem = "mac";
+	}
+	cmd$fvaliddos() {
+		this.curGroup.attributes.filesystem = "ms-dos";
+	}
+	cmd$fvalidntfs() {
+		this.curGroup.attributes.filesystem = "ntfs";
+	}
+	cmd$fvalidhpfs() {
+		this.curGroup.attributes.filesystem = "hpfs";
+	}
+	cmd$fnetwork() {
+		this.curGroup.attributes.networkfilesystem = true;
+	}
+	cmd$fnonfilesys() {
+		this.curGroup.attributes.nonfilesys = true;
+	}
 
 	/* Paragraphs */
 	cmd$par() {
