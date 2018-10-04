@@ -310,6 +310,55 @@ class RSIDTable extends DocTable {
 	}
 }
 
+class ProtectedUsersTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+		this.contents = [];
+	}
+	dumpContents() {
+		this.doc.tables.protectedUsersTable = this.contents;
+	}
+}
+
+class UserProperty extends RTFObj {
+	constructor(doc) {
+		super(doc);
+		this.propertyname = "";
+		this.propertytype = null;
+		this.propertyvalue = "";
+		this.propertylink = false;
+	}
+	dumpContents() {
+		this.doc.attributes.userattributes[this.propertyname] = {
+			type: this.propertytype,
+			value: this.propertyvalue,
+			link: this.propertylink,
+		}
+	}
+}
+
+class XMLNamespaceTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+	}
+	dumpContents() {
+		this.doc.tables.xmlNamespaceTable = this.table;
+	}
+}
+
+class XMLNamespace extends RTFObj {
+	constructor(parent, id) {
+		super(parent);
+		this.id = id;
+	}
+	dumpContents() {
+		this.parent.table.push({
+			id: this.id,
+			namespace: this.contents[0]
+		});
+	}
+}
+
 class Field extends RTFObj {
 	constructor(parent) {
 		super(parent);
@@ -356,6 +405,40 @@ class Picture extends RTFObj {
 	}
 }
 
+class DateGroup extends RTFObj {
+	constructor(parent, propname) {
+		super(parent);
+		this.propname = propname;
+		this.year = null;
+		this.month = null;
+		this.day = null;
+		this.hour = null;
+		this.minute = null;
+		this.second = null;
+	}
+	dumpContents() {
+		let epoch = Date.parse(this.year+"-"+this.month+"-"+this.day+"T"+this.hour+":"+this.minute+":"+this.second+"Z");
+		this.parent[this.propname] = {
+			year: this.year,
+			month: this.month,
+			day: this.day,
+			hour: this.hour,
+			minute: this.minute,
+			second: this.second,
+			sinceepoch: epoch
+		}
+	}
+}
+
+class NonGroup extends RTFObj {
+	constructor(parent) {
+		super(parent);
+	}
+	dumpContents() {
+		return;
+	}
+}
+
 module.exports = {
 	RTFObj, 
 	RTFDoc, 
@@ -380,7 +463,13 @@ module.exports = {
 	ParagraphGroup, 
 	RevisionTable,
 	RSIDTable,
+	ProtectedUsersTable,
+	UserProperty,
+	XMLNamespaceTable,
+	XMLNamespace,
 	Field, 
 	Fldrslt, 
-	Picture
+	Picture,
+	DateGroup,
+	NonGroup
 }

@@ -23,9 +23,15 @@ const {
 	ParagraphGroup, 
 	RevisionTable,
 	RSIDTable,
+	ProtectedUsersTable,
+	UserProperty,
+	XMLNamespaceTable,
+	XMLNamespace,
 	Field, 
 	Fldrslt, 
-	Picture
+	Picture,
+	DateGroup,
+	NonGroup
 } = require("./RTFGroups.js");
 
 const win_1252 = ` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvqxyz{|}~ €�‚ƒ„…†‡ˆ‰Š‹Œ�Ž��‘’“”•–—˜™š›œ�žŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ`
@@ -816,14 +822,138 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* User Protection Information */
+	cmd$protusertbl() {
+		this.curGroup = new ProtectedUsersTable(this.doc);
+	}
 
 	/* Generator */
+	cmd$generator() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "generator");
+	}
 
 	/* Information */
+	cmd$info() {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+	cmd$title() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "title");
+	}
+	cmd$subject() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "subject");
+	}
+	cmd$author() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "author");
+	}
+	cmd$manager() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "manager");
+	}
+	cmd$company() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "company");
+	}
+	cmd$operator() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "operator");
+	}
+	cmd$category() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "category");
+	}
+	cmd$keywords() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "keywords");
+	}
+	cmd$comment() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "comment");
+	}
+	cmd$version(val) {
+		this.doc.attributes.version = val;
+	}
+	cmd$title() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "doccomment");
+	}
+	cmd$hlinkbase() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "hlinkbase");
+	}
+
+	cmd$userprops() {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+	cmd$propname(val) {
+		this.curGroup.parent = new UserProperty(this.doc.attributes);
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyname");
+	}
+	cmd$proptype(val) {
+		this.curGroup.propertyType = val;
+	}
+	cmd$staticval() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyvalue");
+	}
+	cmd$linkval() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertylink");
+	}
+
+	cmd$vern(val) {
+		this.doc.attributes.initialversion = val;
+	}
+	cmd$creatim() {
+		this.curGroup = new DateGroup(this.doc.attributes, "createtime");
+	}
+	cmd$revtim() {
+		this.curGroup = new DateGroup(this.doc.attributes, "revisiontime");
+	}
+	cmd$printtim() {
+		this.curGroup = new DateGroup(this.doc.attributes, "lastprinttim");
+	}
+	cmd$buptim() {
+		this.curGroup = new DateGroup(this.doc.attributes, "backuptime");
+	}
+	cmd$edmins(val) {
+		this.doc.attributes.editingminutes = val;
+	}
+	cmd$nofpages(val) {
+		this.doc.attributes.pages = val;
+	}
+	cmd$nofwords(val) {
+		this.doc.attributes.words = val;
+	}
+	cmd$nofchars(val) {
+		this.doc.attributes.chars = val;
+	}
+	cmd$nofcharsws(val) {
+		this.doc.attributes.charsnospaces = val;
+	}
+	cmd$id(val) {
+		this.doc.attributes.id = val;
+	}
+
+	cmd$yr(val) {
+		this.curGroup.year = val;
+	}
+	cmd$mo(val) {
+		this.curGroup.month = val;
+	}
+	cmd$dy(val) {
+		this.curGroup.day = val;
+	}
+	cmd$hr(val) {
+		this.curGroup.hour = val;
+	}
+	cmd$min(val) {
+		this.curGroup.minute = val;
+	}
+	cmd$sec(val) {
+		this.curGroup.second = val;
+	}
 
 	/* Read-Only Password Protection */
+	cmd$passwordhash() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "passwordhash");
+	}
 
 	/* XML Namespace Table */
+	cmd$xmlnstbl() {
+		this.curGroup = new XMLNamespaceTable(this.doc);
+	}
+	cmd$xmlns(val) {
+		this.curGroup = new XMLNamespace(this.curGroup.parent, val);
+	}
 
 	/* Document Formatting Properties */
 
