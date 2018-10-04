@@ -16,10 +16,8 @@ class SmallRTFSubunit extends Writable {
 				callback();
 			}
 		});
-		this.rtfString = "";
 		this.curInstruction = {type: "", value: ""};
 		this.curChar = "";
-		this.curIndex = 0;
 		this.output = new Readable({read() {}});
 		this.operation = this.parseText;
 	}

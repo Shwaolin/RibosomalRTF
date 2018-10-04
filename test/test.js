@@ -15,16 +15,16 @@ const restrictions = `{\\*\\latentstyles\\lsdstimax156\\lsdlockeddef1{\\lsdlocke
 
 function test() {
 	const start = performance.now();
-	/*RibosomalRTF.parseFile("./test/234.rtf").then(obj => {
+	RibosomalRTF.parseFile("./test/234.rtf").then(obj => {
+		const timeElapsed = performance.now() - start;
+		console.log(util.inspect(obj,{depth:null,colors:true,maxArrayLength:null,compact:false}));
+		console.log("(" + timeElapsed + " milliseconds)");	
+	});
+	/*RibosomalRTF.parseString(restrictions).then(obj => {
 		const timeElapsed = performance.now() - start;
 		console.log(util.inspect(obj.tables,{depth:null,colors:true,maxArrayLength:null,compact:false}));
 		console.log("(" + timeElapsed + " milliseconds)");	
 	});*/
-	RibosomalRTF.parseString(restrictions).then(obj => {
-		const timeElapsed = performance.now() - start;
-		console.log(util.inspect(obj.tables,{depth:null,colors:true,maxArrayLength:null,compact:false}));
-		console.log("(" + timeElapsed + " milliseconds)");	
-	});
 }
 
 test();

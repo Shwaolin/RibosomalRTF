@@ -270,6 +270,46 @@ class ListOverride extends RTFObj {
 	}
 }
 
+class ParagraphGroupTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+	}
+	dumpContents() {
+		this.doc.tables.paragraphGroupTable = this.table;
+	}
+}
+
+class ParagraphGroup extends RTFObj {
+	constructor(parent) {
+		super(parent);
+		this.type = "ParagraphGroup";
+	}
+	dumpContents() {
+		this.parent.table.push({
+			attributes: this.curattributes,
+			style: this.curstyle
+		});
+	}
+}
+
+class RevisionTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+	}
+	dumpContents() {
+		this.doc.tables.RevisionTable = this.table;
+	}
+}
+
+class RSIDTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+	}
+	dumpContents() {
+		this.doc.tables.rsidTable = this.table;
+	}
+}
+
 class Field extends RTFObj {
 	constructor(parent) {
 		super(parent);
@@ -335,7 +375,11 @@ module.exports = {
 	List, 
 	ListLevel, 
 	ListOverrideTable, 
-	ListOverride, 
+	ListOverride,
+	ParagraphGroupTable,
+	ParagraphGroup, 
+	RevisionTable,
+	RSIDTable,
 	Field, 
 	Fldrslt, 
 	Picture
