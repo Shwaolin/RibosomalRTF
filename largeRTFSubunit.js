@@ -1301,6 +1301,71 @@ class LargeRTFSubunit extends Writable{
 		this.doc.style.endnotenumbering = "ZODIAC3";
 	}
 
+	/* Page Information */
+	cmd$paperw(val) {
+		this.doc.style.paperwidth = val;
+	}
+	cmd$paperh(val) {
+		this.doc.style.paperheight = val;
+	}
+	cmd$margl(val) {
+		this.doc.style.marginleft = val;
+	}
+	cmd$margr(val) {
+		this.doc.style.marginright = val;
+	}
+	cmd$margt(val) {
+		this.doc.style.margintop = val;
+	}
+	cmd$margb(val) {
+		this.doc.style.marginbottom = val;
+	}
+	cmd$facingp() {
+		this.doc.style.facingpages = true;
+	}
+	cmd$gutter(val) {
+		this.doc.style.gutterwidth = val;
+	}
+	cmd$ogutter(val) {
+		this.doc.style.outsidegutterwidth = val;
+	}
+	cmd$rtlgutter() {
+		this.doc.style.gutterright = true;
+	}
+	cmd$gutterprl() {
+		this.doc.style.gutterparallel = true;
+	}
+	cmd$margmirror() {
+		this.doc.style.mirroredmargins = true;
+	}
+	cmd$landscape() {
+		this.doc.style.landscape = true;
+	}
+	cmd$pgnstart(val) {
+		this.doc.style.pagenumberstart = val;
+	}
+	cmd$widowctrl() {
+		this.doc.style.widowcontrol = true;
+	}
+	cmd$twoonone() {
+		this.doc.style.twoonone = true;
+	}
+	cmd$bookfold() {
+		this.doc.style.bookfold = true;
+	}
+	cmd$bookfoldrev() {
+		this.doc.style.bookfoldrev = true;
+	}
+	cmd$bookfoldsheets(val) {
+		this.doc.style.bookfoldsheets = val;
+	}
+
+	/* Linked Styles */
+	cmd$linkstyles() {
+		this.doc.attributes.linkstyles = true;
+	}
+
+
 
 
 
@@ -1310,7 +1375,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Section Formatting Properties */
 
-	/* Heders, Footers */
+	/* Headers, Footers */
 
 	/* Paragraphs */
 	cmd$par() {
