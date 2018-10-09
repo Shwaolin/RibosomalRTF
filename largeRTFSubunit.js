@@ -80,7 +80,7 @@ class LargeRTFSubunit extends Writable{
 				this.parseControl(instruction.value);
 				break;
 			case "text":
-				if (this.curGroup.type !== "paragraph") {
+				if (!this.paraTypes.includes(this.curGroup.type)) {
 					this.curGroup.contents.push(instruction.value);
 				} else {
 					this.newGroup("fragment");

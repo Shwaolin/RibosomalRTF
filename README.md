@@ -1,4 +1,3 @@
-# RibosomalRTF
 ## What is RibosomalRTF?
 RibosomalRTF is a parser designed to convert RTF documents into navigable document objects. This by itself is not that useful; however, it is a crucial step in extracting data from the format or converting it into other languages. Unlike HTML or XML, RTF is not a markup language, which can make it annoying to work with programmatically. RibosomalRTF aims to ease this process, and create a base on which other parsers can be built.
 
@@ -21,4 +20,6 @@ RibosomalRTF.parseFile("./example.rtf").then(obj => ...);
 //parseStream - takes a bytestream; returns a promise.
 RibosomalRTF.parseStream(myStream).then(obj => ...);
 ```
-For more detailed documentation and a comprehensive list of document object properties, please check our [wiki.](https://github.com/EndaHallahan/RibosomalRTF/wiki)
+
+## Is it done yet?
+**No!** But you can help us get it done sooner by making a pull request, picking something from the RTF Specification that looks interesting, and adding support for it. Or, if writing documentation is more your thing, by contributing to our wiki here on Github.
