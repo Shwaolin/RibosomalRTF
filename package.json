@@ -8,8 +8,5 @@
   },
   "author": "RB",
   "license": "ISC",
-  "private": "true",
-  "dependencies": {
-    "npm": "^6.4.1"
-  }
+  "private": "true"
 }

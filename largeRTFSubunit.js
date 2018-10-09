@@ -956,6 +956,355 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Document Formatting Properties */
+	cmd$deftab(val) {
+		this.doc.style.defaulttab = val;
+	}
+	cmd$hyphhotz(val) {
+		this.doc.style.hyphenhotzone = val;
+	}
+	cmd$hyphconsec(val) {
+		this.doc.style.hyphenconsecutive = val;
+	}
+	cmd$hyphcaps(val) {
+		this.doc.style.hyphencaps = val !== 0;
+	}
+	cmd$hyphauto(val) {
+		this.doc.style.hyphenauto = val !== 0;
+	}
+	cmd$linestart(val) {
+		this.doc.style.linestart = val;
+	}
+	cmd$fracwidth(val) {
+		this.doc.style.fractionalwidths = true;
+	}
+	cmd$nextfile() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "nextfile");
+	}
+	cmd$template() {
+		this.curGroup = new ParameterGroup(this.doc.style, "template");
+	}
+	cmd$makebackup() {
+		this.doc.attributes.makebackup = true;
+	}
+	cmd$muser() {
+		this.doc.attributes.compatability = true;
+	}
+	cmd$defformat() {
+		this.doc.attributes.defformat = true;
+	}
+	cmd$psover() {
+		this.doc.attributes.psover = true;
+	}
+	cmd$doctemp() {
+		this.doc.attributes.boilerplate = true;
+	}
+	cmd$windowcaption() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "caption");
+	}
+	cmd$doctype(val) {
+		this.doc.attributes.doctype = val;
+	}
+	cmd$ilfomacatclnup(val) {
+		this.doc.attributes.ilfomacatclnup = val;
+	}
+	cmd$horzdoc() {
+		this.doc.style.rendering = "horizontal";
+	}
+	cmd$horzdoc() {
+		this.doc.style.rendering = "vertical";
+	}
+	cmd$jcompress() {
+		this.doc.style.justification = "compressing";
+	}
+	cmd$jexpand() {
+		this.doc.style.justification = "expanding";
+	}
+	cmd$lnongrid() {
+		this.doc.style.lineongrid = true;
+	}
+	cmd$grfdocevents(val) {
+		this.doc.attributes.grfdocevents = val;
+	}
+	cmd$themelang(val) {
+		this.doc.style.themelanguage = val;
+	}
+	cmd$themelangfe(val) {
+		this.doc.style.themelanguagefe = val;
+	}
+	cmd$themelangcs(val) {
+		this.doc.style.themelanguagecs = val;
+	}
+	cmd$relyonvml(val) {
+		this.doc.attributes.vml = val;
+	}
+	cmd$validatexml(val) {
+		this.doc.attributes.validatexml = val;
+	}
+	cmd$xform() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "xform");
+	}
+	cmd$donotembedsysfont(val) {
+		this.doc.attributes.donotembedsysfont = val;
+	}
+	cmd$donotembedlingdata(val) {
+		this.doc.attributes.donotembedlingdata = val;
+	}
+	cmd$showplaceholdtext(val) {
+		this.doc.attributes.showplaceholdertext = val;
+	}
+	cmd$trackmoves(val) {
+		this.doc.attributes.trackmoves = val;
+	}
+	cmd$trackformatting(val) {
+		this.doc.attributes.trackformatting = val;
+	}
+	cmd$ignoreremixedcontent(val) {
+		this.doc.attributes.ignoreremixedcontent = val;
+	}
+	cmd$saveinvalidxml(val) {
+		this.doc.attributes.saveinvalidxml = val;
+	}
+	cmd$showxmlerrors(val) {
+		this.doc.attributes.showxmlerrors = val;
+	}
+	cmd$stylelocktheme(val) {
+		this.doc.style.locktheme = true;
+	}
+	cmd$stylelockqfset(val) {
+		this.doc.style.lockqfset = true;
+	}
+	cmd$usenormstyforlist(val) {
+		this.doc.style.usenormstyforlist = true;
+	}
+	cmd$wgrffmtfilter(val) {
+		this.doc.style.wgrffmtfilter = val;
+	}
+	cmd$readonlyrecommended() {
+		this.doc.style.readonlyrecommended = true;
+	}
+	cmd$stylesortmethod(val) {
+		this.doc.style.stylesortmethod = val;
+	}
+	cmd$writereservhash() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "reservehash");
+	}
+	cmd$writereservation() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "reservation");
+	}
+	cmd$saveprevpict() {
+		this.doc.attributes.saveprevpict = true;
+	}
+	cmd$viewkind(val) {
+		this.doc.style.viewkind = val;
+	}
+	cmd$viewscale(val) {
+		this.doc.style.viewscale = val;
+	}
+	cmd$viewzk(val) {
+		this.doc.style.viewzk = val;
+	}
+	cmd$viewbksp(val) {
+		this.doc.style.viewbksp = val;
+	}
+
+	/* Footnotes and Endnotes */
+	cmd$fet(val) {
+		this.doc.style.fet = val;
+	}
+	cmd$ftnsep() {
+		this.curGroup = new ParameterGroup(this.doc.style, "footnotesep");
+	}
+	cmd$ftnsepc() {
+		this.curGroup = new ParameterGroup(this.doc.style, "footnotesepc");
+	}
+	cmd$ftncn() {
+		this.curGroup = new ParameterGroup(this.doc.style, "footnotenotice");
+	}
+	cmd$aftnsep() {
+		this.curGroup = new ParameterGroup(this.doc.style, "endnotesep");
+	}
+	cmd$aftnsepc() {
+		this.curGroup = new ParameterGroup(this.doc.style, "endnotesepc");
+	}
+	cmd$aftncn() {
+		this.curGroup = new ParameterGroup(this.doc.style, "endnotenotice");
+	}
+	cmd$endnotes() {
+		this.doc.attributes.footnoteposition = "endnotes";
+	}
+	cmd$enddoc() {
+		this.doc.attributes.footnoteposition = "enddoc";
+	}
+	cmd$ftntj() {
+		this.doc.attributes.footnoteposition = "beneathtexttj";
+	}
+	cmd$ftnbj() {
+		this.doc.attributes.footnoteposition = "bottomofpagebj";
+	}
+	cmd$aendnotes() {
+		this.doc.attributes.endnoteposition = "endnotes";
+	}
+	cmd$aenddoc() {
+		this.doc.attributes.endnoteposition = "enddoc";
+	}
+	cmd$aftntj() {
+		this.doc.attributes.endnoteposition = "beneathtexttj";
+	}
+	cmd$aftnbj() {
+		this.doc.attributes.endnoteposition = "bottomofpagebj";
+	}
+	cmd$ftnstart(val) {
+		this.doc.style.footnotestart = val;
+	}
+	cmd$aftnstart(val) {
+		this.doc.style.endnotestart = val;
+	}
+	cmd$ftnrstpg() {
+		this.doc.style.footnoterestart = "page";
+	}
+	cmd$ftnrestart() {
+		this.doc.style.footnoterestart = "section";
+	}
+	cmd$ftnrstcont() {
+		this.doc.style.footnoterestart = "none";
+	}
+	cmd$aftnrestart() {
+		this.doc.style.endnoterestart = "section";
+	}
+	cmd$aftnrstcont() {
+		this.doc.style.endnoterestart = "none";
+	}
+	cmd$ftnnar() {
+		this.doc.style.footnotenumbering = "1";
+	}
+	cmd$ftnnalc() {
+		this.doc.style.footnotenumbering = "a";
+	}
+	cmd$ftnnauc() {
+		this.doc.style.footnotenumbering = "A";
+	}
+	cmd$ftnnrlc() {
+		this.doc.style.footnotenumbering = "i";
+	}
+	cmd$ftnnruc() {
+		this.doc.style.footnotenumbering = "I";
+	}
+	cmd$ftnnchi() {
+		this.doc.style.footnotenumbering = "*";
+	}
+	cmd$ftnnchosung() {
+		this.doc.style.footnotenumbering = "CHOSUNG";
+	}
+	cmd$ftnncnum() {
+		this.doc.style.footnotenumbering = "CIRCLENUM";
+	}
+	cmd$ftnndbnum() {
+		this.doc.style.footnotenumbering = "DBNUM1";
+	}
+	cmd$ftnndbnumd() {
+		this.doc.style.footnotenumbering = "DBNUM2";
+	}
+	cmd$ftnndbnumt() {
+		this.doc.style.footnotenumbering = "DBNUM3";
+	}
+	cmd$ftnndbnumk() {
+		this.doc.style.footnotenumbering = "DBNUM4";
+	}
+	cmd$ftnndbar() {
+		this.doc.style.footnotenumbering = "DBCHAR";
+	}
+	cmd$ftnnganada() {
+		this.doc.style.footnotenumbering = "GANADA";
+	}
+	cmd$ftnngbnum() {
+		this.doc.style.footnotenumbering = "GB1";
+	}
+	cmd$ftnngbnumd() {
+		this.doc.style.footnotenumbering = "GB2";
+	}
+	cmd$ftnngbnuml() {
+		this.doc.style.footnotenumbering = "GB3";
+	}
+	cmd$ftnngbnumk() {
+		this.doc.style.footnotenumbering = "GB4";
+	}
+	cmd$ftnnzodiac() {
+		this.doc.style.footnotenumbering = "ZODIAC1";
+	}
+	cmd$ftnnzodiacd() {
+		this.doc.style.footnotenumbering = "ZODIAC2";
+	}
+	cmd$ftnnzodiacl() {
+		this.doc.style.footnotenumbering = "ZODIAC3";
+	}
+	cmd$aftnnar() {
+		this.doc.style.endnotenumbering = "1";
+	}
+	cmd$aftnnalc() {
+		this.doc.style.endnotenumbering = "a";
+	}
+	cmd$aftnnauc() {
+		this.doc.style.endnotenumbering = "A";
+	}
+	cmd$aftnnrlc() {
+		this.doc.style.endnotenumbering = "i";
+	}
+	cmd$aftnnruc() {
+		this.doc.style.endnotenumbering = "I";
+	}
+	cmd$aftnnchi() {
+		this.doc.style.endnotenumbering = "*";
+	}
+	cmd$aftnnchosung() {
+		this.doc.style.endnotenumbering = "CHOSUNG";
+	}
+	cmd$aftnncnum() {
+		this.doc.style.endnotenumbering = "CIRCLENUM";
+	}
+	cmd$aftnndbnum() {
+		this.doc.style.endnotenumbering = "DBNUM1";
+	}
+	cmd$aftnndbnumd() {
+		this.doc.style.endnotenumbering = "DBNUM2";
+	}
+	cmd$aftnndbnumt() {
+		this.doc.style.endnotenumbering = "DBNUM3";
+	}
+	cmd$aftnndbnumk() {
+		this.doc.style.endnotenumbering = "DBNUM4";
+	}
+	cmd$aftnndbar() {
+		this.doc.style.endnotenumbering = "DBCHAR";
+	}
+	cmd$aftnnganada() {
+		this.doc.style.endnotenumbering = "GANADA";
+	}
+	cmd$aftnngbnum() {
+		this.doc.style.endnotenumbering = "GB1";
+	}
+	cmd$aftnngbnumd() {
+		this.doc.style.endnotenumbering = "GB2";
+	}
+	cmd$aftnngbnuml() {
+		this.doc.style.endnotenumbering = "GB3";
+	}
+	cmd$aftnngbnumk() {
+		this.doc.style.endnotenumbering = "GB4";
+	}
+	cmd$aftnnzodiac() {
+		this.doc.style.endnotenumbering = "ZODIAC1";
+	}
+	cmd$aftnnzodiacd() {
+		this.doc.style.endnotenumbering = "ZODIAC2";
+	}
+	cmd$aftnnzodiacl() {
+		this.doc.style.endnotenumbering = "ZODIAC3";
+	}
+
+
+
+
+
 
 	/* Mail Merge */
 
