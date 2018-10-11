@@ -1107,7 +1107,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.style.viewbksp = val;
 	}
 
-	/* Footnotes and Endnotes */
+	/*-- Footnotes and Endnotes --*/
 	cmd$fet(val) {
 		this.doc.style.fet = val;
 	}
@@ -1301,7 +1301,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.style.endnotenumbering = "ZODIAC3";
 	}
 
-	/* Page Information */
+	/*-- Page Information --*/
 	cmd$paperw(val) {
 		this.doc.style.paperwidth = val;
 	}
@@ -1360,16 +1360,402 @@ class LargeRTFSubunit extends Writable{
 		this.doc.style.bookfoldsheets = val;
 	}
 
-	/* Linked Styles */
+	/*-- Linked Styles --*/
 	cmd$linkstyles() {
 		this.doc.attributes.linkstyles = true;
 	}
 
+	/*-- Compatability Options --*/
+	cmd$notabind() {
+		this.doc.style.notabindent = true;
+	}
+	cmd$wraptrsp() {
+		this.doc.style.wraptrailingwhitespace = true;
+	}
+	cmd$prcolbl() {
+		this.doc.style.printcolourblack = true;
+	}
+	cmd$noextrasprl() {
+		this.doc.style.noextraspacerl = true;
+	}
+	cmd$nocolbal() {
+		this.doc.style.nocolumnbalance = true;
+	}
+	cmd$cvmme() {
+		this.doc.style.cvmailmergeescape = true;
+	}
+	cmd$sprstsp() {
+		this.doc.style.surpressextraline = true;
+	}
+	cmd$sprsspbf() {
+		this.doc.style.surpressspacebefore = true;
+	}
+	cmd$otblrul() {
+		this.doc.style.combinetableborders = true;
+	}
+	cmd$transmf() {
+		this.doc.style.transparentmetafile = true;
+	}
+	cmd$swpbdr() {
+		this.doc.style.swapborder = true;
+	}
+	cmd$brkfrm() {
+		this.doc.style.hardbreaks = true;
+	}
+	cmd$sprslnsp() {
+		this.doc.style.surpresslinespace = true;
+	}
+	cmd$subfontbysize() {
+		this.doc.style.subfontbysize = true;
+	}
+	cmd$truncatefontheight() {
+		this.doc.style.truncatefontheight = true;
+	}
+	cmd$truncex() {
+		this.doc.style.noleadingspace = true;
+	}
+	cmd$bdbfhdr() {
+		this.doc.style.bodybeforehf = true;
+	}
+	cmd$dntblnsbdb() {
+		this.doc.style.nobalancesbdb = true;
+	}
+	cmd$expshrtn() {
+		this.doc.style.expandcharspace = true;
+	}
+	cmd$lytexcttp() {
+		this.doc.style.nocenterlhlines = true;
+	}
+	cmd$lytprtmet() {
+		this.doc.style.useprintermetrics = true;
+	}
+	cmd$msmcap() {
+		this.doc.style.macsmallcaps = true;
+	}
+	cmd$nolead() {
+		this.doc.style.noleading = true;
+	}
+	cmd$nospaceforul() {
+		this.doc.style.nounderlinespace = true;
+	}
+	cmd$noultrlspc() {
+		this.doc.style.nounderlinetrailing = true;
+	}
+	cmd$noxlattoyen() {
+		this.doc.style.noyentranslate = true;
+	}
+	cmd$oldlinewrap() {
+		this.doc.style.oldlinewrap = true;
+	}
+	cmd$sprsbsp() {
+		this.doc.style.surpressextraspaceb = true;
+	}
+	cmd$sprstsm() {
+		//Does literally nothing. Why is it here? We don't know.
+	}
+	cmd$wpjst() {
+		this.doc.style.wpjustify = true;
+	}
+	cmd$wpsp() {
+		this.doc.style.wpspacewidth = true;
+	}
+	cmd$wptb() {
+		this.doc.style.wptabadvance = true;
+	}
+	cmd$splytwnine() {
+		this.doc.style.nolegacyautoshape = true;
+	}
+	cmd$ftnlytwnine() {
+		this.doc.style.nolegacyfootnote = true;
+	}
+	cmd$htmautsp() {
+		this.doc.style.htmlautospace = true;
+	}
+	cmd$useltbaln() {
+		this.doc.style.noforgetlattab = true;
+	}
+	cmd$alntblind() {
+		this.doc.style.noindependentrowalign = true;
+	}
+	cmd$lytcalctblwd() {
+		this.doc.style.norawtablewidth = true;
+	}
+	cmd$lyttblrtgr() {
+		this.doc.style.notablerowapart = true;
+	}
+	cmd$oldas() {
+		this.doc.style.ninetyfiveautospace = true;
+	}
+	cmd$lnbrkrule() {
+		this.doc.style.nolinebreakrule = true;
+	}
+	cmd$bdrrlswsix() {
+		this.doc.style.uselegacyborderrules = true;
+	}
+	cmd$nolnhtadjtbl() {
+		this.doc.style.noadjusttablelineheight = true;
+	}
+	cmd$ApplyBrkRules() {
+		this.doc.style.applybreakrules = true;
+	}
+	cmd$rempersonalinfo() {
+		this.doc.style.removepersonalinfo = true;
+	}
+	cmd$remdttm() {
+		this.doc.style.removedatetime = true;
+	}
+	cmd$snaptogridincell() {
+		this.doc.style.snaptexttogrid = true;
+	}
+	cmd$wrppunct() {
+		this.doc.style.hangingpunctuation = true;
+	}
+	cmd$asianbrkrule() {
+		this.doc.style.asianbreakrules = true;
+	}
+	cmd$nobrkwrptbl() {
+		this.doc.style.nobreakwrappedtable = true;
+	}
+	cmd$toplinepunct() {
+		this.doc.style.toplinepunct = true;
+	}
+	cmd$viewnobound() {
+		this.doc.style.hidepagebetweenspace = true;
+	}
+	cmd$donotshowmarkup() {
+		this.doc.style.noshowmarkup = true;
+	}
+	cmd$donotshowcomments() {
+		this.doc.style.noshowcomments = true;
+	}
+	cmd$donotshowinsdel() {
+		this.doc.style.noshowinsdel = true;
+	}
+	cmd$donotshowprops() {
+		this.doc.style.noshowformatting = true;
+	}
+	cmd$allowfieldendsel() {
+		this.doc.style.fieldendselect = true;
+	}
+	cmd$nocompatoptions() {
+		this.doc.style.compatabilitydefaults = true;
+	}
+	cmd$nogrowautofit() {
+		this.doc.style.notableautofit = true;
+	}
+	cmd$newtblstyruls() {
+		this.doc.style.newtablestylerules = true;
+	}
+	cmd$background() {
+		this.curGroup = new ParameterGroup(this.doc.style, "docbackground");
+	}
+	cmd$nouicompat() {
+		this.doc.style.nouicompatability = true;
+	}
+	cmd$nofeaturethrottle(val) {
+		this.doc.style.nofeaturethrottle = val;
+	}
+	cmd$forceupgrade() {
+		this.doc.style.mayupgrade = true;
+	}
+	cmd$noafcnsttbl() {
+		this.doc.style.notableautowrap = true;
+	}
+	cmd$noindnmbrts() {
+		this.doc.style.bullethangindent = true;
+	}
+	cmd$felnbrelev() {
+		this.doc.style.alternatebeginend = true;
+	}
+	cmd$indrlsweleven() {
+		this.doc.style.ignorefloatingobjectvector = true;
+	}
+	cmd$nocxsptable() {
+		this.doc.style.notableparspace = true;
+	}
+	cmd$notcvasp() {
+		this.doc.style.notablevectorvertical = true;
+	}
+	cmd$notvatxbx() {
+		this.doc.style.notextboxvertical = true;
+	}
+	cmd$spltpgpar() {
+		this.doc.style.splitpageparagraph = true;
+	}
+	cmd$hwelev() {
+		this.doc.style.hangulfixedwidth = true;
+	}
+	cmd$afelev() {
+		this.doc.style.tableautofitmimic = true;
+	}
+	cmd$cachedcolbal() {
+		this.doc.style.cachedcolumnbalance = true;
+	}
+	cmd$utinl() {
+		this.doc.style.underlinenumberedpar = true;
+	}
+	cmd$notbrkcnstfrctbl () {
+		this.doc.style.notablerowsplit = true;
+	}
+	cmd$krnprsnet() {
+		this.doc.style.ansikerning = true;
+	}
+	cmd$usexform() {
+		this.doc.style.noxsltransform = true;
+	}
 
+	/*-- Forms --*/
+	cmd$formprot() {
+		this.doc.attributes.protectedforms = true;
+	}
+	cmd$allprot() {
+		this.doc.attributes.protectedall = true;
+	}
+	cmd$formshade() {
+		this.doc.style.formfieldshading = true;
+	}
+	cmd$formdisp() {
+		this.doc.attributes.formboxselected = true;
+	}
+	cmd$formprot() {
+		this.doc.attributes.printformdata = true;
+	}
 
+	/*-- Revision Marks --*/
+	cmd$revprot() {
+		this.doc.attributes.protectedrevisions = true;
+	}
+	cmd$revisions() {
+		this.doc.style.revisions = true;
+	}
+	cmd$revprop(val) {
+		this.doc.style.revisiontextdisplay = val;
+	}
+	cmd$revbar(val) {
+		this.doc.style.revisionlinemarking = val;
+	}
 
+	/*-- Write Protection --*/
+	cmd$readprot() {
+		this.doc.attributes.protectedread = true;
+	}
 
+	/*-- Comment Protection --*/
+	cmd$annotprot() {
+		this.doc.attributes.protectedcomments = true;
+	}
 
+	/*-- Style Protection --*/
+	cmd$stylelock() {
+		this.doc.attributes.stylelock = true;
+	}
+	cmd$stylelockenforced() {
+		this.doc.attributes.stylelockenforced = true;
+	}
+	cmd$stylelockbackcomp() {
+		this.doc.attributes.stylelockcompatability = true;
+	}
+	cmd$autofmtoverride() {
+		this.doc.attributes.autoformatlockoverride = true;
+	}
+
+	/*-- Style and Formatting Properties --*/
+	cmd$enforceprot(val) {
+		this.doc.attributes.enforceprotection = val;
+	}
+	cmd$protlevel(val) {
+		this.doc.attributes.protectionlevel = val;
+	}
+
+	/*-- Tables --*/
+	cmd$tsd(val) {
+		this.doc.style.defaulttablestyle = val;
+	}
+	
+	/*-- Bidirectional Controls --*/
+	cmd$rtldoc() {
+		this.doc.attributes.paginationdirection = "rtl";
+	}
+	cmd$ltrdoc() {
+		this.doc.attributes.paginationdirection = "ltr";
+	}
+
+	/*-- Click and Type --*/
+	cmd$cts(val) {
+		this.doc.attributes.clickandtype = val;
+	}
+
+	/*-- Kinsoku Characters --*/
+	cmd$jsksu() {
+		this.doc.attributes.japanesekinsoku = true;
+	}
+	cmd$ksulang(val) {
+		this.doc.attributes.kinsokulang = val;
+	}
+	cmd$fchars() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "followingkinsoku");
+	}
+	cmd$lchars() {
+		this.curGroup = new ParameterGroup(this.doc.attributes, "leadingkinsoku");
+	}
+	cmd$nojkernpunct() {
+		this.doc.attributes.latinkerningonly = true;
+	}
+
+	/*-- Drawing Grid --*/
+	cmd$dghspace(val) {
+		this.doc.style.drawgridhorizontalspace = val;
+	}
+	cmd$dgvspace(val) {
+		this.doc.style.drawgridverticalspace = val;
+	}
+	cmd$dghorigin(val) {
+		this.doc.style.drawgridhorizontalorigin = val;
+	}
+	cmd$dgvorigin(val) {
+		this.doc.style.drawgridverticalorigin = val;
+	}
+	cmd$dghshow(val) {
+		this.doc.style.drawgridhorizontalshow = val;
+	}
+	cmd$dgvshow(val) {
+		this.doc.style.drawgridverticalshow = val;
+	}
+	cmd$dgsnap() {
+		this.doc.style.drawgridsnap = true;
+	}
+	cmd$dgmargin() {
+		this.doc.style.drawgridmargin = true;
+	}
+
+	/*-- Page Borders --*/
+	cmd$pgbrdrhead() {
+		this.doc.style.pagebordersurroundsheader = true;
+	}
+	cmd$pgbrdrfoot() {
+		this.doc.style.pagebordersurroundsfooter = true;
+	}
+	cmd$pgbrdrt() {
+		this.doc.style.pagebordertop = true;
+	}
+	cmd$pgbrdrb() {
+		this.doc.style.pageborderbottom = true;
+	}
+	cmd$pgbrdrl() {
+		this.doc.style.pageborderleft = true;
+	}
+	cmd$pgbrdrr() {
+		this.doc.style.pageborderright = true;
+	}
+	cmd$brdrart(val) {
+		this.doc.style.pageborderart = val;
+	}
+	cmd$pgbrdropt(val) {
+		this.doc.style.pageborderoptions = val;
+	}
+	cmd$pgbrdrsnap() {
+		this.doc.style.pagebordersnap = true;
+	}
 
 	/* Mail Merge */
 
