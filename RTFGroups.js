@@ -50,8 +50,8 @@ class RTFGroup extends RTFObj {
 }
 
 class ParameterGroup extends RTFObj {
-	constructor (parent, parameter) {
-		super(parent);
+	constructor (destination, parameter) {
+		super(destination);
 		this.param = parameter;
 	}
 	dumpContents() {

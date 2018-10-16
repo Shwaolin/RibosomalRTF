@@ -2415,8 +2415,32 @@ class LargeRTFSubunit extends Writable{
 	cmd$sectspecifygenN() {
 		this.curGroup.style.chargridsnap = true;
 	}
-	
+
 	/* Headers, Footers */
+	cmd$header() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "header");
+	}
+	cmd$footer() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footer");
+	}
+	cmd$headerl() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerleft");
+	}
+	cmd$headerr() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerright");
+	}
+	cmd$headerf() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerfirst");
+	}
+	cmd$footerl() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerleft");
+	}
+	cmd$footerr() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerright");
+	}
+	cmd$footerf() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerfirst");
+	}
 
 	/* Paragraphs */
 	cmd$par() {
