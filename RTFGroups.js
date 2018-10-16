@@ -108,7 +108,7 @@ class ColourTable extends DocTable {
 		this.attributes = {};
 	}
 	dumpContents() {
-		this.doc.tables.colourTable = this.table;
+		this.doc.tables.colourtable = this.table;
 	}
 }
 
@@ -125,7 +125,7 @@ class FontTable extends DocTable {
 				attributes: this.attributes
 			});
 		}
-		this.doc.tables.fontTable = this.table;	
+		this.doc.tables.fonttable = this.table;	
 	}
 }
 
@@ -146,7 +146,7 @@ class FileTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.fileTable = this.table;	
+		this.doc.tables.filetable = this.table;	
 	}
 }
 
@@ -170,7 +170,7 @@ class Stylesheet extends DocTable {
 		this.contents = [];
 	}
 	dumpContents() {
-		this.doc.tables.styleSheet = this.sheet;
+		this.doc.tables.stylesheet = this.sheet;
 	}
 }
 
@@ -210,7 +210,7 @@ class ListTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.listTable = this.table;
+		this.doc.tables.listtable = this.table;
 	}
 }
 
@@ -251,7 +251,7 @@ class ListOverrideTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.listOverrideTable = this.table;
+		this.doc.tables.listoverridetable = this.table;
 	}
 }
 
@@ -275,7 +275,7 @@ class ParagraphGroupTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.paragraphGroupTable = this.table;
+		this.doc.tables.paragraphgrouptable = this.table;
 	}
 }
 
@@ -297,7 +297,7 @@ class RevisionTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.RevisionTable = this.table;
+		this.doc.tables.revisiontable = this.table;
 	}
 }
 
@@ -306,7 +306,7 @@ class RSIDTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.rsidTable = this.table;
+		this.doc.tables.rsidtable = this.table;
 	}
 }
 
@@ -316,7 +316,7 @@ class ProtectedUsersTable extends DocTable {
 		this.contents = [];
 	}
 	dumpContents() {
-		this.doc.tables.protectedUsersTable = this.contents;
+		this.doc.tables.protecteduserstable = this.contents;
 	}
 }
 
@@ -342,7 +342,7 @@ class XMLNamespaceTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.xmlNamespaceTable = this.table;
+		this.doc.tables.xmlnamespacetable = this.table;
 	}
 }
 
@@ -356,6 +356,53 @@ class XMLNamespace extends RTFObj {
 			id: this.id,
 			namespace: this.contents[0]
 		});
+	}
+}
+
+class MailMergeTable extends DocTable {
+	constructor(doc) {
+		super(doc);
+		this.attributes = {};
+		this.mmodso = [];
+		this.mmodrecip = [];
+	}
+	dumpContents() {
+		this.doc.mailmergetable = {
+			odso: this.mmodso,
+			recipdata: this.mmodsorecip,
+			attributes: this.attributes
+		}
+	}
+}
+
+class Odso extends DocTable {
+	constructor(parent) {
+		super(parent);
+		this.attributes = {};
+	}
+	dumpContents() {
+		this.parent.mmodso.push({
+			attributes: this.attributes,
+			fieldmapdata: this.table
+		});
+	}
+}
+
+class FieldMap extends RTFObj {
+	constructor(parent) {
+		super(parent);
+	}
+	dumpContents() {
+		this.parent.table.push(this.attributes);
+	}
+}
+
+class OdsoRecip extends RTFObj {
+	constructor(parent) {
+		super(parent);
+	}
+	dumpContents() {
+		this.parent.mmodsorecip.push(this.attributes);
 	}
 }
 
@@ -467,6 +514,10 @@ module.exports = {
 	UserProperty,
 	XMLNamespaceTable,
 	XMLNamespace,
+	MailMergeTable,
+	Odso,
+	FieldMap,
+	OdsoRecip,
 	Field, 
 	Fldrslt, 
 	Picture,

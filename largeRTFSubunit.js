@@ -27,6 +27,10 @@ const {
 	UserProperty,
 	XMLNamespaceTable,
 	XMLNamespace,
+	MailMergeTable,
+	Odso,
+	FieldMap,
+	OdsoRecip,
 	Field, 
 	Fldrslt, 
 	Picture,
@@ -1758,6 +1762,184 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Mail Merge */
+	cmd$mailmerge() {
+		this.curGroup = new MailMergeTable(this.doc);
+	}
+	cmd$mmlinktoquery() {
+		this.curGroup.attributes.linktoquery = true;
+	}
+	cmd$mmdefaultsql() {
+		this.curGroup.attributes.defaultsql = true;
+	}
+	cmd$mmconnectstrdata() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstringdata");
+	}
+	cmd$mmconnectstr() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstring");
+	}
+	cmd$mmquery() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstringdata");
+	}
+	cmd$mmdatasource() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "datasource");
+	}
+	cmd$mmheadersource() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "headersource");
+	}
+	cmd$mmblanklinks() {
+		this.curGroup.attributes.blanklinks = true;
+	}
+	cmd$mmaddfieldname() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "fieldname");
+	}
+	cmd$mmmailsubject() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "subject");
+	}
+	cmd$mmattatch() {
+		this.curGroup.attributes.attatch = true;
+	}
+	cmd$mmshowdata() {
+		this.curGroup.attributes.showdata = true;
+	}
+	cmd$mmreccur(val) {
+		this.curGroup.attributes.reccur = val;
+	}
+	cmd$mmerrors(val) {
+		this.curGroup.attributes.errorreporting = val;
+	}
+	cmd$mmodso() {
+		this.curGroup = new Odso(this.curGroup.parent);
+	}
+	cmd$mmodsoudldata() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udldata");
+	}
+	cmd$mmodsoudl() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udl");
+	}
+	cmd$mmodsotable() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "table");
+	}
+	cmd$mmodsosrc() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "source");
+	}
+	cmd$mmodsofilter() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "filter");
+	}
+	cmd$mmodsosort() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "sort");
+	}
+	cmd$mmodsofldmpdata() {
+		this.curGroup = new FieldMap(this.curGroup.parent);
+	}
+	cmd$mmodsoname() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "name");
+	}
+	cmd$mmodsomappedname() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "mappedname");
+	}
+	cmd$mmodsofmcolumn(val) {
+		this.curGroup.attributes.columnindex = val;
+	}
+	cmd$mmodsodynaddr(val) {
+		this.curGroup.attributes.addressorder = val;
+	}
+	cmd$mmodsosolid(val) {
+		this.curGroup.attributes.language = val;
+	}
+	cmd$mmodsocoldelim(val) {
+		this.curGroup.attributes.columndelimiter = val;
+	}
+	cmd$mmjdsotype(val) {
+		this.curGroup.attributes.datasourcetype = val;
+	}
+	cmd$mmodsofhdr(val) {
+		this.curGroup.attributes.firstrowheader = val;
+	}
+	cmd$mmodsorecipdata() {
+		this.curGroup = new OdsoRecip(this.curGroup.parent);
+	}
+	cmd$mmodsoactive(val) {
+		this.curGroup.attributes.active = val;
+	}
+	cmd$mmodsohash(val) {
+		this.curGroup.attributes.hash = val;
+	}
+	cmd$mmodsocolumn(val) {
+		this.curGroup.attributes.column = val;
+	}
+	cmd$mmodsouniquetag() {
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "uniquetag");
+	}
+
+	cmd$mmfttypenull() {
+		this.curGroup.attributes.datatype = "null";
+	}
+	cmd$mmfttypedbcolumn() {
+		this.curGroup.attributes.datatype = "databasecolumn";
+	}
+	cmd$mmfttypeaddress() {
+		this.curGroup.attributes.datatype = "address";
+	}
+	cmd$mmfttypesalutation() {
+		this.curGroup.attributes.datatype = "salutation";
+	}
+	cmd$mmfttypemapped() {
+		this.curGroup.attributes.datatype = "mapped";
+	}
+	cmd$mmfttypebarcode() {
+		this.curGroup.attributes.datatype = "barcode";
+	}
+
+	cmd$mmdestnewdoc() {
+		this.curGroup.attributes.destination = "newdocument";
+	}
+	cmd$mmdestprinter() {
+		this.curGroup.attributes.destination = "printer";
+	}
+	cmd$mmdestemail() {
+		this.curGroup.attributes.destination = "email";
+	}
+	cmd$mmdestfax() {
+		this.curGroup.attributes.destination = "fax";
+	}
+
+	cmd$mmmaintypecataloq() {
+		this.curGroup.attributes.sourcetype = "cataloq";
+	}
+	cmd$mmmaintypeenvelopes() {
+		this.curGroup.attributes.sourcetype = "envelope";
+	}
+	cmd$mmmaintypelabels() {
+		this.curGroup.attributes.sourcetype = "label";
+	}
+	cmd$mmmaintypeletters() {
+		this.curGroup.attributes.sourcetype = "letter";
+	}
+	cmd$mmmaintypeemail() {
+		this.curGroup.attributes.sourcetype = "email";
+	}
+	cmd$mmmaintypefax() {
+		this.curGroup.attributes.sourcetype = "fax";
+	}
+
+	cmd$mmdatatypeaccess() {
+		this.curGroup.attributes.connectiontype = "dde-access";
+	}
+	cmd$mmdatatypeexcel() {
+		this.curGroup.attributes.connectiontype = "dde-excel";
+	}
+	cmd$mmdatatypeqt() {
+		this.curGroup.attributes.connectiontype = "externalquery";
+	}
+	cmd$mmdatatypeodbc() {
+		this.curGroup.attributes.connectiontype = "odbc";
+	}
+	cmd$mmdatatypeodso() {
+		this.curGroup.attributes.connectiontype = "odso";
+	}
+	cmd$mmdatatypefile() {
+		this.curGroup.attributes.connectiontype = "dde-textfile";
+	}
 
 	/* Section Formatting Properties */
 
