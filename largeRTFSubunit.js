@@ -2445,10 +2445,27 @@ class LargeRTFSubunit extends Writable{
 	/* Paragraphs */
 	cmd$par() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
-			const prevStyle = this.curGroup.curstyle;
+			let prevStyle = this.curGroup.curstyle;
+			if (prevStyle.contextualspace) {
+				const spacings = [
+				"spacebefore",
+				"spaceafter",
+				"autospacebefore",
+				"autospaceafter",
+				"spacebeforechar",
+				"spaceafterchar",
+				];
+				Object.keys(prevStyle).forEach(key => {
+					if (spacings.includes(key)) {
+						prevStyle[key] = false;
+					}	
+				});
+			}
+			const prevAtt = this.curGroup.curattributes;
 			this.endGroup();
 			this.newGroup("paragraph");
 			this.curGroup.style = prevStyle;
+			this.curGroup.attributes = prevAtt;
 		} else {
 			this.newGroup("paragraph");
 		}	
@@ -2456,9 +2473,11 @@ class LargeRTFSubunit extends Writable{
 	cmd$pard() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
+			this.curGroup.attributes = {};
 		} else {
 			this.newGroup("paragraph");
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
+			this.curGroup.attributes = {};
 		}
 	}
 	cmd$plain() {
@@ -2467,21 +2486,277 @@ class LargeRTFSubunit extends Writable{
 				this.curGroup.style[key] = this.defCharState[key];
 			}	
 		});
+		this.curGroup.attributes = {};
+	}
+	cmd$spv() {
+		this.curGroup.style.styleseparator = true;
+	}
+	cmd$hyphpar(val) {
+		this.curGroup.style.autohyphenate = val !== 0;
+	}
+	cmd$intbl() {
+		this.curGroup.attributes.intable = true;
+	}
+	cmd$itap(val) {
+		this.curGroup.attributes.nestingdepth = val;
+	}
+	cmd$keep() {
+		this.curGroup.style.keep = true;
+	}
+	cmd$keepn() {
+		this.curGroup.style.keepnext = true;
+	}
+	cmd$level(val) {
+		this.curGroup.style.outlinelevel = val;
+	}
+	cmd$noline() {
+		this.curGroup.style.nolinenumbers = true;
+	}
+	cmd$nowidctlpar() {
+		this.curGroup.style.widowcontrol = false;
+	}
+	cmd$outlinelevel(val) {
+		this.curGroup.style.outlinelevel = val;
+	}
+	cmd$pagebb() {
+		this.curGroup.style.breakbefore = true;
+	}
+	cmd$sbys() {
+		this.curGroup.style.sidebyside = true;
 	}
 
-	/* Alignment */
+	cmd$yts(val) {
+		this.curGroup.style.tablestylehandle = val;
+	}
+	cmd$tscfirstrow(val) {
+		this.curGroup.attributes.firstrow = true;
+	}
+	cmd$tsclastrow(val) {
+		this.curGroup.attributes.lastrow = true;
+	}
+	cmd$tscfirstcol(val) {
+		this.curGroup.attributes.firstcolumn = true;
+	}
+	cmd$tsclastcol(val) {
+		this.curGroup.attributes.lastcolumn = true;
+	}
+	cmd$tscbandhorzodd(val) {
+		this.curGroup.attributes.roweo = "odd";
+	}
+	cmd$tscbandhorzeven(val) {
+		this.curGroup.attributes.roweo = "even";
+	}
+	cmd$tscbandvertodd(val) {
+		this.curGroup.attributes.columneo = "odd";
+	}
+	cmd$tscbandverteven(val) {
+		this.curGroup.attributes.columneo = "even";
+	}
+	cmd$tscnwcell(val) {
+		this.curGroup.attributes.northwestcell = true;
+	}
+	cmd$tscnecell(val) {
+		this.curGroup.attributes.northeastcell = true;
+	}
+	cmd$tscswcell(val) {
+		this.curGroup.attributes.southwestcell = true;
+	}
+	cmd$tscsecell(val) {
+		this.curGroup.attributes.southeastcell = true;
+	}
+
 	cmd$qc() {
 		this.curGroup.style.alignment = "center";
 	}
 	cmd$qj() {
 		this.curGroup.style.alignment = "justified";
 	}
-	cmd$qr() {
-		this.curGroup.style.alignment = "right";
-	}
 	cmd$ql() {
 		this.curGroup.style.alignment = "left";
 	}
+	cmd$qr() {
+		this.curGroup.style.alignment = "right";
+	}
+	cmd$qd() {
+		this.curGroup.style.alignment = "distributed";
+	}
+	cmd$qk(val) {
+		this.curGroup.style.alignment = "kashida" + val;
+	}
+	cmd$qt() {
+		this.curGroup.style.alignment = "thai";
+	}
+
+	cmd$faauto() {
+		this.curGroup.style.fontalignment = "auto";
+	}
+	cmd$fahang() {
+		this.curGroup.style.fontalignment = "hanging";
+	}
+	cmd$faroman() {
+		this.curGroup.style.fontalignment = "roman";
+	}
+	cmd$favar() {
+		this.curGroup.style.fontalignment = "variable";
+	}
+	cmd$fafixed() {
+		this.curGroup.style.fontalignment = "fixed";
+	}
+
+	cmd$fi(val) {
+		this.curGroup.style.firstlineindent = val;
+	}
+	cmd$cufi(val) {
+		this.curGroup.style.firstlineindentchar = val;
+	}
+	cmd$li(val) {
+		this.curGroup.style.leftindent = val;
+	}
+	cmd$lin(val) {
+		this.curGroup.style.leftrightindent = val;
+	}
+	cmd$culi(val) {
+		this.curGroup.style.leftindentchar = val;
+	}
+	cmd$ri(val) {
+		this.curGroup.style.rightindent = val;
+	}
+	cmd$rin(val) {
+		this.curGroup.style.rightleftindent = val;
+	}
+	cmd$curi(val) {
+		this.curGroup.style.rightindentchar = val;
+	}
+	cmd$adjustright() {
+		this.curGroup.style.adjustrightindent = true;
+	}
+	cmd$indmirror() {
+		this.curGroup.style.mirrorindents = true;
+	}
+
+	cmd$sb(val) {
+		this.curGroup.style.spacebefore = val;
+	}
+	cmd$sa(val) {
+		this.curGroup.style.spaceafter = val;
+	}
+	cmd$sbauto(val) {
+		this.curGroup.style.autospacebefore = val;
+	}
+	cmd$saauto(val) {
+		this.curGroup.style.autospaceafter = val;
+	}
+	cmd$lisb(val) {
+		this.curGroup.style.spacebeforechar = val;
+	}
+	cmd$lisa(val) {
+		this.curGroup.style.spaceafterchar = val;
+	}
+	cmd$sl(val) {
+		this.curGroup.style.linespacing = val;
+	}
+	cmd$slmult(val) {
+		this.curGroup.style.linespacingmultiple = val;
+	}
+	cmd$nosnaplinegrid() {
+		this.curGroup.style.nosnaplinegrid = true;
+	}
+	cmd$contextualspace() {
+		this.curGroup.style.contextualspace = true;
+	}
+
+	cmd$subdocument(val) {
+		this.curGroup.attributes.subdocument = val;
+	}
+
+	cmd$prauth(val) {
+		this.curGroup.attributes.revisionauthor = val;
+	}
+	cmd$prdate(val) {
+		this.curGroup.attributes.revisiondate = val;
+	}
+
+	cmd$rtlpar() {
+		this.curGroup.style.direction = "rtl";
+	}
+	cmd$ltrpar() {
+		this.curGroup.style.direction = "ltr";
+	}
+
+	cmd$nocwrap() {
+		this.curGroup.style.nocharwrap = true;
+	}
+	cmd$nowwrap() {
+		this.curGroup.style.nowordwrap = true;
+	}
+	cmd$nooverflow() {
+		this.curGroup.style.nooverflow = true;
+	}
+	cmd$aspalpha() {
+		this.curGroup.style.dbcengautospace = true;
+	}
+	cmd$aspnum() {
+		this.curGroup.style.dbcnumautospace = true;
+	}
+
+	cmd$collapsed(val) {
+		this.curGroup.style.collapsed = val !== 0;
+	}
+
+	cmd$txbxtwno() {
+		this.curGroup.style.textboxwrap = false;
+	}
+	cmd$txbxtwalways() {
+		this.curGroup.style.textboxwrap = "always";
+	}
+	cmd$txbxtwfirstlast() {
+		this.curGroup.style.textboxwrap = "firstlast";
+	}
+	cmd$txbxtwfirst() {
+		this.curGroup.style.textboxwrap = "first";
+	}
+	cmd$txbxtwlast() {
+		this.curGroup.style.textboxwrap = "last";
+	}
+
+	/* Tabs */
+	cmd$tx(val) {
+		this.curGroup.style.tabposition = val;
+	}
+	cmd$tqr() {
+		this.curGroup.style.tabtype = "flushright";
+	}
+	cmd$tqc() {
+		this.curGroup.style.tabtype = "center";
+	}
+	cmd$tqdec() {
+		this.curGroup.style.tabtype = "decimal";
+	}
+	cmd$tb(val) {
+		this.curGroup.style.bartabposition = val;
+	}
+	cmd$tldot() {
+		this.curGroup.style.leader = "dots";
+	}
+	cmd$tlmdot() {
+		this.curGroup.style.leader = "middledots";
+	}
+	cmd$tlhyph() {
+		this.curGroup.style.leader = "hyphen";
+	}
+	cmd$tlul() {
+		this.curGroup.style.leader = "underline";
+	}
+	cmd$tlth() {
+		this.curGroup.style.leader = "thickline";
+	}
+	cmd$tleq() {
+		this.curGroup.style.leader = "equalsign";
+	}
+
+
+
+
 
 	/* Text Direction */
 	cmd$rtlch() {
@@ -2490,6 +2765,21 @@ class LargeRTFSubunit extends Writable{
 	cmd$ltrch() {
 		this.curGroup.style.direction = "ltr";
 	}
+
+
+
+	/* Tables */
+	cmd$trowd() {
+		newGroup("tablerow");
+	}
+	cmd$row() {
+		if (this.curGroup.type === "tablerow") {endGroup()}
+	}
+
+
+
+
+
 
 	/* Character Stylings */
 	cmd$i(val) {
