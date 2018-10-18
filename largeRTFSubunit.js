@@ -54,7 +54,7 @@ class LargeRTFSubunit extends Writable{
 		this.skip = 0;
 		this.defCharState = {
 			font:0,
-			fontsize:22,
+			fontSize:22,
 			bold:false,
 			italics:false,
 			underline:false,
@@ -143,7 +143,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Header */
 	cmd$rtf(val) {
-		this.doc.attributes.rtfversion = val;
+		this.doc.attributes.rtfVersion = val;
 	}
 	cmd$ansi() {
 		this.doc.attributes.charset = "ansi";
@@ -158,82 +158,82 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.charset = "pca";
 	}
 	cmd$ansicpg(val) {
-		this.doc.attributes.ansipg = val;
+		this.doc.attributes.ansiPg = val;
 	}
 	cmd$fbidis() {
-		this.doc.attributes.fbidis = true;
+		this.doc.attributes.fBidis = true;
 	}
 
 	/* Default Fonts and Languages */
 	cmd$fromtext() {
-		this.doc.attributes.fromtext = true;
+		this.doc.attributes.fromText = true;
 	}
 	cmd$fromhtml(val) {
-		this.doc.attributes.fromhtml = val;
+		this.doc.attributes.fromHTML = val;
 	}
 	cmd$deff(val) {
-		this.doc.attributes.defaultfont = val;
+		this.doc.attributes.defaultFont = val;
 	}
 	cmd$adeff(val) {
-		this.doc.attributes.defaultbidifont = val;
+		this.doc.attributes.defaultBidiFont = val;
 	}
 	cmd$stshfdbch(val) {
-		this.doc.attributes.defaulteastasian = val;
+		this.doc.attributes.defaultEastAsian = val;
 	}
 	cmd$stshfloch(val) {
-		this.doc.attributes.defaultascii = val;
+		this.doc.attributes.defaultASCII = val;
 	}
 	cmd$stshfhich(val) {
-		this.doc.attributes.defaulthighansi = val;
+		this.doc.attributes.defaultHighANSI = val;
 	}
 	cmd$stshfbi(val) {
-		this.doc.attributes.defaultbidi = val;
+		this.doc.attributes.defaultBidi = val;
 	}
 	cmd$deflang(val) {
-		this.doc.attributes.defaultlanguage = val;
+		this.doc.attributes.defaultLanguage = val;
 	}
 	cmd$deflangfe(val) {
-		this.doc.attributes.defaultlanguageeastasia = val;
+		this.doc.attributes.defaultLanguageEastAsia = val;
 	}
 	cmd$adeflang(val) {
-		this.doc.attributes.defaultlanguagesouthasia = val;
+		this.doc.attributes.defaultLanguageSouthAsia = val;
 	}
 
 	/*Themes */
 	cmd$themedata() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "themedata");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "themeData");
 	}
 	cmd$colorschememapping() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "colorschememapping");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "colorSchemeMapping");
 	}
 	cmd$flomajor() {
-		this.doc.attributes.fmajor = "ascii";
+		this.doc.attributes.fMajor = "ascii";
 	}
 	cmd$fhimajor() {
-		this.doc.attributes.fmajor = "default";
+		this.doc.attributes.fMajor = "default";
 	}
 	cmd$fdbmajor() {
-		this.doc.attributes.fmajor = "eastasian";
+		this.doc.attributes.fMajor = "eastasian";
 	}
 	cmd$fbimajor() {
-		this.doc.attributes.fmajor = "complexscripts";
+		this.doc.attributes.fMajor = "complexscripts";
 	}
 	cmd$flominor() {
-		this.doc.attributes.fminor = "ascii";
+		this.doc.attributes.fMinor = "ascii";
 	}
 	cmd$fhiminor() {
-		this.doc.attributes.fminor = "default";
+		this.doc.attributes.fMinor = "default";
 	}
 	cmd$fdbminor() {
-		this.doc.attributes.fminor = "eastasian";
+		this.doc.attributes.fMinor = "eastasian";
 	}
 	cmd$fbiminor() {
-		this.doc.attributes.fminor = "complexscripts";
+		this.doc.attributes.fMinor = "complexscripts";
 	}
 
 	/* Code Page */
 	cmd$cpg(val) {
-		this.curGroup.attributes.codepage = val;
+		this.curGroup.attributes.codePage = val;
 	}
 
 	/* File Table */
@@ -250,25 +250,25 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.relative = val;
 	}
 	cmd$fosnum(val) {
-		this.curGroup.attributes.osnumber = val;
+		this.curGroup.attributes.osNumber = val;
 	}
 	cmd$fvalidmac() {
-		this.curGroup.attributes.filesystem = "mac";
+		this.curGroup.attributes.fileSystem = "mac";
 	}
 	cmd$fvaliddos() {
-		this.curGroup.attributes.filesystem = "ms-dos";
+		this.curGroup.attributes.fileSystem = "ms-dos";
 	}
 	cmd$fvalidntfs() {
-		this.curGroup.attributes.filesystem = "ntfs";
+		this.curGroup.attributes.fileSystem = "ntfs";
 	}
 	cmd$fvalidhpfs() {
-		this.curGroup.attributes.filesystem = "hpfs";
+		this.curGroup.attributes.fileSystem = "hpfs";
 	}
 	cmd$fnetwork() {
-		this.curGroup.attributes.networkfilesystem = true;
+		this.curGroup.attributes.networkFileSystem = true;
 	}
 	cmd$fnonfilesys() {
-		this.curGroup.attributes.nonfilesys = true;
+		this.curGroup.attributes.nonFileSys = true;
 	}
 
 	/* Colour Table */
@@ -291,52 +291,52 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.shade = val;
 	}
 	cmd$cmaindarkone() {
-		this.curGroup.attributes.themecolour = "maindarkone";
+		this.curGroup.attributes.themeColour = "maindarkone";
 	}
 	cmd$cmaindarktwo() {
-		this.curGroup.attributes.themecolour = "maindarktwo";
+		this.curGroup.attributes.themeColour = "maindarktwo";
 	}
 	cmd$cmainlightone() {
-		this.curGroup.attributes.themecolour = "mainlightone";
+		this.curGroup.attributes.themeColour = "mainlightone";
 	}
 	cmd$cmainlighttwo() {
-		this.curGroup.attributes.themecolour = "mainlighttwo";
+		this.curGroup.attributes.themeColour = "mainlighttwo";
 	}
 	cmd$caccentone() {
-		this.curGroup.attributes.themecolour = "accentone";
+		this.curGroup.attributes.themeColour = "accentone";
 	}
 	cmd$caccenttwo() {
-		this.curGroup.attributes.themecolour = "accenttwo";
+		this.curGroup.attributes.themeColour = "accenttwo";
 	}
 	cmd$caccentthree() {
-		this.curGroup.attributes.themecolour = "accentthree";
+		this.curGroup.attributes.themeColour = "accentthree";
 	}
 	cmd$caccentfour() {
-		this.curGroup.attributes.themecolour = "accentfour";
+		this.curGroup.attributes.themeColour = "accentfour";
 	}
 	cmd$caccentfive() {
-		this.curGroup.attributes.themecolour = "accentfive";
+		this.curGroup.attributes.themeColour = "accentfive";
 	}
 	cmd$caccentsix() {
-		this.curGroup.attributes.themecolour = "accentsix";
+		this.curGroup.attributes.themeColour = "accentsix";
 	}
 	cmd$chyperlink() {
-		this.curGroup.attributes.themecolour = "hyperlink";
+		this.curGroup.attributes.themeColour = "hyperlink";
 	}
 	cmd$cfollowedhyperlink() {
-		this.curGroup.attributes.themecolour = "followedhyperlink";
+		this.curGroup.attributes.themeColour = "followedhyperlink";
 	}
 	cmd$cbackgroundone() {
-		this.curGroup.attributes.themecolour = "backgroundone";
+		this.curGroup.attributes.themeColour = "backgroundone";
 	}
 	cmd$cbackgroundtwo() {
-		this.curGroup.attributes.themecolour = "backgroundtwo";
+		this.curGroup.attributes.themeColour = "backgroundtwo";
 	}
 	cmd$ctextone() {
-		this.curGroup.attributes.themecolour = "textone";
+		this.curGroup.attributes.themeColour = "textone";
 	}
 	cmd$ctexttwo() {
-		this.curGroup.attributes.themecolour = "texttwo";
+		this.curGroup.attributes.themeColour = "texttwo";
 	}
 
 	/* Defaults */
@@ -352,19 +352,19 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new Stylesheet(this.doc);
 	}
 	cmd$tsrowd() {
-		this.curGroup.attributes.tsrowd = true;
+		this.curGroup.attributes.tsRowd = true;
 	}
 	cmd$additive() {
 		this.curGroup.attributes.additive = true;
 	}
 	cmd$sbasedon(val) {
-		this.curGroup.attributes.basedon = val;
+		this.curGroup.attributes.basedOn = val;
 	}
 	cmd$snext(val) {
 		this.curGroup.attributes.next = val;
 	}
 	cmd$sautoupd() {
-		this.curGroup.attributes.autoupdate = true;
+		this.curGroup.attributes.autoUpdate = true;
 	}
 	cmd$shidden() {
 		this.curGroup.attributes.hidden = true;
@@ -376,23 +376,23 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.locked = true;
 	}
 	cmd$spersonal() {
-		this.curGroup.attributes.emailstyle = "personal";
+		this.curGroup.attributes.emailStyle = "personal";
 	}
 	cmd$scompose() {
-		this.curGroup.attributes.emailstyle = "compose";
+		this.curGroup.attributes.emailStyle = "compose";
 	}
 	cmd$reply() {
-		this.curGroup.attributes.emailstyle = "reply";
+		this.curGroup.attributes.emailStyle = "reply";
 	}
 	cmd$styrsid(val) {
 		this.curGroup.attributes.rsid = val;
 	}
 	cmd$ssemihidden(val) {
 		if (val === null) {val = 0}
-		this.curGroup.attributes.semihidden = val;
+		this.curGroup.attributes.semiHidden = val;
 	}
 	cmd$keycode() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "keycode");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "keyCode");
 	}
 	cmd$alt() {
 		this.curGroup.contents.push("ALT ");
@@ -413,143 +413,143 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.priority = val;
 	}
 	cmd$sunhideused(val) {
-		this.curGroup.attributes.unhideused = val;
+		this.curGroup.attributes.unhideUsed = val;
 	}
 
 	cmd$s(val) {
-		this.curGroup.attributes.styledesignation = "s" + val;
+		this.curGroup.attributes.styleDesignation = "s" + val;
 	}
 	cmd$cs(val) {
-		this.curGroup.attributes.styledesignation = "cs" + val;
+		this.curGroup.attributes.styleDesignation = "cs" + val;
 	}
 	cmd$ds(val) {
-		this.curGroup.attributes.styledesignation = "ds" + val;
+		this.curGroup.attributes.styleDesignation = "ds" + val;
 	}
 	cmd$ts(val) {
-		this.curGroup.attributes.styledesignation = "ts" + val;
+		this.curGroup.attributes.styleDesignation = "ts" + val;
 	}
 
 	cmd$noqfpromote() {
-		this.doc.attributes.noqfpromote = true;
+		this.doc.attributes.noQfPromote = true;
 	}
 
 	/* Table Styles */
 	cmd$tscellwidth(val) {
-		this.curGroup.style.cellwidth = val;
+		this.curGroup.style.cellWidth = val;
 	}
 	cmd$tscellwidthfts(val) {
-		this.curGroup.style.cellwidthfts = val;
+		this.curGroup.style.cellWidthFts = val;
 	}
 	cmd$tscellpaddt(val) {
-		this.curGroup.style.toppadding = val;
+		this.curGroup.style.topPadding = val;
 	}
 	cmd$tscellpaddl(val) {
-		this.curGroup.style.leftpadding = val;
+		this.curGroup.style.leftPadding = val;
 	}
 	cmd$tscellpaddr(val) {
-		this.curGroup.style.rightpadding = val;
+		this.curGroup.style.rightPadding = val;
 	}
 	cmd$tscellpaddb(val) {
-		this.curGroup.style.bottompadding = val;
+		this.curGroup.style.bottomPadding = val;
 	}
 	cmd$tscellpaddft(val) {
-		this.curGroup.style.toppaddingunits = val;
+		this.curGroup.style.topPaddingUnits = val;
 	}
 	cmd$tscellpaddfl(val) {
-		this.curGroup.style.leftpaddingunits = val;
+		this.curGroup.style.leftPaddingUnits = val;
 	}
 	cmd$tscellpaddfr(val) {
-		this.curGroup.style.rightpaddingunits = val;
+		this.curGroup.style.rightPaddingUnits = val;
 	}
 	cmd$tscellpaddfb(val) {
-		this.curGroup.style.bottompaddingunits = val;
+		this.curGroup.style.bottomPaddingUnits = val;
 	}
 	cmd$tsvertalt() {
-		this.curGroup.style.cellalignment = "top";
+		this.curGroup.style.cellAlignment = "top";
 	}
 	cmd$tsvertalc() {
-		this.curGroup.style.cellalignment = "center";
+		this.curGroup.style.cellAlignment = "center";
 	}
 	cmd$tsvertalb() {
-		this.curGroup.style.cellalignment = "bottom";
+		this.curGroup.style.cellAlignment = "bottom";
 	}
 	cmd$tsnowrap() {
-		this.curGroup.style.nowrap = true;
+		this.curGroup.style.noWrap = true;
 	}
 	cmd$tscellcfpat(val) {
-		this.curGroup.style.foregroundshading = val;
+		this.curGroup.style.foregroundShading = val;
 	}
 	cmd$tscellcbpat(val) {
-		this.curGroup.style.backgroundshading = val;
+		this.curGroup.style.backgroundShading = val;
 	}
 	cmd$tscellpct(val) {
-		this.curGroup.style.shadingpercentage = val;
+		this.curGroup.style.shadingPercentage = val;
 	}
 	cmd$tsbgbdiag() {
-		this.curGroup.style.shadingpattern = "backwardsdiagonal";
+		this.curGroup.style.shadingPattern = "backwardsdiagonal";
 	}
 	cmd$tsbgfdiag() {
-		this.curGroup.style.shadingpattern = "forwardsdiagonal";
+		this.curGroup.style.shadingPattern = "forwardsdiagonal";
 	}
 	cmd$tsbgdkbdiag() {
-		this.curGroup.style.shadingpattern = "darkbackwardsdiagonal";
+		this.curGroup.style.shadingPattern = "darkbackwardsdiagonal";
 	}
 	cmd$tsbgdkfdiag() {
-		this.curGroup.style.shadingpattern = "darkforwardsdiagonal";
+		this.curGroup.style.shadingPattern = "darkforwardsdiagonal";
 	}
 	cmd$tsbgcross() {
-		this.curGroup.style.shadingpattern = "cross";
+		this.curGroup.style.shadingPattern = "cross";
 	}
 	cmd$tsbgdcross() {
-		this.curGroup.style.shadingpattern = "diagonalcross";
+		this.curGroup.style.shadingPattern = "diagonalcross";
 	}
 	cmd$tsbgdkcross() {
-		this.curGroup.style.shadingpattern = "darkcross";
+		this.curGroup.style.shadingPattern = "darkcross";
 	}
 	cmd$tsbgdkdcross() {
-		this.curGroup.style.shadingpattern = "darkdiagonalcross";
+		this.curGroup.style.shadingPattern = "darkdiagonalcross";
 	}
 	cmd$tsbghoriz() {
-		this.curGroup.style.shadingpattern = "horizontal";
+		this.curGroup.style.shadingPattern = "horizontal";
 	}
 	cmd$tsbgvert() {
-		this.curGroup.style.shadingpattern = "vertical";
+		this.curGroup.style.shadingPattern = "vertical";
 	}
 	cmd$tsbgdkhor() {
-		this.curGroup.style.shadingpattern = "darkhorizontal";
+		this.curGroup.style.shadingPattern = "darkhorizontal";
 	}
 	cmd$tsbgdkvert() {
-		this.curGroup.style.shadingpattern = "darkvertical";
+		this.curGroup.style.shadingPattern = "darkvertical";
 	}
 	cmd$tsbrdrt() {
-		theis.curGroup.style.cellborder = "top";
+		theis.curGroup.style.cellBorder = "top";
 	}
 	cmd$tsbrdrb() {
-		theis.curGroup.style.cellborder = "bottom";
+		theis.curGroup.style.cellBorder = "bottom";
 	}
 	cmd$tsbrdrl() {
-		theis.curGroup.style.cellborder = "left";
+		theis.curGroup.style.cellBorder = "left";
 	}
 	cmd$tsbrdrr() {
-		theis.curGroup.style.cellborder = "right";
+		theis.curGroup.style.cellBorder = "right";
 	}
 	cmd$tsbrdrh() {
-		theis.curGroup.style.cellborder = "horizontal";
+		theis.curGroup.style.cellBorder = "horizontal";
 	}
 	cmd$tsbrdrv() {
-		theis.curGroup.style.cellborder = "vertical";
+		theis.curGroup.style.cellBorder = "vertical";
 	}
 	cmd$tsbrdrdgl() {
-		theis.curGroup.style.cellborder = "diagonalullr";
+		theis.curGroup.style.cellBorder = "diagonalullr";
 	}
 	cmd$tsbrdrdgr() {
-		theis.curGroup.style.cellborder = "diagonalllur";
+		theis.curGroup.style.cellBorder = "diagonalllur";
 	}
 	cmd$tscbandsh(val) {
-		theis.curGroup.style.rowbandcount = val;
+		theis.curGroup.style.rowBandCount = val;
 	}
 	cmd$tscbandsv(val) {
-		theis.curGroup.style.cellbandcount = val;
+		theis.curGroup.style.cellBandCount = val;
 	}
 
 	/* Style Restrictions */
@@ -557,40 +557,40 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new StyleRestrictions(this.doc);
 	}
 	cmd$lsdstimax(val) {
-		this.curGroup.attributes.dstimax = val;
+		this.curGroup.attributes.dstiMax = val;
 	}
 	cmd$lsdlockeddef(val) {
-		this.curGroup.attributes.lockeddef = val;
+		this.curGroup.attributes.lockedDef = val;
 	}
 	cmd$lsdlockedexcept() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "lockedexceptions");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "lockedExceptions");
 	}
 	cmd$lsdsemihiddendef(val) {
-		this.curGroup.attributes.ssemihiddendefault = val;
+		this.curGroup.attributes.semiHiddenDefault = val;
 	}
 	cmd$lsdunhideuseddef(val) {
-		this.curGroup.attributes.sunhideuseddefault = val;
+		this.curGroup.attributes.unhideUsedDefault = val;
 	}
 	cmd$lsdqformatdef(val) {
-		this.curGroup.attributes.sqformatdefault= val;
+		this.curGroup.attributes.qFormatDefault= val;
 	}
 	cmd$lsdprioritydef(val) {
-		this.curGroup.attributes.sprioritydefault = val;
+		this.curGroup.attributes.priorityDefault = val;
 	}
 	cmd$lsdpriority(val) {
-		this.curGroup.attributes.sprioritylatentdefault = val;
+		this.curGroup.attributes.priorityLatentDefault = val;
 	}
 	cmd$lsdunhideused(val) {
-		this.curGroup.attributes.sunhideusedlatentdefault = val;
+		this.curGroup.attributes.unhideUsedLatentDefault = val;
 	}
 	cmd$lsdsemihidden(val) {
-		this.curGroup.attributes.ssemihiddenlatentdefault = val;
+		this.curGroup.attributes.semihiddenlatentdefault = val;
 	}
 	cmd$lsdqformat(val) {
-		this.curGroup.attributes.sqformatlatentdefault = val;
+		this.curGroup.attributes.qFormatLatentDefault = val;
 	}
 	cmd$lsdlocked(val) {
-		this.curGroup.attributes.slockedlatentdefault = val;
+		this.curGroup.attributes.lockedLatentDefault = val;
 	}
 
 	/* Font Table */
@@ -613,7 +613,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new ParameterGroup(this.curGroup.parent, "panose");
 	}
 	cmd$fname() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "taggedname");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "taggedName");
 	}
 	cmd$fnil() {
 		this.curGroup.attributes.family = "nil";
@@ -658,7 +658,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.id = val;
 	}
 	cmd$listtemplateid(val) {
-		this.curGroup.templateid = val;
+		this.curGroup.templateID = val;
 	}
 	cmd$listsimple(val) {
 		this.curGroup.attributes.simple = val;
@@ -667,26 +667,26 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.hybrid = true;
 	}
 	cmd$listname() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "listname");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "listName");
 	}
 	cmd$liststyleid(val) {
-		this.curGroup.attributes.styleid = val;
+		this.curGroup.attributes.styleID = val;
 	}
 	cmd$liststylename(val) {
-		this.curGroup.attributes.stylename = val;
+		this.curGroup.attributes.styleName = val;
 	}
 	cmd$liststartat(val) {
-		this.curGroup.attributes.startat = val;
+		this.curGroup.attributes.startAt = val;
 	}
 	cmd$lvltentative() {
-		this.curGroup.attributes.lvltentative = true;
+		this.curGroup.attributes.lvlTentative = true;
 	}
 
 	cmd$listlevel() {
 		this.curGroup = new ListLevel(this.curGroup.parent);
 	}
 	cmd$levelstartat(val) {
-		this.curGroup.attributes.startat = val;
+		this.curGroup.attributes.startAt = val;
 	}
 	cmd$levelnfc(val) {
 		this.curGroup.attributes.nfc = val;
@@ -701,10 +701,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.jcn = val;
 	}
 	cmd$leveltext() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "leveltext");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelText");
 	}
 	cmd$levelnumbers(val) {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelnumbers");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelNumbers");
 	}
 	cmd$levelfollow(val) {
 		this.curGroup.attributes.follow = val;
@@ -713,7 +713,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.legal = val;
 	}
 	cmd$levelnorestart(val) {
-		this.curGroup.attributes.norestart = val;
+		this.curGroup.attributes.noRestart = val;
 	}
 	cmd$levelold(val) {
 		this.curGroup.attributes.old = val;
@@ -722,7 +722,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.prev = val;
 	}
 	cmd$levelprevspace(val) {
-		this.curGroup.attributes.prevspace = val;
+		this.curGroup.attributes.prevSpace = val;
 	}
 	cmd$levelindent(val) {
 		this.curGroup.attributes.indent = val;
@@ -749,13 +749,13 @@ class LargeRTFSubunit extends Writable{
 	    }
 	}
 	cmd$listoverridecount(val) {
-		this.curGroup.attributes.overridecount = val;
+		this.curGroup.attributes.overrideCount = val;
 	}
 	cmd$listoverridestartat() {
-		this.curGroup.attributes.overridestartat = true;
+		this.curGroup.attributes.overrideStartAt = true;
 	}
 	cmd$listoverrideformat(val) {
-		this.curGroup.attributes.overrideformat = val;
+		this.curGroup.attributes.overrideFormat = val;
 	}
 
 	/* Paragraph Group Properties */
@@ -784,31 +784,31 @@ class LargeRTFSubunit extends Writable{
 
 	cmd$insrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "insert";
+		this.curGroup.attributes.rsidType = "insert";
 	}
 	cmd$rsidroot(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "root";
+		this.curGroup.attributes.rsidType = "root";
 	}
 	cmd$delrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "delete";
+		this.curGroup.attributes.rsidType = "delete";
 	}
 	cmd$charrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "characterformat";
+		this.curGroup.attributes.rsidType = "characterformat";
 	}
 	cmd$sectrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "sectionformat";
+		this.curGroup.attributes.rsidType = "sectionformat";
 	}
 	cmd$pararsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "paragraphformat";
+		this.curGroup.attributes.rsidType = "paragraphformat";
 	}
 	cmd$tblrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidtype = "tableformat";
+		this.curGroup.attributes.rsidType = "tableformat";
 	}
 
 	/* Old Properties */
@@ -870,10 +870,10 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.version = val;
 	}
 	cmd$title() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "doccomment");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "docComment");
 	}
 	cmd$hlinkbase() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "hlinkbase");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "hlinkBase");
 	}
 
 	cmd$userprops() {
@@ -881,35 +881,35 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$propname(val) {
 		this.curGroup.parent = new UserProperty(this.doc.attributes);
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyname");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyName");
 	}
 	cmd$proptype(val) {
 		this.curGroup.propertyType = val;
 	}
 	cmd$staticval() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyvalue");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyValue");
 	}
 	cmd$linkval() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertylink");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "propertyLink");
 	}
 
 	cmd$vern(val) {
-		this.doc.attributes.initialversion = val;
+		this.doc.attributes.initialVersion = val;
 	}
 	cmd$creatim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "createtime");
+		this.curGroup = new DateGroup(this.doc.attributes, "createTime");
 	}
 	cmd$revtim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "revisiontime");
+		this.curGroup = new DateGroup(this.doc.attributes, "revisionTime");
 	}
 	cmd$printtim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "lastprinttim");
+		this.curGroup = new DateGroup(this.doc.attributes, "lastPrintTime");
 	}
 	cmd$buptim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "backuptime");
+		this.curGroup = new DateGroup(this.doc.attributes, "backupTime");
 	}
 	cmd$edmins(val) {
-		this.doc.attributes.editingminutes = val;
+		this.doc.attributes.editingMinutes = val;
 	}
 	cmd$nofpages(val) {
 		this.doc.attributes.pages = val;
@@ -921,7 +921,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.chars = val;
 	}
 	cmd$nofcharsws(val) {
-		this.doc.attributes.charsnospaces = val;
+		this.doc.attributes.charsNoSpaces = val;
 	}
 	cmd$id(val) {
 		this.doc.attributes.id = val;
@@ -948,7 +948,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Read-Only Password Protection */
 	cmd$passwordhash() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "passwordhash");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "passwordHash");
 	}
 
 	/* XML Namespace Table */
@@ -961,43 +961,43 @@ class LargeRTFSubunit extends Writable{
 
 	/* Document Formatting Properties */
 	cmd$deftab(val) {
-		this.curGroup.style.defaulttab = val;
+		this.curGroup.style.defaultTab = val;
 	}
 	cmd$hyphhotz(val) {
-		this.curGroup.style.hyphenhotzone = val;
+		this.curGroup.style.hyphenHotzone = val;
 	}
 	cmd$hyphconsec(val) {
-		this.curGroup.style.hyphenconsecutive = val;
+		this.curGroup.style.hyphenConsecutive = val;
 	}
 	cmd$hyphcaps(val) {
-		this.curGroup.style.hyphencaps = val !== 0;
+		this.curGroup.style.hyphenCaps = val !== 0;
 	}
 	cmd$hyphauto(val) {
-		this.curGroup.style.hyphenauto = val !== 0;
+		this.curGroup.style.hyphenAuto = val !== 0;
 	}
 	cmd$linestart(val) {
-		this.curGroup.style.linestart = val;
+		this.curGroup.style.lineStart = val;
 	}
 	cmd$fracwidth(val) {
-		this.curGroup.style.fractionalwidths = true;
+		this.curGroup.style.fractionalWidths = true;
 	}
 	cmd$nextfile() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "nextfile");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "nextFile");
 	}
 	cmd$template() {
 		this.curGroup = new ParameterGroup(this.curGroup.style, "template");
 	}
 	cmd$makebackup() {
-		this.doc.attributes.makebackup = true;
+		this.doc.attributes.makeBackup = true;
 	}
 	cmd$muser() {
 		this.doc.attributes.compatability = true;
 	}
 	cmd$defformat() {
-		this.doc.attributes.defformat = true;
+		this.doc.attributes.defFormat = true;
 	}
 	cmd$psover() {
-		this.doc.attributes.psover = true;
+		this.doc.attributes.psOver = true;
 	}
 	cmd$doctemp() {
 		this.doc.attributes.boilerplate = true;
@@ -1024,91 +1024,91 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.justification = "expanding";
 	}
 	cmd$lnongrid() {
-		this.curGroup.style.lineongrid = true;
+		this.curGroup.style.lineOnGrid = true;
 	}
 	cmd$grfdocevents(val) {
-		this.doc.attributes.grfdocevents = val;
+		this.doc.attributes.grfDocEvents = val;
 	}
 	cmd$themelang(val) {
-		this.curGroup.style.themelanguage = val;
+		this.curGroup.style.themeLanguage = val;
 	}
 	cmd$themelangfe(val) {
-		this.curGroup.style.themelanguagefe = val;
+		this.curGroup.style.themeLanguageFE = val;
 	}
 	cmd$themelangcs(val) {
-		this.curGroup.style.themelanguagecs = val;
+		this.curGroup.style.themeLanguageCS = val;
 	}
 	cmd$relyonvml(val) {
 		this.doc.attributes.vml = val;
 	}
 	cmd$validatexml(val) {
-		this.doc.attributes.validatexml = val;
+		this.doc.attributes.validateXML = val;
 	}
 	cmd$xform() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "xform");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "xForm");
 	}
 	cmd$donotembedsysfont(val) {
-		this.doc.attributes.donotembedsysfont = val;
+		this.doc.attributes.doNotEmbedSysFont = val;
 	}
 	cmd$donotembedlingdata(val) {
-		this.doc.attributes.donotembedlingdata = val;
+		this.doc.attributes.doNotEmbedLingData = val;
 	}
 	cmd$showplaceholdtext(val) {
-		this.doc.attributes.showplaceholdertext = val;
+		this.doc.attributes.showPlaceholderText = val;
 	}
 	cmd$trackmoves(val) {
-		this.doc.attributes.trackmoves = val;
+		this.doc.attributes.trackMoves = val;
 	}
 	cmd$trackformatting(val) {
-		this.doc.attributes.trackformatting = val;
+		this.doc.attributes.trackFormatting = val;
 	}
 	cmd$ignoreremixedcontent(val) {
-		this.doc.attributes.ignoreremixedcontent = val;
+		this.doc.attributes.ignoreRemixedContent = val;
 	}
 	cmd$saveinvalidxml(val) {
-		this.doc.attributes.saveinvalidxml = val;
+		this.doc.attributes.saveInvalidXML = val;
 	}
 	cmd$showxmlerrors(val) {
-		this.doc.attributes.showxmlerrors = val;
+		this.doc.attributes.showXMLErrors = val;
 	}
 	cmd$stylelocktheme(val) {
-		this.curGroup.style.locktheme = true;
+		this.curGroup.style.lockTheme = true;
 	}
 	cmd$stylelockqfset(val) {
-		this.curGroup.style.lockqfset = true;
+		this.curGroup.style.lockQfSet = true;
 	}
 	cmd$usenormstyforlist(val) {
-		this.curGroup.style.usenormstyforlist = true;
+		this.curGroup.style.useNormalStyleForList = true;
 	}
 	cmd$wgrffmtfilter(val) {
-		this.curGroup.style.wgrffmtfilter = val;
+		this.curGroup.style.wgrfFmtFilter = val;
 	}
 	cmd$readonlyrecommended() {
-		this.curGroup.style.readonlyrecommended = true;
+		this.curGroup.style.readonlyRecommended = true;
 	}
 	cmd$stylesortmethod(val) {
-		this.curGroup.style.stylesortmethod = val;
+		this.curGroup.style.styleSortMethod = val;
 	}
 	cmd$writereservhash() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "reservehash");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "reserveHash");
 	}
 	cmd$writereservation() {
 		this.curGroup = new ParameterGroup(this.doc.attributes, "reservation");
 	}
 	cmd$saveprevpict() {
-		this.doc.attributes.saveprevpict = true;
+		this.doc.attributes.savePrevPict = true;
 	}
 	cmd$viewkind(val) {
-		this.curGroup.style.viewkind = val;
+		this.curGroup.style.viewKind = val;
 	}
 	cmd$viewscale(val) {
-		this.curGroup.style.viewscale = val;
+		this.curGroup.style.viewScale = val;
 	}
 	cmd$viewzk(val) {
-		this.curGroup.style.viewzk = val;
+		this.curGroup.style.viewZK = val;
 	}
 	cmd$viewbksp(val) {
-		this.curGroup.style.viewbksp = val;
+		this.curGroup.style.viewBksp = val;
 	}
 
 	/*-- Footnotes and Endnotes --*/
@@ -1116,649 +1116,649 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.fet = val;
 	}
 	cmd$ftnsep() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnotesep");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "footnoteSep");
 	}
 	cmd$ftnsepc() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnotesepc");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "footnotesEpc");
 	}
 	cmd$ftncn() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnotenotice");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "footnoteNotice");
 	}
 	cmd$aftnsep() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pagesep");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "pageSep");
 	}
 	cmd$aftnsepc() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pagesepc");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "pageSepc");
 	}
 	cmd$aftncn() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pagenotice");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "pageNotice");
 	}
 	cmd$pages() {
 		this.doc.attributes.footnoteposition = "pages";
 	}
 	cmd$enddoc() {
-		this.doc.attributes.footnoteposition = "enddoc";
+		this.doc.attributes.footnoteposition = "endDoc";
 	}
 	cmd$ftntj() {
-		this.doc.attributes.footnoteposition = "beneathtexttj";
+		this.doc.attributes.footnoteposition = "beneathTextTj";
 	}
 	cmd$ftnbj() {
-		this.doc.attributes.footnoteposition = "bottomofpagebj";
+		this.doc.attributes.footnoteposition = "bottomOfPageBj";
 	}
 	cmd$apages() {
 		this.doc.attributes.pageposition = "pages";
 	}
 	cmd$aenddoc() {
-		this.doc.attributes.pageposition = "enddoc";
+		this.doc.attributes.pageposition = "endDoc";
 	}
 	cmd$aftntj() {
-		this.doc.attributes.pageposition = "beneathtexttj";
+		this.doc.attributes.pageposition = "beneathTextTj";
 	}
 	cmd$aftnbj() {
-		this.doc.attributes.pageposition = "bottomofpagebj";
+		this.doc.attributes.pageposition = "bottomOfPageBj";
 	}
 	cmd$ftnstart(val) {
-		this.curGroup.style.footnotestart = val;
+		this.curGroup.style.footnoteStart = val;
 	}
 	cmd$aftnstart(val) {
-		this.curGroup.style.pagestart = val;
+		this.curGroup.style.pageStart = val;
 	}
 	cmd$ftnrstpg() {
-		this.curGroup.style.footnoterestart = "page";
+		this.curGroup.style.footnoteRestart = "page";
 	}
 	cmd$ftnrestart() {
-		this.curGroup.style.footnoterestart = "section";
+		this.curGroup.style.footnoteRestart = "section";
 	}
 	cmd$ftnrstcont() {
-		this.curGroup.style.footnoterestart = "none";
+		this.curGroup.style.footnoteRestart = "none";
 	}
 	cmd$aftnrestart() {
-		this.curGroup.style.pagerestart = "section";
+		this.curGroup.style.pageRestart = "section";
 	}
 	cmd$aftnrstcont() {
-		this.curGroup.style.pagerestart = "none";
+		this.curGroup.style.pageRestart = "none";
 	}
 	cmd$ftnnar() {
-		this.curGroup.style.footnotenumbering = "1";
+		this.curGroup.style.footnoteNumbering = "1";
 	}
 	cmd$ftnnalc() {
-		this.curGroup.style.footnotenumbering = "a";
+		this.curGroup.style.footnoteNumbering = "a";
 	}
 	cmd$ftnnauc() {
-		this.curGroup.style.footnotenumbering = "A";
+		this.curGroup.style.footnoteNumbering = "A";
 	}
 	cmd$ftnnrlc() {
-		this.curGroup.style.footnotenumbering = "i";
+		this.curGroup.style.footnoteNumbering = "i";
 	}
 	cmd$ftnnruc() {
-		this.curGroup.style.footnotenumbering = "I";
+		this.curGroup.style.footnoteNumbering = "I";
 	}
 	cmd$ftnnchi() {
-		this.curGroup.style.footnotenumbering = "*";
+		this.curGroup.style.footnoteNumbering = "*";
 	}
 	cmd$ftnnchosung() {
-		this.curGroup.style.footnotenumbering = "CHOSUNG";
+		this.curGroup.style.footnoteNumbering = "CHOSUNG";
 	}
 	cmd$ftnncnum() {
-		this.curGroup.style.footnotenumbering = "CIRCLENUM";
+		this.curGroup.style.footnoteNumbering = "CIRCLENUM";
 	}
 	cmd$ftnndbnum() {
-		this.curGroup.style.footnotenumbering = "DBNUM1";
+		this.curGroup.style.footnoteNumbering = "DBNUM1";
 	}
 	cmd$ftnndbnumd() {
-		this.curGroup.style.footnotenumbering = "DBNUM2";
+		this.curGroup.style.footnoteNumbering = "DBNUM2";
 	}
 	cmd$ftnndbnumt() {
-		this.curGroup.style.footnotenumbering = "DBNUM3";
+		this.curGroup.style.footnoteNumbering = "DBNUM3";
 	}
 	cmd$ftnndbnumk() {
-		this.curGroup.style.footnotenumbering = "DBNUM4";
+		this.curGroup.style.footnoteNumbering = "DBNUM4";
 	}
 	cmd$ftnndbar() {
-		this.curGroup.style.footnotenumbering = "DBCHAR";
+		this.curGroup.style.footnoteNumbering = "DBCHAR";
 	}
 	cmd$ftnnganada() {
-		this.curGroup.style.footnotenumbering = "GANADA";
+		this.curGroup.style.footnoteNumbering = "GANADA";
 	}
 	cmd$ftnngbnum() {
-		this.curGroup.style.footnotenumbering = "GB1";
+		this.curGroup.style.footnoteNumbering = "GB1";
 	}
 	cmd$ftnngbnumd() {
-		this.curGroup.style.footnotenumbering = "GB2";
+		this.curGroup.style.footnoteNumbering = "GB2";
 	}
 	cmd$ftnngbnuml() {
-		this.curGroup.style.footnotenumbering = "GB3";
+		this.curGroup.style.footnoteNumbering = "GB3";
 	}
 	cmd$ftnngbnumk() {
-		this.curGroup.style.footnotenumbering = "GB4";
+		this.curGroup.style.footnoteNumbering = "GB4";
 	}
 	cmd$ftnnzodiac() {
-		this.curGroup.style.footnotenumbering = "ZODIAC1";
+		this.curGroup.style.footnoteNumbering = "ZODIAC1";
 	}
 	cmd$ftnnzodiacd() {
-		this.curGroup.style.footnotenumbering = "ZODIAC2";
+		this.curGroup.style.footnoteNumbering = "ZODIAC2";
 	}
 	cmd$ftnnzodiacl() {
-		this.curGroup.style.footnotenumbering = "ZODIAC3";
+		this.curGroup.style.footnoteNumbering = "ZODIAC3";
 	}
 	cmd$aftnnar() {
-		this.curGroup.style.pagenumbering = "1";
+		this.curGroup.style.pageNumbering = "1";
 	}
 	cmd$aftnnalc() {
-		this.curGroup.style.pagenumbering = "a";
+		this.curGroup.style.pageNumbering = "a";
 	}
 	cmd$aftnnauc() {
-		this.curGroup.style.pagenumbering = "A";
+		this.curGroup.style.pageNumbering = "A";
 	}
 	cmd$aftnnrlc() {
-		this.curGroup.style.pagenumbering = "i";
+		this.curGroup.style.pageNumbering = "i";
 	}
 	cmd$aftnnruc() {
-		this.curGroup.style.pagenumbering = "I";
+		this.curGroup.style.pageNumbering = "I";
 	}
 	cmd$aftnnchi() {
-		this.curGroup.style.pagenumbering = "*";
+		this.curGroup.style.pageNumbering = "*";
 	}
 	cmd$aftnnchosung() {
-		this.curGroup.style.pagenumbering = "CHOSUNG";
+		this.curGroup.style.pageNumbering = "CHOSUNG";
 	}
 	cmd$aftnncnum() {
-		this.curGroup.style.pagenumbering = "CIRCLENUM";
+		this.curGroup.style.pageNumbering = "CIRCLENUM";
 	}
 	cmd$aftnndbnum() {
-		this.curGroup.style.pagenumbering = "DBNUM1";
+		this.curGroup.style.pageNumbering = "DBNUM1";
 	}
 	cmd$aftnndbnumd() {
-		this.curGroup.style.pagenumbering = "DBNUM2";
+		this.curGroup.style.pageNumbering = "DBNUM2";
 	}
 	cmd$aftnndbnumt() {
-		this.curGroup.style.pagenumbering = "DBNUM3";
+		this.curGroup.style.pageNumbering = "DBNUM3";
 	}
 	cmd$aftnndbnumk() {
-		this.curGroup.style.pagenumbering = "DBNUM4";
+		this.curGroup.style.pageNumbering = "DBNUM4";
 	}
 	cmd$aftnndbar() {
-		this.curGroup.style.pagenumbering = "DBCHAR";
+		this.curGroup.style.pageNumbering = "DBCHAR";
 	}
 	cmd$aftnnganada() {
-		this.curGroup.style.pagenumbering = "GANADA";
+		this.curGroup.style.pageNumbering = "GANADA";
 	}
 	cmd$aftnngbnum() {
-		this.curGroup.style.pagenumbering = "GB1";
+		this.curGroup.style.pageNumbering = "GB1";
 	}
 	cmd$aftnngbnumd() {
-		this.curGroup.style.pagenumbering = "GB2";
+		this.curGroup.style.pageNumbering = "GB2";
 	}
 	cmd$aftnngbnuml() {
-		this.curGroup.style.pagenumbering = "GB3";
+		this.curGroup.style.pageNumbering = "GB3";
 	}
 	cmd$aftnngbnumk() {
-		this.curGroup.style.pagenumbering = "GB4";
+		this.curGroup.style.pageNumbering = "GB4";
 	}
 	cmd$aftnnzodiac() {
-		this.curGroup.style.pagenumbering = "ZODIAC1";
+		this.curGroup.style.pageNumbering = "ZODIAC1";
 	}
 	cmd$aftnnzodiacd() {
-		this.curGroup.style.pagenumbering = "ZODIAC2";
+		this.curGroup.style.pageNumbering = "ZODIAC2";
 	}
 	cmd$aftnnzodiacl() {
-		this.curGroup.style.pagenumbering = "ZODIAC3";
+		this.curGroup.style.pageNumbering = "ZODIAC3";
 	}
 
 	/*-- Page Information --*/
 	cmd$paperw(val) {
-		this.curGroup.style.paperwidth = val;
+		this.curGroup.style.paperWidth = val;
 	}
 	cmd$paperh(val) {
-		this.curGroup.style.paperheight = val;
+		this.curGroup.style.paperHeight = val;
 	}
 	cmd$margl(val) {
-		this.curGroup.style.marginleft = val;
+		this.curGroup.style.marginLeft = val;
 	}
 	cmd$margr(val) {
-		this.curGroup.style.marginright = val;
+		this.curGroup.style.marginRight = val;
 	}
 	cmd$margt(val) {
-		this.curGroup.style.margintop = val;
+		this.curGroup.style.marginTop = val;
 	}
 	cmd$margb(val) {
-		this.curGroup.style.marginbottom = val;
+		this.curGroup.style.marginBottom = val;
 	}
 	cmd$facingp() {
-		this.curGroup.style.facingpages = true;
+		this.curGroup.style.facingPages = true;
 	}
 	cmd$gutter(val) {
-		this.curGroup.style.gutterwidth = val;
+		this.curGroup.style.gutterWidth = val;
 	}
 	cmd$ogutter(val) {
-		this.curGroup.style.outsidegutterwidth = val;
+		this.curGroup.style.outsideGutterWidth = val;
 	}
 	cmd$rtlgutter() {
-		this.curGroup.style.gutterright = true;
+		this.curGroup.style.gutterRight = true;
 	}
 	cmd$gutterprl() {
-		this.curGroup.style.gutterparallel = true;
+		this.curGroup.style.gutterParallel = true;
 	}
 	cmd$margmirror() {
-		this.curGroup.style.mirroredmargins = true;
+		this.curGroup.style.mirroredMargins = true;
 	}
 	cmd$landscape() {
 		this.curGroup.style.landscape = true;
 	}
 	cmd$pgnstart(val) {
-		this.curGroup.style.pagenumberstart = val;
+		this.curGroup.style.pageNumberStart = val;
 	}
 	cmd$widowctrl() {
-		this.curGroup.style.widowcontrol = true;
+		this.curGroup.style.widowControl = true;
 	}
 	cmd$twoonone() {
-		this.curGroup.style.twoonone = true;
+		this.curGroup.style.twoOnOne = true;
 	}
 	cmd$bookfold() {
-		this.curGroup.style.bookfold = true;
+		this.curGroup.style.bookFold = true;
 	}
 	cmd$bookfoldrev() {
-		this.curGroup.style.bookfoldrev = true;
+		this.curGroup.style.bookFoldReverse = true;
 	}
 	cmd$bookfoldsheets(val) {
-		this.curGroup.style.bookfoldsheets = val;
+		this.curGroup.style.bookFoldSheets = val;
 	}
 
 	/*-- Linked Styles --*/
 	cmd$linkstyles() {
-		this.doc.attributes.linkstyles = true;
+		this.doc.attributes.linkStyles = true;
 	}
 
 	/*-- Compatability Options --*/
 	cmd$notabind() {
-		this.curGroup.style.notabindent = true;
+		this.curGroup.style.noTabIndent = true;
 	}
 	cmd$wraptrsp() {
-		this.curGroup.style.wraptrailingwhitespace = true;
+		this.curGroup.style.wrapTrailingWhitespace = true;
 	}
 	cmd$prcolbl() {
-		this.curGroup.style.printcolourblack = true;
+		this.curGroup.style.printColourBlack = true;
 	}
 	cmd$noextrasprl() {
-		this.curGroup.style.noextraspacerl = true;
+		this.curGroup.style.noExtraSpaceRl = true;
 	}
 	cmd$nocolbal() {
-		this.curGroup.style.nocolumnbalance = true;
+		this.curGroup.style.noColumnBalance = true;
 	}
 	cmd$cvmme() {
-		this.curGroup.style.cvmailmergeescape = true;
+		this.curGroup.style.cvMailMergeEscape = true;
 	}
 	cmd$sprstsp() {
 		this.curGroup.style.surpressextraline = true;
 	}
 	cmd$sprsspbf() {
-		this.curGroup.style.surpressspacebefore = true;
+		this.curGroup.style.surpressSpaceBefore = true;
 	}
 	cmd$otblrul() {
-		this.curGroup.style.combinetableborders = true;
+		this.curGroup.style.combineTableBorders = true;
 	}
 	cmd$transmf() {
-		this.curGroup.style.transparentmetafile = true;
+		this.curGroup.style.transparentMetaFile = true;
 	}
 	cmd$swpbdr() {
-		this.curGroup.style.swapborder = true;
+		this.curGroup.style.swapBorder = true;
 	}
 	cmd$brkfrm() {
-		this.curGroup.style.hardbreaks = true;
+		this.curGroup.style.hardBreaks = true;
 	}
 	cmd$sprslnsp() {
-		this.curGroup.style.surpresslinespace = true;
+		this.curGroup.style.surpressLineSpace = true;
 	}
 	cmd$subfontbysize() {
-		this.curGroup.style.subfontbysize = true;
+		this.curGroup.style.subFontBySize = true;
 	}
 	cmd$truncatefontheight() {
-		this.curGroup.style.truncatefontheight = true;
+		this.curGroup.style.truncateFontHeight = true;
 	}
 	cmd$truncex() {
-		this.curGroup.style.noleadingspace = true;
+		this.curGroup.style.noLeadingSpace = true;
 	}
 	cmd$bdbfhdr() {
-		this.curGroup.style.bodybeforehf = true;
+		this.curGroup.style.bodyBeforeHf = true;
 	}
 	cmd$dntblnsbdb() {
-		this.curGroup.style.nobalancesbdb = true;
+		this.curGroup.style.noBalanceSbdb = true;
 	}
 	cmd$expshrtn() {
-		this.curGroup.style.expandcharspace = true;
+		this.curGroup.style.expandCharSpace = true;
 	}
 	cmd$lytexcttp() {
-		this.curGroup.style.nocenterlhlines = true;
+		this.curGroup.style.noCenterLhLines = true;
 	}
 	cmd$lytprtmet() {
-		this.curGroup.style.useprintermetrics = true;
+		this.curGroup.style.usePrinterMetrics = true;
 	}
 	cmd$msmcap() {
-		this.curGroup.style.macsmallcaps = true;
+		this.curGroup.style.macSmallcaps = true;
 	}
 	cmd$nolead() {
-		this.curGroup.style.noleading = true;
+		this.curGroup.style.noLeading = true;
 	}
 	cmd$nospaceforul() {
-		this.curGroup.style.nounderlinespace = true;
+		this.curGroup.style.noUnderlineSpace = true;
 	}
 	cmd$noultrlspc() {
-		this.curGroup.style.nounderlinetrailing = true;
+		this.curGroup.style.noUnderlineTrailing = true;
 	}
 	cmd$noxlattoyen() {
-		this.curGroup.style.noyentranslate = true;
+		this.curGroup.style.noYenTranslate = true;
 	}
 	cmd$oldlinewrap() {
-		this.curGroup.style.oldlinewrap = true;
+		this.curGroup.style.oldLineWrap = true;
 	}
 	cmd$sprsbsp() {
-		this.curGroup.style.surpressextraspaceb = true;
+		this.curGroup.style.surpressExtraSpaceB = true;
 	}
 	cmd$sprstsm() {
 		//Does literally nothing. Why is it here? We don't know.
 	}
 	cmd$wpjst() {
-		this.curGroup.style.wpjustify = true;
+		this.curGroup.style.wpJustify = true;
 	}
 	cmd$wpsp() {
-		this.curGroup.style.wpspacewidth = true;
+		this.curGroup.style.wpSpaceWidth = true;
 	}
 	cmd$wptb() {
-		this.curGroup.style.wptabadvance = true;
+		this.curGroup.style.wpTabAdvance = true;
 	}
 	cmd$splytwnine() {
-		this.curGroup.style.nolegacyautoshape = true;
+		this.curGroup.style.noLegacyAutoShape = true;
 	}
 	cmd$ftnlytwnine() {
-		this.curGroup.style.nolegacyfootnote = true;
+		this.curGroup.style.noLegacyFootnote = true;
 	}
 	cmd$htmautsp() {
-		this.curGroup.style.htmlautospace = true;
+		this.curGroup.style.htmlAutoSpace = true;
 	}
 	cmd$useltbaln() {
-		this.curGroup.style.noforgetlattab = true;
+		this.curGroup.style.noForgetLatTab = true;
 	}
 	cmd$alntblind() {
-		this.curGroup.style.noindependentrowalign = true;
+		this.curGroup.style.noIndependentRowAlign = true;
 	}
 	cmd$lytcalctblwd() {
-		this.curGroup.style.norawtablewidth = true;
+		this.curGroup.style.noRawTableWidth = true;
 	}
 	cmd$lyttblrtgr() {
-		this.curGroup.style.notablerowapart = true;
+		this.curGroup.style.noTableRowApart = true;
 	}
 	cmd$oldas() {
-		this.curGroup.style.ninetyfiveautospace = true;
+		this.curGroup.style.ninetyFiveAutoSpace = true;
 	}
 	cmd$lnbrkrule() {
-		this.curGroup.style.nolinebreakrule = true;
+		this.curGroup.style.noLineBreakRule = true;
 	}
 	cmd$bdrrlswsix() {
-		this.curGroup.style.uselegacyborderrules = true;
+		this.curGroup.style.useLegacyBorderRules = true;
 	}
 	cmd$nolnhtadjtbl() {
-		this.curGroup.style.noadjusttablelineheight = true;
+		this.curGroup.style.noAdjusttableLineHeight = true;
 	}
 	cmd$ApplyBrkRules() {
-		this.curGroup.style.applybreakrules = true;
+		this.curGroup.style.applyBreakRules = true;
 	}
 	cmd$rempersonalinfo() {
-		this.curGroup.style.removepersonalinfo = true;
+		this.curGroup.style.removePersonalInfo = true;
 	}
 	cmd$remdttm() {
-		this.curGroup.style.removedatetime = true;
+		this.curGroup.style.removeDateTime = true;
 	}
 	cmd$snaptogridincell() {
-		this.curGroup.style.snaptexttogrid = true;
+		this.curGroup.style.snapTextToGrid = true;
 	}
 	cmd$wrppunct() {
-		this.curGroup.style.hangingpunctuation = true;
+		this.curGroup.style.hangingPunctuation = true;
 	}
 	cmd$asianbrkrule() {
-		this.curGroup.style.asianbreakrules = true;
+		this.curGroup.style.asianBreakRules = true;
 	}
 	cmd$nobrkwrptbl() {
-		this.curGroup.style.nobreakwrappedtable = true;
+		this.curGroup.style.noBreakWrappedTable = true;
 	}
 	cmd$toplinepunct() {
-		this.curGroup.style.toplinepunct = true;
+		this.curGroup.style.topLinePunct = true;
 	}
 	cmd$viewnobound() {
-		this.curGroup.style.hidepagebetweenspace = true;
+		this.curGroup.style.hidePageBetweenSpace = true;
 	}
 	cmd$donotshowmarkup() {
-		this.curGroup.style.noshowmarkup = true;
+		this.curGroup.style.noShowMarkup = true;
 	}
 	cmd$donotshowcomments() {
-		this.curGroup.style.noshowcomments = true;
+		this.curGroup.style.noShowComments = true;
 	}
 	cmd$donotshowinsdel() {
-		this.curGroup.style.noshowinsdel = true;
+		this.curGroup.style.noShowInsDel = true;
 	}
 	cmd$donotshowprops() {
-		this.curGroup.style.noshowformatting = true;
+		this.curGroup.style.noShowFormatting = true;
 	}
 	cmd$allowfieldendsel() {
-		this.curGroup.style.fieldendselect = true;
+		this.curGroup.style.fieldEndSelect = true;
 	}
 	cmd$nocompatoptions() {
-		this.curGroup.style.compatabilitydefaults = true;
+		this.curGroup.style.compatabilityDefaults = true;
 	}
 	cmd$nogrowautofit() {
-		this.curGroup.style.notableautofit = true;
+		this.curGroup.style.noTableAutoFit = true;
 	}
 	cmd$newtblstyruls() {
-		this.curGroup.style.newtablestylerules = true;
+		this.curGroup.style.newTableStyleRules = true;
 	}
 	cmd$background() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "docbackground");
+		this.curGroup = new ParameterGroup(this.curGroup.style, "docBackground");
 	}
 	cmd$nouicompat() {
-		this.curGroup.style.nouicompatability = true;
+		this.curGroup.style.noUICompatability = true;
 	}
 	cmd$nofeaturethrottle(val) {
-		this.curGroup.style.nofeaturethrottle = val;
+		this.curGroup.style.noFeatureThrottle = val;
 	}
 	cmd$forceupgrade() {
-		this.curGroup.style.mayupgrade = true;
+		this.curGroup.style.mayUpgrade = true;
 	}
 	cmd$noafcnsttbl() {
-		this.curGroup.style.notableautowrap = true;
+		this.curGroup.style.noTableAutoWrap = true;
 	}
 	cmd$noindnmbrts() {
-		this.curGroup.style.bullethangindent = true;
+		this.curGroup.style.bulletHangIndent = true;
 	}
 	cmd$felnbrelev() {
-		this.curGroup.style.alternatebeginend = true;
+		this.curGroup.style.alternateBeginEnd = true;
 	}
 	cmd$indrlsweleven() {
-		this.curGroup.style.ignorefloatingobjectvector = true;
+		this.curGroup.style.ignoreFloatingObjectVector = true;
 	}
 	cmd$nocxsptable() {
-		this.curGroup.style.notableparspace = true;
+		this.curGroup.style.noTableParSpace = true;
 	}
 	cmd$notcvasp() {
 		this.curGroup.style.notablevectorvertical = true;
 	}
 	cmd$notvatxbx() {
-		this.curGroup.style.notextboxvertical = true;
+		this.curGroup.style.noTextBoxVertical = true;
 	}
 	cmd$spltpgpar() {
-		this.curGroup.style.splitpageparagraph = true;
+		this.curGroup.style.splitPageParagraph = true;
 	}
 	cmd$hwelev() {
-		this.curGroup.style.hangulfixedwidth = true;
+		this.curGroup.style.hangUlFixedWidth = true;
 	}
 	cmd$afelev() {
-		this.curGroup.style.tableautofitmimic = true;
+		this.curGroup.style.tableAutoFitMimic = true;
 	}
 	cmd$cachedcolbal() {
-		this.curGroup.style.cachedcolumnbalance = true;
+		this.curGroup.style.cachedColumnBalance = true;
 	}
 	cmd$utinl() {
-		this.curGroup.style.underlinenumberedpar = true;
+		this.curGroup.style.underlineNumberedPar = true;
 	}
 	cmd$notbrkcnstfrctbl () {
-		this.curGroup.style.notablerowsplit = true;
+		this.curGroup.style.noTableRowSplit = true;
 	}
 	cmd$krnprsnet() {
-		this.curGroup.style.ansikerning = true;
+		this.curGroup.style.ansiKerning = true;
 	}
 	cmd$usexform() {
-		this.curGroup.style.noxsltransform = true;
+		this.curGroup.style.noXSLTransform = true;
 	}
 
 	/*-- Forms --*/
 	cmd$formprot() {
-		this.doc.attributes.protectedforms = true;
+		this.doc.attributes.protectedForms = true;
 	}
 	cmd$allprot() {
-		this.doc.attributes.protectedall = true;
+		this.doc.attributes.protectedAll = true;
 	}
 	cmd$formshade() {
-		this.curGroup.style.formfieldshading = true;
+		this.curGroup.style.formFieldShading = true;
 	}
 	cmd$formdisp() {
-		this.doc.attributes.formboxselected = true;
+		this.doc.attributes.formBoxSelected = true;
 	}
 	cmd$formprot() {
-		this.doc.attributes.printformdata = true;
+		this.doc.attributes.printFormData = true;
 	}
 
 	/*-- Revision Marks --*/
 	cmd$revprot() {
-		this.doc.attributes.protectedrevisions = true;
+		this.doc.attributes.protectedRevisions = true;
 	}
 	cmd$revisions() {
 		this.curGroup.style.revisions = true;
 	}
 	cmd$revprop(val) {
-		this.curGroup.style.revisiontextdisplay = val;
+		this.curGroup.style.revisionTextDisplay = val;
 	}
 	cmd$revbar(val) {
-		this.curGroup.style.revisionlinemarking = val;
+		this.curGroup.style.revisionLineMarking = val;
 	}
 
 	/*-- Write Protection --*/
 	cmd$readprot() {
-		this.doc.attributes.protectedread = true;
+		this.doc.attributes.protectedRead = true;
 	}
 
 	/*-- Comment Protection --*/
 	cmd$annotprot() {
-		this.doc.attributes.protectedcomments = true;
+		this.doc.attributes.protectedComments = true;
 	}
 
 	/*-- Style Protection --*/
 	cmd$stylelock() {
-		this.doc.attributes.stylelock = true;
+		this.doc.attributes.styleLock = true;
 	}
 	cmd$stylelockenforced() {
-		this.doc.attributes.stylelockenforced = true;
+		this.doc.attributes.styleLockEnforced = true;
 	}
 	cmd$stylelockbackcomp() {
-		this.doc.attributes.stylelockcompatability = true;
+		this.doc.attributes.styleLockCompatability = true;
 	}
 	cmd$autofmtoverride() {
-		this.doc.attributes.autoformatlockoverride = true;
+		this.doc.attributes.autoFormatLockOverride = true;
 	}
 
 	/*-- Style and Formatting Properties --*/
 	cmd$enforceprot(val) {
-		this.doc.attributes.enforceprotection = val;
+		this.doc.attributes.enforceProtection = val;
 	}
 	cmd$protlevel(val) {
-		this.doc.attributes.protectionlevel = val;
+		this.doc.attributes.protectionLevel = val;
 	}
 
 	/*-- Tables --*/
 	cmd$tsd(val) {
-		this.curGroup.style.defaulttablestyle = val;
+		this.curGroup.style.defaultTableStyle = val;
 	}
 	
 	/*-- Bidirectional Controls --*/
 	cmd$rtldoc() {
-		this.doc.attributes.paginationdirection = "rtl";
+		this.doc.attributes.paginationDirection = "rtl";
 	}
 	cmd$ltrdoc() {
-		this.doc.attributes.paginationdirection = "ltr";
+		this.doc.attributes.paginationDirection = "ltr";
 	}
 
 	/*-- Click and Type --*/
 	cmd$cts(val) {
-		this.doc.attributes.clickandtype = val;
+		this.doc.attributes.clickAndType = val;
 	}
 
 	/*-- Kinsoku Characters --*/
 	cmd$jsksu() {
-		this.doc.attributes.japanesekinsoku = true;
+		this.doc.attributes.japaneseKinsoku = true;
 	}
 	cmd$ksulang(val) {
-		this.doc.attributes.kinsokulang = val;
+		this.doc.attributes.kinsokuLang = val;
 	}
 	cmd$fchars() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "followingkinsoku");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "followingKinsoku");
 	}
 	cmd$lchars() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "leadingkinsoku");
+		this.curGroup = new ParameterGroup(this.doc.attributes, "leadingKinsoku");
 	}
 	cmd$nojkernpunct() {
-		this.doc.attributes.latinkerningonly = true;
+		this.doc.attributes.latinKerningOnly = true;
 	}
 
 	/*-- Drawing Grid --*/
 	cmd$dghspace(val) {
-		this.curGroup.style.drawgridhorizontalspace = val;
+		this.curGroup.style.drawGridHorizontal = val;
 	}
 	cmd$dgvspace(val) {
-		this.curGroup.style.drawgridverticalspace = val;
+		this.curGroup.style.drawGridVertical= val;
 	}
 	cmd$dghorigin(val) {
-		this.curGroup.style.drawgridhorizontalorigin = val;
+		this.curGroup.style.drawGridHorizontalOrigin = val;
 	}
 	cmd$dgvorigin(val) {
-		this.curGroup.style.drawgridverticalorigin = val;
+		this.curGroup.style.drawGridVerticalOrigin = val;
 	}
 	cmd$dghshow(val) {
-		this.curGroup.style.drawgridhorizontalshow = val;
+		this.curGroup.style.drawGridHorizontalShow = val;
 	}
 	cmd$dgvshow(val) {
-		this.curGroup.style.drawgridverticalshow = val;
+		this.curGroup.style.drawGridVerticalShow = val;
 	}
 	cmd$dgsnap() {
-		this.curGroup.style.drawgridsnap = true;
+		this.curGroup.style.drawGridSnap = true;
 	}
 	cmd$dgmargin() {
-		this.curGroup.style.drawgridmargin = true;
+		this.curGroup.style.drawGridMargin = true;
 	}
 
 	/*-- Page Borders --*/
 	cmd$pgbrdrhead() {
-		this.curGroup.style.pagebordersurroundsheader = true;
+		this.curGroup.style.pageBorderSurroundsHeader = true;
 	}
 	cmd$pgbrdrfoot() {
-		this.curGroup.style.pagebordersurroundsfooter = true;
+		this.curGroup.style.pageBorderSurroundsFooter = true;
 	}
 	cmd$pgbrdrt() {
-		this.curGroup.style.pagebordertop = true;
+		this.curGroup.style.pageBorderTop = true;
 	}
 	cmd$pgbrdrb() {
-		this.curGroup.style.pageborderbottom = true;
+		this.curGroup.style.pageBorderBottom = true;
 	}
 	cmd$pgbrdrl() {
-		this.curGroup.style.pageborderleft = true;
+		this.curGroup.style.pageBorderLeft = true;
 	}
 	cmd$pgbrdrr() {
-		this.curGroup.style.pageborderright = true;
+		this.curGroup.style.pageBorderRight = true;
 	}
 	cmd$brdrart(val) {
-		this.curGroup.style.pageborderart = val;
+		this.curGroup.style.pageBorderArt = val;
 	}
 	cmd$pgbrdropt(val) {
-		this.curGroup.style.pageborderoptions = val;
+		this.curGroup.style.pageBorderOptions = val;
 	}
 	cmd$pgbrdrsnap() {
-		this.curGroup.style.pagebordersnap = true;
+		this.curGroup.style.pageBorderSnap = true;
 	}
 
 	/* Mail Merge */
@@ -1766,52 +1766,52 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new MailMergeTable(this.doc);
 	}
 	cmd$mmlinktoquery() {
-		this.curGroup.attributes.linktoquery = true;
+		this.curGroup.attributes.linkToQuery = true;
 	}
 	cmd$mmdefaultsql() {
-		this.curGroup.attributes.defaultsql = true;
+		this.curGroup.attributes.defaultSQL = true;
 	}
 	cmd$mmconnectstrdata() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstringdata");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectStringData");
 	}
 	cmd$mmconnectstr() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstring");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectString");
 	}
 	cmd$mmquery() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectstringdata");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectStringData");
 	}
 	cmd$mmdatasource() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "datasource");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "dataSource");
 	}
 	cmd$mmheadersource() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "headersource");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "headerSource");
 	}
 	cmd$mmblanklinks() {
-		this.curGroup.attributes.blanklinks = true;
+		this.curGroup.attributes.blankLinks = true;
 	}
 	cmd$mmaddfieldname() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "fieldname");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "fieldName");
 	}
 	cmd$mmmailsubject() {
 		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "subject");
 	}
 	cmd$mmattatch() {
-		this.curGroup.attributes.attatch = true;
+		this.curGroup.attributes.attach = true;
 	}
 	cmd$mmshowdata() {
-		this.curGroup.attributes.showdata = true;
+		this.curGroup.attributes.showData = true;
 	}
 	cmd$mmreccur(val) {
 		this.curGroup.attributes.reccur = val;
 	}
 	cmd$mmerrors(val) {
-		this.curGroup.attributes.errorreporting = val;
+		this.curGroup.attributes.errorReporting = val;
 	}
 	cmd$mmodso() {
 		this.curGroup = new Odso(this.curGroup.parent);
 	}
 	cmd$mmodsoudldata() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udldata");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udlData");
 	}
 	cmd$mmodsoudl() {
 		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udl");
@@ -1835,25 +1835,25 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "name");
 	}
 	cmd$mmodsomappedname() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "mappedname");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "mappedName");
 	}
 	cmd$mmodsofmcolumn(val) {
-		this.curGroup.attributes.columnindex = val;
+		this.curGroup.attributes.columnIndex = val;
 	}
 	cmd$mmodsodynaddr(val) {
-		this.curGroup.attributes.addressorder = val;
+		this.curGroup.attributes.addressOrder = val;
 	}
 	cmd$mmodsosolid(val) {
 		this.curGroup.attributes.language = val;
 	}
 	cmd$mmodsocoldelim(val) {
-		this.curGroup.attributes.columndelimiter = val;
+		this.curGroup.attributes.columnDelimiter = val;
 	}
 	cmd$mmjdsotype(val) {
-		this.curGroup.attributes.datasourcetype = val;
+		this.curGroup.attributes.dataSourceType = val;
 	}
 	cmd$mmodsofhdr(val) {
-		this.curGroup.attributes.firstrowheader = val;
+		this.curGroup.attributes.firstRowHeader = val;
 	}
 	cmd$mmodsorecipdata() {
 		this.curGroup = new OdsoRecip(this.curGroup.parent);
@@ -1868,20 +1868,20 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.column = val;
 	}
 	cmd$mmodsouniquetag() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "uniquetag");
+		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "uniqueTag");
 	}
 
 	cmd$mmfttypenull() {
-		this.curGroup.attributes.datatype = "null";
+		this.curGroup.attributes.dataType = "null";
 	}
 	cmd$mmfttypedbcolumn() {
-		this.curGroup.attributes.datatype = "databasecolumn";
+		this.curGroup.attributes.dataType = "databasecolumn";
 	}
 	cmd$mmfttypeaddress() {
-		this.curGroup.attributes.datatype = "address";
+		this.curGroup.attributes.dataType = "address";
 	}
 	cmd$mmfttypesalutation() {
-		this.curGroup.attributes.datatype = "salutation";
+		this.curGroup.attributes.dataType = "salutation";
 	}
 	cmd$mmfttypemapped() {
 		this.curGroup.attributes.datatype = "mapped";
@@ -1904,41 +1904,41 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$mmmaintypecataloq() {
-		this.curGroup.attributes.sourcetype = "cataloq";
+		this.curGroup.attributes.sourceType = "cataloq";
 	}
 	cmd$mmmaintypeenvelopes() {
-		this.curGroup.attributes.sourcetype = "envelope";
+		this.curGroup.attributes.sourceType = "envelope";
 	}
 	cmd$mmmaintypelabels() {
-		this.curGroup.attributes.sourcetype = "label";
+		this.curGroup.attributes.sourceType = "label";
 	}
 	cmd$mmmaintypeletters() {
-		this.curGroup.attributes.sourcetype = "letter";
+		this.curGroup.attributes.sourceType = "letter";
 	}
 	cmd$mmmaintypeemail() {
-		this.curGroup.attributes.sourcetype = "email";
+		this.curGroup.attributes.sourceType = "email";
 	}
 	cmd$mmmaintypefax() {
-		this.curGroup.attributes.sourcetype = "fax";
+		this.curGroup.attributes.sourceType = "fax";
 	}
 
 	cmd$mmdatatypeaccess() {
-		this.curGroup.attributes.connectiontype = "dde-access";
+		this.curGroup.attributes.connectionType = "dde-access";
 	}
 	cmd$mmdatatypeexcel() {
-		this.curGroup.attributes.connectiontype = "dde-excel";
+		this.curGroup.attributes.connectionType = "dde-excel";
 	}
 	cmd$mmdatatypeqt() {
-		this.curGroup.attributes.connectiontype = "externalquery";
+		this.curGroup.attributes.connectionType = "externalquery";
 	}
 	cmd$mmdatatypeodbc() {
-		this.curGroup.attributes.connectiontype = "odbc";
+		this.curGroup.attributes.connectionType = "odbc";
 	}
 	cmd$mmdatatypeodso() {
-		this.curGroup.attributes.connectiontype = "odso";
+		this.curGroup.attributes.connectionType = "odso";
 	}
 	cmd$mmdatatypefile() {
-		this.curGroup.attributes.connectiontype = "dde-textfile";
+		this.curGroup.attributes.connectionType = "dde-textfile";
 	}
 
 	/* Sections */
@@ -1954,13 +1954,13 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$sectd() {
 		let defSectStyle = {};
-		if (this.doc.style.paperwidth) {defSectStyle.paperwidth = this.doc.style.paperwidth}
-		if (this.doc.style.paperheight) {defSectStyle.paperheight = this.doc.style.paperheight}
-		if (this.doc.style.marginleft) {defSectStyle.marginleft = this.doc.style.marginleft}
-		if (this.doc.style.marginright) {defSectStyle.marginright = this.doc.style.marginright}
-		if (this.doc.style.margintop) {defSectStyle.margintop = this.doc.style.margintop}
-		if (this.doc.style.marginbottom) {defSectStyle.marginbottom = this.doc.style.marginbottom}
-		if (this.doc.style.gutterwidth) {defSectStyle.gutterwidth = this.doc.style.gutterwidth}
+		if (this.doc.style.paperWidth) {defSectStyle.paperWidth = this.doc.style.paperWidth}
+		if (this.doc.style.paperHeight) {defSectStyle.paperHeight = this.doc.style.paperHeight}
+		if (this.doc.style.marginLeft) {defSectStyle.marginLeft = this.doc.style.marginLeft}
+		if (this.doc.style.marginRight) {defSectStyle.marginRight = this.doc.style.marginRight}
+		if (this.doc.style.marginTop) {defSectStyle.marginTop = this.doc.style.marginTop}
+		if (this.doc.style.marginBottom) {defSectStyle.marginBottom = this.doc.style.marginBottom}
+		if (this.doc.style.gutterWidth) {defSectStyle.gutterWidth = this.doc.style.gutterWidth}
 		if (this.curGroup.type === "section") {
 			this.curGroup.style = defSectStyle;
 		} else {
@@ -1969,439 +1969,439 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 	cmd$endnhere() {
-		this.curGroup.attributes.pagesincluded = true;
+		this.curGroup.attributes.pagesIncluded = true;
 	}
 	cmd$binfsxn(val) {
-		this.curGroup.attributes.firstprinterbin = val;
+		this.curGroup.attributes.firstPrinterBin = val;
 	}
 	cmd$binsxn(val) {
-		this.curGroup.attributes.printerbin = val;
+		this.curGroup.attributes.printerBin = val;
 	}
 	cmd$pnseclvl(val) {
-		this.curGroup.style.liststyle = val;
+		this.curGroup.style.listStyle = val;
 	}
 	cmd$sectunlocked() {
 		this.curGroup.attributes.unlocked = true;
 	}
 
 	cmd$sbknone() {
-		this.curGroup.style.sectionbreak = "none";
+		this.curGroup.style.sectionBreak = "none";
 	}
 	cmd$sbkcol() {
-		this.curGroup.style.sectionbreak = "column";
+		this.curGroup.style.sectionBreak = "column";
 	}
 	cmd$sbkpage() {
-		this.curGroup.style.sectionbreak = "page";
+		this.curGroup.style.sectionBreak = "page";
 	}
 	cmd$sbkeven() {
-		this.curGroup.style.sectionbreak = "even";
+		this.curGroup.style.sectionBreak = "even";
 	}
 	cmd$sbkodd() {
-		this.curGroup.style.sectionbreak = "odd";
+		this.curGroup.style.sectionBreak = "odd";
 	}
 
 	cmd$cols(val) {
 		this.curGroup.style.columns = val;
 	}
 	cmd$colsx(val) {
-		this.curGroup.style.columnspace = val;
+		this.curGroup.style.columnSpace = val;
 	}
 	cmd$colno(val) {
-		this.curGroup.style.columnnumber = val;
+		this.curGroup.style.columnNumber = val;
 	}
 	cmd$colsr(val) {
-		this.curGroup.style.columnrightspace = val;
+		this.curGroup.style.columnRightSpace = val;
 	}
 	cmd$colw(val) {
-		this.curGroup.style.columnwidth = val;
+		this.curGroup.style.columnWidth = val;
 	}
 	cmd$linebetcol() {
-		this.curGroup.style.linebetweencolumns = true;
+		this.curGroup.style.lineBetweenColumns = true;
 	}
 
 	cmd$sftntj() {
-		this.curGroup.style.footnotepos = "beneath";
+		this.curGroup.style.footnotePos = "beneath";
 	}
 	cmd$sftnbj() {
-		this.curGroup.style.footnotepos = "bottom";
+		this.curGroup.style.footnotePos = "bottom";
 	}
 	cmd$sftnstart(val) {
-		this.curGroup.style.footnotestart = val;
+		this.curGroup.style.footnoteStart = val;
 	}
 	cmd$pgnnstart(val) {
-		this.curGroup.style.pagestart = val;
+		this.curGroup.style.pageStart = val;
 	}
 	cmd$sftnrstpg() {
-		this.curGroup.style.footnoterestart = "page";
+		this.curGroup.style.footnoteRestart = "page";
 	}
 	cmd$sftnrestart() {
-		this.curGroup.style.footnoterestart = "section";
+		this.curGroup.style.footnoteRestart = "section";
 	}
 	cmd$sftnrstcont() {
-		this.curGroup.style.footnoterestart = "none";
+		this.curGroup.style.footnoteRestart = "none";
 	}
 	cmd$pgnnrstpg() {
-		this.curGroup.style.pagerestart = "page";
+		this.curGroup.style.pageRestart = "page";
 	}
 	cmd$pgnnrestart() {
-		this.curGroup.style.pagerestart = "section";
+		this.curGroup.style.pageRestart = "section";
 	}
 	cmd$pgnnrstcont() {
-		this.curGroup.style.pagerestart = "none";
+		this.curGroup.style.pageRestart = "none";
 	}
 	cmd$sftnnar() {
-		this.curGroup.style.footnotenumbering = "1";
+		this.curGroup.style.footnoteNumbering = "1";
 	}
 	cmd$sftnnalc() {
-		this.curGroup.style.footnotenumbering = "a";
+		this.curGroup.style.footnoteNumbering = "a";
 	}
 	cmd$sftnnauc() {
-		this.curGroup.style.footnotenumbering = "A";
+		this.curGroup.style.footnoteNumbering = "A";
 	}
 	cmd$sftnnrlc() {
-		this.curGroup.style.footnotenumbering = "i";
+		this.curGroup.style.footnoteNumbering = "i";
 	}
 	cmd$sftnnruc() {
-		this.curGroup.style.footnotenumbering = "I";
+		this.curGroup.style.footnoteNumbering = "I";
 	}
 	cmd$sftnnchi() {
-		this.curGroup.style.footnotenumbering = "*";
+		this.curGroup.style.footnoteNumbering = "*";
 	}
 	cmd$sftnnchosung() {
-		this.curGroup.style.footnotenumbering = "CHOSUNG";
+		this.curGroup.style.footnoteNumbering = "CHOSUNG";
 	}
 	cmd$sftnncnum() {
-		this.curGroup.style.footnotenumbering = "CIRCLENUM";
+		this.curGroup.style.footnoteNumbering = "CIRCLENUM";
 	}
 	cmd$sftnndbnum() {
-		this.curGroup.style.footnotenumbering = "DBNUM1";
+		this.curGroup.style.footnoteNumbering = "DBNUM1";
 	}
 	cmd$sftnndbnumd() {
-		this.curGroup.style.footnotenumbering = "DBNUM2";
+		this.curGroup.style.footnoteNumbering = "DBNUM2";
 	}
 	cmd$sftnndbnumt() {
-		this.curGroup.style.footnotenumbering = "DBNUM3";
+		this.curGroup.style.footnoteNumbering = "DBNUM3";
 	}
 	cmd$sftnndbnumk() {
-		this.curGroup.style.footnotenumbering = "DBNUM4";
+		this.curGroup.style.footnoteNumbering = "DBNUM4";
 	}
 	cmd$sftnndbar() {
-		this.curGroup.style.footnotenumbering = "DBCHAR";
+		this.curGroup.style.footnoteNumbering = "DBCHAR";
 	}
 	cmd$sftnnganada() {
-		this.curGroup.style.footnotenumbering = "GANADA";
+		this.curGroup.style.footnoteNumbering = "GANADA";
 	}
 	cmd$sftnngbnum() {
-		this.curGroup.style.footnotenumbering = "GB1";
+		this.curGroup.style.footnoteNumbering = "GB1";
 	}
 	cmd$sftnngbnumd() {
-		this.curGroup.style.footnotenumbering = "GB2";
+		this.curGroup.style.footnoteNumbering = "GB2";
 	}
 	cmd$sftnngbnuml() {
-		this.curGroup.style.footnotenumbering = "GB3";
+		this.curGroup.style.footnoteNumbering = "GB3";
 	}
 	cmd$sftnngbnumk() {
-		this.curGroup.style.footnotenumbering = "GB4";
+		this.curGroup.style.footnoteNumbering = "GB4";
 	}
 	cmd$sftnnzodiac() {
-		this.curGroup.style.footnotenumbering = "ZODIAC1";
+		this.curGroup.style.footnoteNumbering = "ZODIAC1";
 	}
 	cmd$sftnnzodiacd() {
-		this.curGroup.style.footnotenumbering = "ZODIAC2";
+		this.curGroup.style.footnoteNumbering = "ZODIAC2";
 	}
 	cmd$sftnnzodiacl() {
-		this.curGroup.style.footnotenumbering = "ZODIAC3";
+		this.curGroup.style.footnoteNumbering = "ZODIAC3";
 	}
 	cmd$pgnnnar() {
-		this.curGroup.style.pagenumbering = "1";
+		this.curGroup.style.pageNumbering = "1";
 	}
 	cmd$pgnnnalc() {
-		this.curGroup.style.pagenumbering = "a";
+		this.curGroup.style.pageNumbering = "a";
 	}
 	cmd$pgnnnauc() {
-		this.curGroup.style.pagenumbering = "A";
+		this.curGroup.style.pageNumbering = "A";
 	}
 	cmd$pgnnnrlc() {
-		this.curGroup.style.pagenumbering = "i";
+		this.curGroup.style.pageNumbering = "i";
 	}
 	cmd$pgnnnruc() {
-		this.curGroup.style.pagenumbering = "I";
+		this.curGroup.style.pageNumbering = "I";
 	}
 	cmd$pgnnnchi() {
-		this.curGroup.style.pagenumbering = "*";
+		this.curGroup.style.pageNumbering = "*";
 	}
 	cmd$pgnnnchosung() {
-		this.curGroup.style.pagenumbering = "CHOSUNG";
+		this.curGroup.style.pageNumbering = "CHOSUNG";
 	}
 	cmd$pgnnncnum() {
-		this.curGroup.style.pagenumbering = "CIRCLENUM";
+		this.curGroup.style.pageNumbering = "CIRCLENUM";
 	}
 	cmd$pgnnndbnum() {
-		this.curGroup.style.pagenumbering = "DBNUM1";
+		this.curGroup.style.pageNumbering = "DBNUM1";
 	}
 	cmd$pgnnndbnumd() {
-		this.curGroup.style.pagenumbering = "DBNUM2";
+		this.curGroup.style.pageNumbering = "DBNUM2";
 	}
 	cmd$pgnnndbnumt() {
-		this.curGroup.style.pagenumbering = "DBNUM3";
+		this.curGroup.style.pageNumbering = "DBNUM3";
 	}
 	cmd$pgnnndbnumk() {
-		this.curGroup.style.pagenumbering = "DBNUM4";
+		this.curGroup.style.pageNumbering = "DBNUM4";
 	}
 	cmd$pgnnndbar() {
-		this.curGroup.style.pagenumbering = "DBCHAR";
+		this.curGroup.style.pageNumbering = "DBCHAR";
 	}
 	cmd$pgnnnganada() {
-		this.curGroup.style.pagenumbering = "GANADA";
+		this.curGroup.style.pageNumbering = "GANADA";
 	}
 	cmd$pgnnngbnum() {
-		this.curGroup.style.pagenumbering = "GB1";
+		this.curGroup.style.pageNumbering = "GB1";
 	}
 	cmd$pgnnngbnumd() {
-		this.curGroup.style.pagenumbering = "GB2";
+		this.curGroup.style.pageNumbering = "GB2";
 	}
 	cmd$pgnnngbnuml() {
-		this.curGroup.style.pagenumbering = "GB3";
+		this.curGroup.style.pageNumbering = "GB3";
 	}
 	cmd$pgnnngbnumk() {
-		this.curGroup.style.pagenumbering = "GB4";
+		this.curGroup.style.pageNumbering = "GB4";
 	}
 	cmd$pgnnnzodiac() {
-		this.curGroup.style.pagenumbering = "ZODIAC1";
+		this.curGroup.style.pageNumbering = "ZODIAC1";
 	}
 	cmd$pgnnnzodiacd() {
-		this.curGroup.style.pagenumbering = "ZODIAC2";
+		this.curGroup.style.pageNumbering = "ZODIAC2";
 	}
 	cmd$pgnnnzodiacl() {
-		this.curGroup.style.pagenumbering = "ZODIAC3";
+		this.curGroup.style.pageNumbering = "ZODIAC3";
 	}
 
 	cmd$linemod(val) {
-		this.curGroup.style.linemodulus = val;
+		this.curGroup.style.lineModulus = val;
 	}
 	cmd$linex(val) {
-		this.curGroup.style.linedistance = val;
+		this.curGroup.style.lineDistance = val;
 	}
 	cmd$linestarts(val) {
-		this.curGroup.style.linestarts = val;
+		this.curGroup.style.lineStarts = val;
 	}
 	cmd$linerestart() {
-		this.curGroup.style.linerestart = "onlinestarts";
+		this.curGroup.style.lineRestart = "onlinestarts";
 	}
 	cmd$lineppage() {
-		this.curGroup.style.linerestarts = "page";
+		this.curGroup.style.lineRestart = "page";
 	}
 	cmd$lineppage() {
-		this.curGroup.style.linerestarts = "none";
+		this.curGroup.style.lineRestart = "none";
 	}
 
 	cmd$pgwsxn(val) {
-		this.curGroup.style.pagewidth = val;
+		this.curGroup.style.pageWidth = val;
 	}
 	cmd$pghsxn(val) {
-		this.curGroup.style.pageheight = val;
+		this.curGroup.style.pageHeight = val;
 	}
 	cmd$marglsxn(val) {
-		this.curGroup.style.marginleft = val;
+		this.curGroup.style.marginLeft = val;
 	}
 	cmd$margrsxn(val) {
-		this.curGroup.style.marginright = val;
+		this.curGroup.style.marginRight = val;
 	}
 	cmd$margtsxn(val) {
-		this.curGroup.style.margintop = val;
+		this.curGroup.style.marginTop = val;
 	}
 	cmd$margbsxn(val) {
-		this.curGroup.style.marginbottom = val;
+		this.curGroup.style.marginBottom = val;
 	}
 	cmd$guttersxn(val) {
-		this.curGroup.style.gutterwidth = val;
+		this.curGroup.style.gutterWidth = val;
 	}
 	cmd$margmirsxn() {
-		this.curGroup.style.marginswap = true;
+		this.curGroup.style.marginSwap = true;
 	}
 	cmd$lndscpsxn() {
 		this.curGroup.style.landscape = true;
 	}
 	cmd$titlepg() {
-		this.curGroup.style.titlepage = true;
+		this.curGroup.style.titlePage = true;
 	}
 	cmd$headery(val) {
-		this.curGroup.style.headertop = val;
+		this.curGroup.style.headerTop = val;
 	}
 	cmd$footery(val) {
-		this.curGroup.style.footerbottom = val;
+		this.curGroup.style.footerBottom = val;
 	}
 
 	cmd$pgncont() {
-		this.curGroup.style.pagenumberrestart = "none";
+		this.curGroup.style.pageNumberRestart = "none";
 	}
 	cmd$pgnrestart() {
-		this.curGroup.style.pagenumberrestart = "onpagenumber";
+		this.curGroup.style.pageNumberRestart = "onpagenumber";
 	}
 	cmd$pgnx(val) {
-		this.curGroup.style.pagenumberright = val;
+		this.curGroup.style.pageNumberRight = val;
 	}
 	cmd$pgny(val) {
-		this.curGroup.style.pagenumbertop = val;
+		this.curGroup.style.pageNumberTop = val;
 	}
 	cmd$pgndec() {
-		this.curGroup.style.pagenumbering = "DECIMAL";
+		this.curGroup.style.pageNumbering = "DECIMAL";
 	}
 	cmd$pgnucrm() {
-		this.curGroup.style.pagenumbering = "I";
+		this.curGroup.style.pageNumbering = "I";
 	}
 	cmd$pgnlcrm() {
-		this.curGroup.style.pagenumbering = "i";
+		this.curGroup.style.pageNumbering = "i";
 	}
 	cmd$pgnucltr() {
-		this.curGroup.style.pagenumbering = "A";
+		this.curGroup.style.pageNumbering = "A";
 	}
 	cmd$pgnlcltr() {
-		this.curGroup.style.pagenumbering = "a";
+		this.curGroup.style.pageNumbering = "a";
 	}
 	cmd$pgnbidia() {
-		this.curGroup.style.pagenumbering = "BIDIA";
+		this.curGroup.style.pageNumbering = "BIDIA";
 	}
 	cmd$pgnbidib() {
-		this.curGroup.style.pagenumbering = "BIDIB";
+		this.curGroup.style.pageNumbering = "BIDIB";
 	}
 	cmd$pgnchosung() {
-		this.curGroup.style.pagenumbering = "CHOSUNG";
+		this.curGroup.style.pageNumbering = "CHOSUNG";
 	}
 	cmd$pgncnum() {
-		this.curGroup.style.pagenumbering = "CIRCLENUM";
+		this.curGroup.style.pageNumbering = "CIRCLENUM";
 	}
 	cmd$pgndbnum() {
-		this.curGroup.style.pagenumbering = "KANJINODIGIT";
+		this.curGroup.style.pageNumbering = "KANJINODIGIT";
 	}
 	cmd$pgndbnumd() {
-		this.curGroup.style.pagenumbering = "KANJIDIGIT";
+		this.curGroup.style.pageNumbering = "KANJIDIGIT";
 	}
 	cmd$pgndbnumt() {
-		this.curGroup.style.pagenumbering = "DBNUM3";
+		this.curGroup.style.pageNumbering = "DBNUM3";
 	}
 	cmd$pgndbnumk() {
-		this.curGroup.style.pagenumbering = "DBNUM4";
+		this.curGroup.style.pageNumbering = "DBNUM4";
 	}
 	cmd$pgndecd() {
-		this.curGroup.style.pagenumbering = "DOUBLEBYTE";
+		this.curGroup.style.pageNumbering = "DOUBLEBYTE";
 	}
 	cmd$pgnganada() {
-		this.curGroup.style.pagenumbering = "GANADA";
+		this.curGroup.style.pageNumbering = "GANADA";
 	}
 	cmd$pgngbnum() {
-		this.curGroup.style.pagenumbering = "GB1";
+		this.curGroup.style.pageNumbering = "GB1";
 	}
 	cmd$pgngbnumd() {
-		this.curGroup.style.pagenumbering = "GB2";
+		this.curGroup.style.pageNumbering = "GB2";
 	}
 	cmd$pgngbnuml() {
-		this.curGroup.style.pagenumbering = "GB3";
+		this.curGroup.style.pageNumbering = "GB3";
 	}
 	cmd$pgngbnumk() {
-		this.curGroup.style.pagenumbering = "GB4";
+		this.curGroup.style.pageNumbering = "GB4";
 	}
 	cmd$pgnzodiac() {
-		this.curGroup.style.pagenumbering = "ZODIAC1";
+		this.curGroup.style.pageNumbering = "ZODIAC1";
 	}
 	cmd$pgnzodiacd() {
-		this.curGroup.style.pagenumbering = "ZODIAC2";
+		this.curGroup.style.pageNumbering = "ZODIAC2";
 	}
 	cmd$pgnzodiacl() {
-		this.curGroup.style.pagenumbering = "ZODIAC3";
+		this.curGroup.style.pageNumbering = "ZODIAC3";
 	}
 	cmd$pgnhindia() {
-		this.curGroup.style.pagenumbering = "HINDIVOWEL";
+		this.curGroup.style.pageNumbering = "HINDIVOWEL";
 	}	
 	cmd$pgnhindib() {
-		this.curGroup.style.pagenumbering = "HINDICONSONANT";
+		this.curGroup.style.pageNumbering = "HINDICONSONANT";
 	}
 	cmd$pgnhindic() {
-		this.curGroup.style.pagenumbering = "HINDIDIGIT";
+		this.curGroup.style.pageNumbering = "HINDIDIGIT";
 	}
 	cmd$pgnhindid() {
-		this.curGroup.style.pagenumbering = "HINDIDESCRIPTIVE";
+		this.curGroup.style.pageNumbering = "HINDIDESCRIPTIVE";
 	}
 	cmd$pgnthaia() {
-		this.curGroup.style.pagenumbering = "THAILETTER";
+		this.curGroup.style.pageNumbering = "THAILETTER";
 	}
 	cmd$pgnthaib() {
-		this.curGroup.style.pagenumbering = "THAIDIGIT";
+		this.curGroup.style.pageNumbering = "THAIDIGIT";
 	}
 	cmd$pgnthaic() {
-		this.curGroup.style.pagenumbering = "THAIDESCRIPTIVE";
+		this.curGroup.style.pageNumbering = "THAIDESCRIPTIVE";
 	}
 	cmd$pgnvieta() {
-		this.curGroup.style.pagenumbering = "VIETNAMESEDESCRIPTIVE";
+		this.curGroup.style.pageNumbering = "VIETNAMESEDESCRIPTIVE";
 	}
 	cmd$pgnid() {
-		this.curGroup.style.pagenumbering = "KOREANDASH";
+		this.curGroup.style.pageNumbering = "KOREANDASH";
 	}
 	cmd$pgnhn(val) {
-		this.curGroup.style.pagenumberheaderlevel = val;
+		this.curGroup.style.pageNumberHeaderLevel = val;
 	}
 	cmd$pgnhnsh() {
-		this.curGroup.style.pagenumberseparator = "-";
+		this.curGroup.style.pageNumberSeparator = "-";
 	}
 	cmd$pgnhnsp() {
-		this.curGroup.style.pagenumberseparator = ".";
+		this.curGroup.style.pageNumberSeparator = ".";
 	}
 	cmd$pgnhnsc() {
-		this.curGroup.style.pagenumberseparator = ":";
+		this.curGroup.style.pageNumberSeparator = ":";
 	}
 	cmd$pgnhnsm() {
-		this.curGroup.style.pagenumberseparator = "—";
+		this.curGroup.style.pageNumberSeparator = "—";
 	}
 	cmd$pgnhnsn() {
-		this.curGroup.style.pagenumberseparator = "–";
+		this.curGroup.style.pageNumberSeparator = "–";
 	}
 
 	cmd$vertal() {
-		this.curGroup.style.textalign = "bottom"; //Alias for vertalb. Why? Ask Microsoft.
+		this.curGroup.style.textAlign = "bottom"; //Alias for vertalb. Why? Ask Microsoft.
 	}
 	cmd$vertalt() {
-		this.curGroup.style.textalign = "top";
+		this.curGroup.style.textAlign = "top";
 	}
 	cmd$vertalb() {
-		this.curGroup.style.textalign = "bottom";
+		this.curGroup.style.textAlign = "bottom";
 	}
 	cmd$vertalc() {
-		this.curGroup.style.textalign = "center";
+		this.curGroup.style.textAlign = "center";
 	}
 	cmd$vertalj() {
-		this.curGroup.style.textalign = "justified";
+		this.curGroup.style.textAlign = "justified";
 	}
 
 	cmd$srauth(val) {
-		this.curGroup.attributes.revisionauthor = val;
+		this.curGroup.attributes.revisionAuthor = val;
 	}
 	cmd$srdate(val) {
-		this.curGroup.attributes.revisiondate = val;
+		this.curGroup.attributes.revisionDate = val;
 	}
 
 	cmd$rtlsect() {
-		this.curGroup.style.snakecolumns = "rtl";
+		this.curGroup.style.snakeColumns = "rtl";
 	}
 	cmd$ltrsect() {
-		this.curGroup.style.snakecolumns = "ltr";
+		this.curGroup.style.snakeColumns = "ltr";
 	}
 
 	cmd$horzsect() {
-		this.curGroup.style.renderdirection = "horizontal";
+		this.curGroup.style.renderDirection = "horizontal";
 	}
 	cmd$vertsect() {
-		this.curGroup.style.renderdirection = "vertical";
+		this.curGroup.style.renderDirection = "vertical";
 	}
 
 	cmd$stextflow(val) {
-		this.curGroup.style.textflow = val;
+		this.curGroup.style.textFlow = val;
 	}
 
 	cmd$sectexpand(val) {
-		this.curGroup.style.charspacebase = val;
+		this.curGroup.style.charSpaceBase = val;
 	}
 	cmd$sectlinegrid(val) {
-		this.curGroup.style.linegrid = val;
+		this.curGroup.style.lineGrid = val;
 	}
 	cmd$sectdefaultcl() {
 		this.curGroup.style.specify = false;
@@ -2413,7 +2413,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.specify = "both";
 	}
 	cmd$sectspecifygenN() {
-		this.curGroup.style.chargridsnap = true;
+		this.curGroup.style.charGridSnap = true;
 	}
 
 	/* Headers, Footers */
@@ -2424,22 +2424,22 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footer");
 	}
 	cmd$headerl() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerleft");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerLeft");
 	}
 	cmd$headerr() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerright");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerRight");
 	}
 	cmd$headerf() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerfirst");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerFirst");
 	}
 	cmd$footerl() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerleft");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerLeft");
 	}
 	cmd$footerr() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerright");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerRight");
 	}
 	cmd$footerf() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerfirst");
+		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerFirst");
 	}
 
 	/* Paragraphs */
@@ -2448,12 +2448,12 @@ class LargeRTFSubunit extends Writable{
 			let prevStyle = this.curGroup.curstyle;
 			if (prevStyle.contextualspace) {
 				const spacings = [
-				"spacebefore",
-				"spaceafter",
-				"autospacebefore",
-				"autospaceafter",
-				"spacebeforechar",
-				"spaceafterchar",
+				"spaceBefore",
+				"spaceAfter",
+				"autoSpaceBefore",
+				"autoSpaceAfter",
+				"spaceBeforeChar",
+				"spaceAfterChar",
 				];
 				Object.keys(prevStyle).forEach(key => {
 					if (spacings.includes(key)) {
@@ -2489,80 +2489,80 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes = {};
 	}
 	cmd$spv() {
-		this.curGroup.style.styleseparator = true;
+		this.curGroup.style.styleSeparator = true;
 	}
 	cmd$hyphpar(val) {
-		this.curGroup.style.autohyphenate = val !== 0;
+		this.curGroup.style.autoHyphenate = val !== 0;
 	}
 	cmd$intbl() {
-		this.curGroup.attributes.intable = true;
+		this.curGroup.attributes.inTable = true;
 	}
 	cmd$itap(val) {
-		this.curGroup.attributes.nestingdepth = val;
+		this.curGroup.attributes.nestingDepth = val;
 	}
 	cmd$keep() {
 		this.curGroup.style.keep = true;
 	}
 	cmd$keepn() {
-		this.curGroup.style.keepnext = true;
+		this.curGroup.style.keepNext = true;
 	}
 	cmd$level(val) {
-		this.curGroup.style.outlinelevel = val;
+		this.curGroup.style.outlineLevel = val;
 	}
 	cmd$noline() {
-		this.curGroup.style.nolinenumbers = true;
+		this.curGroup.style.noLineNumbers = true;
 	}
 	cmd$nowidctlpar() {
-		this.curGroup.style.widowcontrol = false;
+		this.curGroup.style.widowControl = false;
 	}
 	cmd$outlinelevel(val) {
-		this.curGroup.style.outlinelevel = val;
+		this.curGroup.style.outlineLevel = val; //Don't ask.
 	}
 	cmd$pagebb() {
-		this.curGroup.style.breakbefore = true;
+		this.curGroup.style.breakBefore = true;
 	}
 	cmd$sbys() {
-		this.curGroup.style.sidebyside = true;
+		this.curGroup.style.sideBySide = true;
 	}
 
 	cmd$yts(val) {
-		this.curGroup.style.tablestylehandle = val;
+		this.curGroup.style.tableStyleHandle = val;
 	}
 	cmd$tscfirstrow(val) {
-		this.curGroup.attributes.firstrow = true;
+		this.curGroup.attributes.firstRow = true;
 	}
 	cmd$tsclastrow(val) {
-		this.curGroup.attributes.lastrow = true;
+		this.curGroup.attributes.lastRow = true;
 	}
 	cmd$tscfirstcol(val) {
-		this.curGroup.attributes.firstcolumn = true;
+		this.curGroup.attributes.firstColumn = true;
 	}
 	cmd$tsclastcol(val) {
-		this.curGroup.attributes.lastcolumn = true;
+		this.curGroup.attributes.lastColumn = true;
 	}
 	cmd$tscbandhorzodd(val) {
-		this.curGroup.attributes.roweo = "odd";
+		this.curGroup.attributes.rowEO = "odd";
 	}
 	cmd$tscbandhorzeven(val) {
-		this.curGroup.attributes.roweo = "even";
+		this.curGroup.attributes.rowEO = "even";
 	}
 	cmd$tscbandvertodd(val) {
-		this.curGroup.attributes.columneo = "odd";
+		this.curGroup.attributes.columnEO = "odd";
 	}
 	cmd$tscbandverteven(val) {
-		this.curGroup.attributes.columneo = "even";
+		this.curGroup.attributes.columnEO = "even";
 	}
 	cmd$tscnwcell(val) {
-		this.curGroup.attributes.northwestcell = true;
+		this.curGroup.attributes.northWestCell = true;
 	}
 	cmd$tscnecell(val) {
-		this.curGroup.attributes.northeastcell = true;
+		this.curGroup.attributes.northEastCell = true;
 	}
 	cmd$tscswcell(val) {
-		this.curGroup.attributes.southwestcell = true;
+		this.curGroup.attributes.southWestCell = true;
 	}
 	cmd$tscsecell(val) {
-		this.curGroup.attributes.southeastcell = true;
+		this.curGroup.attributes.southEastCell = true;
 	}
 
 	cmd$qc() {
@@ -2588,81 +2588,81 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$faauto() {
-		this.curGroup.style.fontalignment = "auto";
+		this.curGroup.style.fontAlignment = "auto";
 	}
 	cmd$fahang() {
-		this.curGroup.style.fontalignment = "hanging";
+		this.curGroup.style.fontAlignment = "hanging";
 	}
 	cmd$faroman() {
-		this.curGroup.style.fontalignment = "roman";
+		this.curGroup.style.fontAlignment = "roman";
 	}
 	cmd$favar() {
-		this.curGroup.style.fontalignment = "variable";
+		this.curGroup.style.fontAlignment = "variable";
 	}
 	cmd$fafixed() {
-		this.curGroup.style.fontalignment = "fixed";
+		this.curGroup.style.fontAlignment = "fixed";
 	}
 
 	cmd$fi(val) {
-		this.curGroup.style.firstlineindent = val;
+		this.curGroup.style.firstLineIndent = val;
 	}
 	cmd$cufi(val) {
-		this.curGroup.style.firstlineindentchar = val;
+		this.curGroup.style.firstLineIndentChar = val;
 	}
 	cmd$li(val) {
-		this.curGroup.style.leftindent = val;
+		this.curGroup.style.leftIndent = val;
 	}
 	cmd$lin(val) {
-		this.curGroup.style.leftrightindent = val;
+		this.curGroup.style.leftRightIndent = val;
 	}
 	cmd$culi(val) {
-		this.curGroup.style.leftindentchar = val;
+		this.curGroup.style.leftIndentChar = val;
 	}
 	cmd$ri(val) {
-		this.curGroup.style.rightindent = val;
+		this.curGroup.style.rightIndent = val;
 	}
 	cmd$rin(val) {
-		this.curGroup.style.rightleftindent = val;
+		this.curGroup.style.rightLeftIndent = val;
 	}
 	cmd$curi(val) {
-		this.curGroup.style.rightindentchar = val;
+		this.curGroup.style.rightIndentChar = val;
 	}
 	cmd$adjustright() {
-		this.curGroup.style.adjustrightindent = true;
+		this.curGroup.style.adjustRightIndent = true;
 	}
 	cmd$indmirror() {
-		this.curGroup.style.mirrorindents = true;
+		this.curGroup.style.mirrorIndents = true;
 	}
 
 	cmd$sb(val) {
-		this.curGroup.style.spacebefore = val;
+		this.curGroup.style.spaceBefore = val;
 	}
 	cmd$sa(val) {
-		this.curGroup.style.spaceafter = val;
+		this.curGroup.style.spaceAfter = val;
 	}
 	cmd$sbauto(val) {
-		this.curGroup.style.autospacebefore = val;
+		this.curGroup.style.autoSpaceBefore = val;
 	}
 	cmd$saauto(val) {
-		this.curGroup.style.autospaceafter = val;
+		this.curGroup.style.autoSpaceAfter = val;
 	}
 	cmd$lisb(val) {
-		this.curGroup.style.spacebeforechar = val;
+		this.curGroup.style.spaceBeforeChar = val;
 	}
 	cmd$lisa(val) {
-		this.curGroup.style.spaceafterchar = val;
+		this.curGroup.style.spaceAfterChar = val;
 	}
 	cmd$sl(val) {
-		this.curGroup.style.linespacing = val;
+		this.curGroup.style.lineSpacing = val;
 	}
 	cmd$slmult(val) {
-		this.curGroup.style.linespacingmultiple = val;
+		this.curGroup.style.lineSpacingMultiple = val;
 	}
 	cmd$nosnaplinegrid() {
-		this.curGroup.style.nosnaplinegrid = true;
+		this.curGroup.style.noSnapLineGrid = true;
 	}
 	cmd$contextualspace() {
-		this.curGroup.style.contextualspace = true;
+		this.curGroup.style.contextualSpace = true;
 	}
 
 	cmd$subdocument(val) {
@@ -2670,10 +2670,10 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$prauth(val) {
-		this.curGroup.attributes.revisionauthor = val;
+		this.curGroup.attributes.revisionAuthor = val;
 	}
 	cmd$prdate(val) {
-		this.curGroup.attributes.revisiondate = val;
+		this.curGroup.attributes.revisionDate = val;
 	}
 
 	cmd$rtlpar() {
@@ -2684,19 +2684,19 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$nocwrap() {
-		this.curGroup.style.nocharwrap = true;
+		this.curGroup.style.noCharWrap = true;
 	}
 	cmd$nowwrap() {
-		this.curGroup.style.nowordwrap = true;
+		this.curGroup.style.noWordWrap = true;
 	}
 	cmd$nooverflow() {
-		this.curGroup.style.nooverflow = true;
+		this.curGroup.style.noOverflow = true;
 	}
 	cmd$aspalpha() {
-		this.curGroup.style.dbcengautospace = true;
+		this.curGroup.style.dbcEngAutoSpace = true;
 	}
 	cmd$aspnum() {
-		this.curGroup.style.dbcnumautospace = true;
+		this.curGroup.style.dbcNumAutoSpace = true;
 	}
 
 	cmd$collapsed(val) {
@@ -2707,33 +2707,33 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.textboxwrap = false;
 	}
 	cmd$txbxtwalways() {
-		this.curGroup.style.textboxwrap = "always";
+		this.curGroup.style.textboxWrap = "always";
 	}
 	cmd$txbxtwfirstlast() {
-		this.curGroup.style.textboxwrap = "firstlast";
+		this.curGroup.style.textboxWrap = "firstlast";
 	}
 	cmd$txbxtwfirst() {
-		this.curGroup.style.textboxwrap = "first";
+		this.curGroup.style.textboxWrap = "first";
 	}
 	cmd$txbxtwlast() {
-		this.curGroup.style.textboxwrap = "last";
+		this.curGroup.style.textboxWrap = "last";
 	}
 
 	/* Tabs */
 	cmd$tx(val) {
-		this.curGroup.style.tabposition = val;
+		this.curGroup.style.tabPosition = val;
 	}
 	cmd$tqr() {
-		this.curGroup.style.tabtype = "flushright";
+		this.curGroup.style.tabType = "flushright";
 	}
 	cmd$tqc() {
-		this.curGroup.style.tabtype = "center";
+		this.curGroup.style.tabType = "center";
 	}
 	cmd$tqdec() {
-		this.curGroup.style.tabtype = "decimal";
+		this.curGroup.style.tabType = "decimal";
 	}
 	cmd$tb(val) {
-		this.curGroup.style.bartabposition = val;
+		this.curGroup.style.barTabPosition = val;
 	}
 	cmd$tldot() {
 		this.curGroup.style.leader = "dots";
@@ -2758,13 +2758,7 @@ class LargeRTFSubunit extends Writable{
 
 
 
-	/* Text Direction */
-	cmd$rtlch() {
-		this.curGroup.style.direction = "rtl";
-	}
-	cmd$ltrch() {
-		this.curGroup.style.direction = "ltr";
-	}
+	
 
 
 
@@ -2778,7 +2772,13 @@ class LargeRTFSubunit extends Writable{
 
 
 
-
+	/* Text Direction */
+	cmd$rtlch() {
+		this.curGroup.style.direction = "rtl";
+	}
+	cmd$ltrch() {
+		this.curGroup.style.direction = "ltr";
+	}
 
 
 	/* Character Stylings */
@@ -2811,10 +2811,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.superscript = false;
 	}
 	cmd$cf(val) {
-		this.curGroup.style.foreground = this.doc.tables.colourtable[val - 1];
+		this.curGroup.style.foreground = this.doc.tables.colourTable[val - 1];
 	}
 	cmd$cb(val) {
-		this.curGroup.style.background = this.doc.tables.colourtable[val - 1];
+		this.curGroup.style.background = this.doc.tables.colourTable[val - 1];
 	}
 
 	/* Lists */
@@ -2889,7 +2889,7 @@ class LargeRTFSubunit extends Writable{
 		}	
 	}
 	cmd$fs(val) {
-		this.curGroup.style.fontsize = val;
+		this.curGroup.style.fontSize = val;
 	}
 
 	/* Fields */
@@ -2905,16 +2905,16 @@ class LargeRTFSubunit extends Writable{
 
 	/* Pictures */
 	cmd$shppict() {
-		this.curGroup.type = "shppict";
+		this.curGroup.type = "shpict";
 	}
 	cmd$pict() {
 		this.curGroup = new Picture(this.curGroup.parent);
 	}
 	cmd$nisusfilename() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "nisusfilename");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "nisusFileName");
 	}
 	cmd$nonshppict() {
-		this.curGroup.attributes.nonshppict = false;
+		this.curGroup.attributes.nonShpPict = false;
 	}
 	cmd$emfblip() {
 		this.curGroup.attributes.source = "EMF";
@@ -2930,28 +2930,28 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$pmmetafile(val) {
 		this.curGroup.attributes.source = "OS/2 METAFILE";
-		this.curGroup.attributes.sourcetype = val;
+		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wmetafile(val) {
 		this.curGroup.attributes.source = "WINDOWS METAFILE";
-		this.curGroup.attributes.mappingmode = val;
+		this.curGroup.attributes.mappingMode = val;
 	}
 	cmd$dibitmap(val) {
 		this.curGroup.attributes.source = "WINDOWS DI BITMAP";
-		this.curGroup.attributes.sourcetype = val;
+		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wbitmap(val) {
 		this.curGroup.attributes.source = "WINDOWS DD BITMAP";
-		this.curGroup.attributes.sourcetype = val;
+		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wbmbitspixel(val) {
-		this.curGroup.attributes.bitspixel = val;
+		this.curGroup.attributes.bitsPixel = val;
 	}
 	cmd$wbmplanes(val) {
 		this.curGroup.attributes.planes = val;
 	}
 	cmd$wbmwidthbytes(val) {
-		this.curGroup.attributes.widthbytes = val;
+		this.curGroup.attributes.widthBytes = val;
 	}
 	cmd$picw(val) {
 		this.curGroup.style.width = val;
@@ -2960,31 +2960,31 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.height = val;
 	}
 	cmd$picwgoal(val) {
-		this.curGroup.style.widthgoal = val;
+		this.curGroup.style.widthGoal = val;
 	}
 	cmd$pichgoal(val) {
-		this.curGroup.style.heightgoal = val;
+		this.curGroup.style.heightGoal = val;
 	}
 	cmd$picscalex(val) {
-		this.curGroup.style.scalex = val;
+		this.curGroup.style.scaleX = val;
 	}
 	cmd$picscaley(val) {
-		this.curGroup.style.scaley = val;
+		this.curGroup.style.scaleY = val;
 	}
 	cmd$picscaled() {
-		this.curGroup.style.scaled = true;
+		this.curGroup.style.scaleD = true;
 	}
 	cmd$piccropt(val) {
-		this.curGroup.style.croptop = val;
+		this.curGroup.style.cropTop = val;
 	}
 	cmd$piccropb(val) {
-		this.curGroup.style.cropbottom = val;
+		this.curGroup.style.cropBottom = val;
 	}
 	cmd$piccropl(val) {
-		this.curGroup.style.cropleft = val;
+		this.curGroup.style.cropLeft = val;
 	}
 	cmd$piccropr(val) {
-		this.curGroup.style.cropright = val;
+		this.curGroup.style.cropRight = val;
 	}
 	cmd$picprop(val) {
 		this.curGroup = new ParameterGroup(this.curGroup.parent, "prop");

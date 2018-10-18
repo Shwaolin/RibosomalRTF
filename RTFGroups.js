@@ -73,7 +73,6 @@ class Default extends RTFObj {
 			style: this.curstyle,
 			attributes: this.curattributes
 		}
-		writer = Object.assign(this.curstyle, this.curattributes)
 	}
 }
 
@@ -108,7 +107,7 @@ class ColourTable extends DocTable {
 		this.attributes = {};
 	}
 	dumpContents() {
-		this.doc.tables.colourtable = this.table;
+		this.doc.tables.colourTable = this.table;
 	}
 }
 
@@ -121,11 +120,11 @@ class FontTable extends DocTable {
 	dumpContents() {
 		if (!this.table[0] && this.contents[0]) {
 			this.table.push ({
-				fontname: this.contents[0].replace(";",""),
+				fontName: this.contents[0].replace(";",""),
 				attributes: this.attributes
 			});
 		}
-		this.doc.tables.fonttable = this.table;	
+		this.doc.tables.fontTable = this.table;	
 	}
 }
 
@@ -135,7 +134,7 @@ class Font extends RTFObj{
 	}
 	dumpContents() {
 		this.parent.table.push({
-			fontname: this.contents[0].replace(";",""),
+			fontName: this.contents[0].replace(";",""),
 			attributes: this.curattributes
 		});
 	}
@@ -146,7 +145,7 @@ class FileTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.filetable = this.table;	
+		this.doc.tables.fileTable = this.table;	
 	}
 }
 
@@ -158,7 +157,7 @@ class File extends RTFObj {
 	dumpContents() {
 		this.parent.table.push({
 			attributes: this.attributes,
-			filename: this.contents[0].replace(";","")
+			fileName: this.contents[0].replace(";","")
 		});
 	}
 }
@@ -200,7 +199,7 @@ class StyleRestrictions extends DocTable {
 		}
 		this.doc.tables.styleRestrictions = {
 			attributes: this.attributes,
-			lockedexceptions: this.lockedexceptions
+			lockedExceptions: this.lockedexceptions
 		}
 	}
 }
@@ -210,7 +209,7 @@ class ListTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.listtable = this.table;
+		this.doc.tables.listTable = this.table;
 	}
 }
 
@@ -224,7 +223,7 @@ class List extends RTFObj {
 	dumpContents() {
 		this.attributes.listname = this.listname;
 		this.parent.table.push({
-			templateid: this.templateid,
+			templateID: this.templateid,
 			id: this.id,
 			levels: this.contents,
 			attributes: this.curattributes,
@@ -251,7 +250,7 @@ class ListOverrideTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.listoverridetable = this.table;
+		this.doc.tables.listOverrideTable = this.table;
 	}
 }
 
@@ -275,14 +274,13 @@ class ParagraphGroupTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.paragraphgrouptable = this.table;
+		this.doc.tables.paragraphGroupTable = this.table;
 	}
 }
 
 class ParagraphGroup extends RTFObj {
 	constructor(parent) {
 		super(parent);
-		this.type = "ParagraphGroup";
 	}
 	dumpContents() {
 		this.parent.table.push({
@@ -297,7 +295,7 @@ class RevisionTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.revisiontable = this.table;
+		this.doc.tables.revisionTable = this.table;
 	}
 }
 
@@ -306,7 +304,7 @@ class RSIDTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.rsidtable = this.table;
+		this.doc.tables.rsidTable = this.table;
 	}
 }
 
@@ -316,7 +314,7 @@ class ProtectedUsersTable extends DocTable {
 		this.contents = [];
 	}
 	dumpContents() {
-		this.doc.tables.protecteduserstable = this.contents;
+		this.doc.tables.protectedUsersTable = this.contents;
 	}
 }
 
@@ -329,7 +327,7 @@ class UserProperty extends RTFObj {
 		this.propertylink = false;
 	}
 	dumpContents() {
-		this.doc.attributes.userattributes[this.propertyname] = {
+		this.doc.attributes.userAttributes[this.propertyname] = {
 			type: this.propertytype,
 			value: this.propertyvalue,
 			link: this.propertylink,
@@ -342,7 +340,7 @@ class XMLNamespaceTable extends DocTable {
 		super(doc);
 	}
 	dumpContents() {
-		this.doc.tables.xmlnamespacetable = this.table;
+		this.doc.tables.xmlNamespaceTable = this.table;
 	}
 }
 
@@ -367,9 +365,9 @@ class MailMergeTable extends DocTable {
 		this.mmodrecip = [];
 	}
 	dumpContents() {
-		this.doc.mailmergetable = {
+		this.doc.mailMergeTable = {
 			odso: this.mmodso,
-			recipdata: this.mmodsorecip,
+			recipData: this.mmodsorecip,
 			attributes: this.attributes
 		}
 	}
@@ -383,7 +381,7 @@ class Odso extends DocTable {
 	dumpContents() {
 		this.parent.mmodso.push({
 			attributes: this.attributes,
-			fieldmapdata: this.table
+			fieldMapData: this.table
 		});
 	}
 }
@@ -472,7 +470,7 @@ class DateGroup extends RTFObj {
 			hour: this.hour,
 			minute: this.minute,
 			second: this.second,
-			sinceepoch: epoch
+			sinceEpoch: epoch
 		}
 	}
 }
