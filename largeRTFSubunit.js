@@ -31,6 +31,7 @@ const {
 	Odso,
 	FieldMap,
 	OdsoRecip,
+	ATab,
 	Field, 
 	Fldrslt, 
 	Picture,
@@ -650,7 +651,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$listtable() {
 		this.curGroup = new ListTable(this.doc);
 	}
-
+	/*-- List --*/
 	cmd$list() {
 		this.curGroup = new List(this.curGroup.parent);
 	}
@@ -681,7 +682,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$lvltentative() {
 		this.curGroup.attributes.lvlTentative = true;
 	}
-
+	/*-- List Level --*/
 	cmd$listlevel() {
 		this.curGroup = new ListLevel(this.curGroup.parent);
 	}
@@ -781,7 +782,6 @@ class LargeRTFSubunit extends Writable{
 	cmd$rsid(val) {
 		this.curGroup.table.push(val);
 	}
-
 	cmd$insrsid(val) {
 		this.curGroup.attributes.rsid = val;
 		this.curGroup.attributes.rsidType = "insert";
@@ -875,7 +875,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$hlinkbase() {
 		this.curGroup = new ParameterGroup(this.doc.attributes, "hlinkBase");
 	}
-
+	/*-- User Properties --*/
 	cmd$userprops() {
 		this.curGroup = new NonGroup(this.curGroup.parent);
 	}
@@ -926,7 +926,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$id(val) {
 		this.doc.attributes.id = val;
 	}
-
+	/*-- Dates --*/
 	cmd$yr(val) {
 		this.curGroup.year = val;
 	}
@@ -1009,12 +1009,12 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.doctype = val;
 	}
 	cmd$ilfomacatclnup(val) {
-		this.doc.attributes.ilfomacatclnup = val;
+		this.doc.attributes.incompleteCleanup = val !== 0;
 	}
 	cmd$horzdoc() {
 		this.curGroup.style.rendering = "horizontal";
 	}
-	cmd$horzdoc() {
+	cmd$vertdoc() {
 		this.curGroup.style.rendering = "vertical";
 	}
 	cmd$jcompress() {
@@ -1078,13 +1078,13 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.lockQfSet = true;
 	}
 	cmd$usenormstyforlist(val) {
-		this.curGroup.style.useNormalStyleForList = true;
+		this.curGroup.style.useNormalListStyle = true;
 	}
 	cmd$wgrffmtfilter(val) {
-		this.curGroup.style.wgrfFmtFilter = val;
+		this.curGroup.style.styleFilters = val;
 	}
 	cmd$readonlyrecommended() {
-		this.curGroup.style.readonlyRecommended = true;
+		this.curGroup.style.readOnlyRecommended = true;
 	}
 	cmd$stylesortmethod(val) {
 		this.curGroup.style.styleSortMethod = val;
@@ -1983,7 +1983,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$sectunlocked() {
 		this.curGroup.attributes.unlocked = true;
 	}
-
+	/*-- Section Breaks --*/
 	cmd$sbknone() {
 		this.curGroup.style.sectionBreak = "none";
 	}
@@ -1999,7 +1999,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$sbkodd() {
 		this.curGroup.style.sectionBreak = "odd";
 	}
-
+	/*-- Columns --*/
 	cmd$cols(val) {
 		this.curGroup.style.columns = val;
 	}
@@ -2018,7 +2018,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$linebetcol() {
 		this.curGroup.style.lineBetweenColumns = true;
 	}
-
+	/*-- Footnotes/Endnotes --*/
 	cmd$sftntj() {
 		this.curGroup.style.footnotePos = "beneath";
 	}
@@ -2753,6 +2753,54 @@ class LargeRTFSubunit extends Writable{
 	cmd$tleq() {
 		this.curGroup.style.leader = "equalsign";
 	}
+
+	/* Absolute Position Tabs */
+	cmd$ptablnone() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.leading = false;
+	}
+	cmd$ptabldot() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.leading = ".";
+	}
+	cmd$ptablnone() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.leading = "-";
+	}
+	cmd$ptablnone() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.leading = "_";
+	}
+	cmd$ptablnone() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.leading = "·";
+	}
+	cmd$pmartabql() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "lefttomargin";
+	}
+	cmd$pmartabqc() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "centertomargin";
+	}
+	cmd$pmartabqr() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "righttomargin";
+	}
+	cmd$pindtabql() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "lefttoindent";
+	}
+	cmd$pindtabqc() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "centertoindent";
+	}
+	cmd$pindtabqr() {
+		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
+		this.curGroup.relativeTo = "righttoindent";
+	}
+
+	/* Bullets and Numbering */
 
 
 

@@ -404,6 +404,22 @@ class OdsoRecip extends RTFObj {
 	}
 }
 
+class ATab extends RTFObj {
+	constructor(parent) {
+		super(parent);
+		this.leading = "";
+		this.relativeTo = "";
+		this.type = "atab";
+	}
+	dumpContents() {
+		this.parent.contents.push({
+			leading: this.leading,
+			relativeTo: this.relative,
+			type:this.type
+		});
+	}
+}
+
 class Field extends RTFObj {
 	constructor(parent) {
 		super(parent);
@@ -516,6 +532,7 @@ module.exports = {
 	Odso,
 	FieldMap,
 	OdsoRecip,
+	ATab,
 	Field, 
 	Fldrslt, 
 	Picture,
