@@ -39,6 +39,8 @@ const {
 	NonGroup
 } = require("./RTFGroups.js");
 
+const util = require('util');
+
 const win_1252 = ` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvqxyz{|}~ €�‚ƒ„…†‡ˆ‰Š‹Œ�Ž��‘’“”•–—˜™š›œ�žŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ`
 
 class LargeRTFSubunit extends Writable{
@@ -76,6 +78,7 @@ class LargeRTFSubunit extends Writable{
 		this.textTypes = ["text", "listtext", "field", "fragment"];
 	}
 	followInstruction(instruction) {
+		console.log(instruction);
 		if (this.skip > 0) {
 			this.skip--;
 			return;
@@ -134,12 +137,52 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defCharState;
 	}
 	endGroup() {
-		this.curGroup.dumpContents();
+		//console.log("<DUMP");
+		//console.log("GROUPTYPE: " + this.curGroup.type + ", " + this.curGroup.constructor.name);
+		/*console.log("CONTENTS: ");
+		if (this.curGroup.contents) {
+			this.curGroup.contents.forEach(item => console.log("-" + util.inspect(item)));
+		}*/
+		
+		if (this.curGroup.dumpContents) {
+			this.curGroup.dumpContents();
+			console.log("SUCCESSFUL DUMP");	
+		} else {
+			console.log("NO DUMP");	
+		}
+			
 		if (this.curGroup.parent) {
 			this.curGroup = this.curGroup.parent;
 		} else {
 			this.curGroup = this.doc;
 		}
+		
+		/*console.log("TO: " + this.curGroup.type);
+		let groupparent = true;
+		let group = this.curGroup.parent;
+		while (groupparent && group) {
+			console.log("-" + group.type);
+			if (group.parent) {
+				group = group.parent;
+			} else {
+				groupparent = false;
+			}	
+		}
+		console.log("END DUMP>\n");*/
+	}
+
+	cmd$datastore(val) {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+
+	cmd$pnstart(val) {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+	cmd$pntxta() {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+	cmd$pntxtb() {
+		this.curGroup = new NonGroup(this.curGroup.parent);
 	}
 
 	/* Header */
@@ -202,10 +245,10 @@ class LargeRTFSubunit extends Writable{
 
 	/*Themes */
 	cmd$themedata() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "themeData");
+		this.curGroup = new ParameterGroup(this.doc, "themeData", false, this.curGroup.parent);
 	}
 	cmd$colorschememapping() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "colorSchemeMapping");
+		this.curGroup = new ParameterGroup(this.doc, "colorSchemeMapping", false, this.curGroup.parent);
 	}
 	cmd$flomajor() {
 		this.doc.attributes.fMajor = "ascii";
@@ -239,7 +282,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* File Table */
 	cmd$filetbl() {
-		this.curGroup = new FileTable(this.doc);
+		this.curGroup = new FileTable(this.doc, this.curGroup.parent);
 	}
 	cmd$file() {
 		this.curGroup = new File(this.doc);
@@ -274,7 +317,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Colour Table */
 	cmd$colortbl() {
-		this.curGroup = new ColourTable(this.doc);
+		this.curGroup = new ColourTable(this.doc, this.curGroup.parent);
 	}
 	cmd$red(val) {
 		this.curGroup.red = val
@@ -350,7 +393,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Stylesheet */
 	cmd$stylesheet() {
-		this.curGroup = new Stylesheet(this.doc);
+		this.curGroup = new Stylesheet(this.doc, this.curGroup.parent);
 	}
 	cmd$tsrowd() {
 		this.curGroup.attributes.tsRowd = true;
@@ -523,39 +566,39 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.shadingPattern = "darkvertical";
 	}
 	cmd$tsbrdrt() {
-		theis.curGroup.style.cellBorder = "top";
+		this.curGroup.style.cellBorder = "top";
 	}
 	cmd$tsbrdrb() {
-		theis.curGroup.style.cellBorder = "bottom";
+		this.curGroup.style.cellBorder = "bottom";
 	}
 	cmd$tsbrdrl() {
-		theis.curGroup.style.cellBorder = "left";
+		this.curGroup.style.cellBorder = "left";
 	}
 	cmd$tsbrdrr() {
-		theis.curGroup.style.cellBorder = "right";
+		this.curGroup.style.cellBorder = "right";
 	}
 	cmd$tsbrdrh() {
-		theis.curGroup.style.cellBorder = "horizontal";
+		this.curGroup.style.cellBorder = "horizontal";
 	}
 	cmd$tsbrdrv() {
-		theis.curGroup.style.cellBorder = "vertical";
+		this.curGroup.style.cellBorder = "vertical";
 	}
 	cmd$tsbrdrdgl() {
-		theis.curGroup.style.cellBorder = "diagonalullr";
+		this.curGroup.style.cellBorder = "diagonalullr";
 	}
 	cmd$tsbrdrdgr() {
-		theis.curGroup.style.cellBorder = "diagonalllur";
+		this.curGroup.style.cellBorder = "diagonalllur";
 	}
 	cmd$tscbandsh(val) {
-		theis.curGroup.style.rowBandCount = val;
+		this.curGroup.style.rowBandCount = val;
 	}
 	cmd$tscbandsv(val) {
-		theis.curGroup.style.cellBandCount = val;
+		this.curGroup.style.cellBandCount = val;
 	}
 
 	/* Style Restrictions */
 	cmd$latentstyles() {
-		this.curGroup = new StyleRestrictions(this.doc);
+		this.curGroup = new StyleRestrictions(this.doc, this.curGroup.parent);
 	}
 	cmd$lsdstimax(val) {
 		this.curGroup.attributes.dstiMax = val;
@@ -596,7 +639,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Font Table */
 	cmd$fonttbl() {
-		this.curGroup = new FontTable(this.doc);
+		this.curGroup = new FontTable(this.doc, this.curGroup.parent);
 	}
 	cmd$fcharset(val) {
 		this.curGroup.attributes.charset = val;
@@ -649,7 +692,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* List Table */
 	cmd$listtable() {
-		this.curGroup = new ListTable(this.doc);
+		this.curGroup = new ListTable(this.doc, this.curGroup.parent);
 	}
 	/*-- List --*/
 	cmd$list() {
@@ -734,7 +777,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* List Override Table */
 	cmd$listoverridetable() {
-		this.curGroup = new ListOverrideTable(this.doc);
+		this.curGroup = new ListOverrideTable(this.doc, this.curGroup.parent);
 	}
 	cmd$listoverride() {
 		this.curGroup = new ListOverride(this.curGroup.parent);
@@ -761,10 +804,10 @@ class LargeRTFSubunit extends Writable{
 
 	/* Paragraph Group Properties */
 	cmd$pgptbl() {
-		this.curGroup = new ParagraphGroupTable(this.doc);
+		this.curGroup = new ParagraphGroupTable(this.doc, this.curGroup.parent);
 	}
 	cmd$pgp() {
-		this.curGroup = new ParagraphGroup(this.curGroup.parent);
+		this.curGroup = new ParagraphGroup(this.curGroup.parent, this.curGroup.parent);
 	}
 	cmd$ipgp(val) {
 		this.curGroup.attributes.id = val;
@@ -772,12 +815,12 @@ class LargeRTFSubunit extends Writable{
 
 	/* Revision Marks */
 	cmd$revtbl() {
-		this.curGroup = new RevisionTable(this.doc);
+		this.curGroup = new RevisionTable(this.doc, this.curGroup.parent);
 	}
 
 	/* RSID */
 	cmd$rsidtbl() {
-		this.curGroup = new RSIDTable(this.doc);
+		this.curGroup = new RSIDTable(this.doc, this.curGroup.parent);
 	}
 	cmd$rsid(val) {
 		this.curGroup.table.push(val);
@@ -827,12 +870,12 @@ class LargeRTFSubunit extends Writable{
 
 	/* User Protection Information */
 	cmd$protusertbl() {
-		this.curGroup = new ProtectedUsersTable(this.doc);
+		this.curGroup = new ProtectedUsersTable(this.doc, this.curGroup.parent);
 	}
 
 	/* Generator */
 	cmd$generator() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "generator");
+		this.curGroup = new ParameterGroup(this.doc, "generator", "attributes");
 	}
 
 	/* Information */
@@ -840,40 +883,40 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new NonGroup(this.curGroup.parent);
 	}
 	cmd$title() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "title");
+		this.curGroup = new ParameterGroup(this.doc, "title", "attributes");
 	}
 	cmd$subject() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "subject");
+		this.curGroup = new ParameterGroup(this.doc, "subject", "attributes");
 	}
 	cmd$author() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "author");
+		this.curGroup = new ParameterGroup(this.doc, "author", "attributes");
 	}
 	cmd$manager() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "manager");
+		this.curGroup = new ParameterGroup(this.doc, "manager", "attributes");
 	}
 	cmd$company() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "company");
+		this.curGroup = new ParameterGroup(this.doc, "company", "attributes");
 	}
 	cmd$operator() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "operator");
+		this.curGroup = new ParameterGroup(this.doc, "operator", "attributes");
 	}
 	cmd$category() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "category");
+		this.curGroup = new ParameterGroup(this.doc, "category", "attributes");
 	}
 	cmd$keywords() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "keywords");
+		this.curGroup = new ParameterGroup(this.doc, "keywords", "attributes");
 	}
 	cmd$comment() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "comment");
+		this.curGroup = new ParameterGroup(this.doc, "comment", "attributes");
 	}
 	cmd$version(val) {
 		this.doc.attributes.version = val;
 	}
 	cmd$title() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "docComment");
+		this.curGroup = new ParameterGroup(this.doc, "docComment", "attributes");
 	}
 	cmd$hlinkbase() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "hlinkBase");
+		this.curGroup = new ParameterGroup(this.doc, "hlinkBase", "attributes");
 	}
 	/*-- User Properties --*/
 	cmd$userprops() {
@@ -897,16 +940,16 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.initialVersion = val;
 	}
 	cmd$creatim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "createTime");
+		this.curGroup = new DateGroup(this.doc, "createTime", "attributes");
 	}
 	cmd$revtim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "revisionTime");
+		this.curGroup = new DateGroup(this.doc, "revisionTime", "attributes");
 	}
 	cmd$printtim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "lastPrintTime");
+		this.curGroup = new DateGroup(this.doc, "lastPrintTime", "attributes");
 	}
 	cmd$buptim() {
-		this.curGroup = new DateGroup(this.doc.attributes, "backupTime");
+		this.curGroup = new DateGroup(this.doc, "backupTime", "attributes");
 	}
 	cmd$edmins(val) {
 		this.doc.attributes.editingMinutes = val;
@@ -948,12 +991,12 @@ class LargeRTFSubunit extends Writable{
 
 	/* Read-Only Password Protection */
 	cmd$passwordhash() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "passwordHash");
+		this.curGroup = new ParameterGroup(this.doc, "passwordHash", "attributes");
 	}
 
 	/* XML Namespace Table */
 	cmd$xmlnstbl() {
-		this.curGroup = new XMLNamespaceTable(this.doc);
+		this.curGroup = new XMLNamespaceTable(this.doc, this.curGroup.parent);
 	}
 	cmd$xmlns(val) {
 		this.curGroup = new XMLNamespace(this.curGroup.parent, val);
@@ -982,10 +1025,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.fractionalWidths = true;
 	}
 	cmd$nextfile() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "nextFile");
+		this.curGroup = new ParameterGroup(this.doc, "nextFile", "attributes");
 	}
 	cmd$template() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "template");
+		this.curGroup = new ParameterGroup(this.curGroup, "template", "style");
 	}
 	cmd$makebackup() {
 		this.doc.attributes.makeBackup = true;
@@ -1003,7 +1046,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.boilerplate = true;
 	}
 	cmd$windowcaption() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "caption");
+		this.curGroup = new ParameterGroup(this.doc, "caption", "attributes");
 	}
 	cmd$doctype(val) {
 		this.doc.attributes.doctype = val;
@@ -1045,7 +1088,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.validateXML = val;
 	}
 	cmd$xform() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "xForm");
+		this.curGroup = new ParameterGroup(this.doc, "xForm", "attributes");
 	}
 	cmd$donotembedsysfont(val) {
 		this.doc.attributes.doNotEmbedSysFont = val;
@@ -1081,7 +1124,11 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.useNormalListStyle = true;
 	}
 	cmd$wgrffmtfilter(val) {
-		this.curGroup.style.styleFilters = val;
+		if (val) {
+			this.curGroup.style.styleFilters = val;
+		} else {
+			this.curGroup = new ParameterGroup(this.doc, "styleFilters", "style");
+		}	
 	}
 	cmd$readonlyrecommended() {
 		this.curGroup.style.readOnlyRecommended = true;
@@ -1090,10 +1137,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.styleSortMethod = val;
 	}
 	cmd$writereservhash() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "reserveHash");
+		this.curGroup = new ParameterGroup(this.doc, "reserveHash", "attributes");
 	}
 	cmd$writereservation() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "reservation");
+		this.curGroup = new ParameterGroup(this.doc, "reservation", "attributes");
 	}
 	cmd$saveprevpict() {
 		this.doc.attributes.savePrevPict = true;
@@ -1116,22 +1163,22 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.fet = val;
 	}
 	cmd$ftnsep() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnoteSep");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footnoteSep", "style");
 	}
 	cmd$ftnsepc() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnotesEpc");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footnotesEpc", "style");
 	}
 	cmd$ftncn() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "footnoteNotice");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footnoteNotice", "style");
 	}
 	cmd$aftnsep() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pageSep");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "pageSep", "style");
 	}
 	cmd$aftnsepc() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pageSepc");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "pageSepc", "style");
 	}
 	cmd$aftncn() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "pageNotice");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "pageNotice", "style");
 	}
 	cmd$pages() {
 		this.doc.attributes.footnoteposition = "pages";
@@ -1345,7 +1392,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$landscape() {
 		this.curGroup.style.landscape = true;
 	}
-	cmd$pgnstart(val) {
+	cmd$pgnstarts(val) {
 		this.curGroup.style.pageNumberStart = val;
 	}
 	cmd$widowctrl() {
@@ -1551,7 +1598,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.newTableStyleRules = true;
 	}
 	cmd$background() {
-		this.curGroup = new ParameterGroup(this.curGroup.style, "docBackground");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "docBackground", "style");
 	}
 	cmd$nouicompat() {
 		this.curGroup.style.noUICompatability = true;
@@ -1697,10 +1744,10 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.kinsokuLang = val;
 	}
 	cmd$fchars() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "followingKinsoku");
+		this.curGroup = new ParameterGroup(this.doc, "followingKinsoku", "attributes");
 	}
 	cmd$lchars() {
-		this.curGroup = new ParameterGroup(this.doc.attributes, "leadingKinsoku");
+		this.curGroup = new ParameterGroup(this.doc, "leadingKinsoku", "attributes");
 	}
 	cmd$nojkernpunct() {
 		this.doc.attributes.latinKerningOnly = true;
@@ -1763,7 +1810,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Mail Merge */
 	cmd$mailmerge() {
-		this.curGroup = new MailMergeTable(this.doc);
+		this.curGroup = new MailMergeTable(this.doc, this.curGroup.parent);
 	}
 	cmd$mmlinktoquery() {
 		this.curGroup.attributes.linkToQuery = true;
@@ -1772,28 +1819,28 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.defaultSQL = true;
 	}
 	cmd$mmconnectstrdata() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectStringData");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "connectStringData", "attributes");
 	}
 	cmd$mmconnectstr() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectString");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "connectString", "attributes");
 	}
 	cmd$mmquery() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "connectStringData");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "connectStringData", "attributes");
 	}
 	cmd$mmdatasource() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "dataSource");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "dataSource", "attributes");
 	}
 	cmd$mmheadersource() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "headerSource");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "headerSource", "attributes");
 	}
 	cmd$mmblanklinks() {
 		this.curGroup.attributes.blankLinks = true;
 	}
 	cmd$mmaddfieldname() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "fieldName");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "fieldName", "attributes");
 	}
 	cmd$mmmailsubject() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "subject");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "subject", "attributes");
 	}
 	cmd$mmattatch() {
 		this.curGroup.attributes.attach = true;
@@ -1811,31 +1858,31 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new Odso(this.curGroup.parent);
 	}
 	cmd$mmodsoudldata() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udlData");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "udlData", "attributes");
 	}
 	cmd$mmodsoudl() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "udl");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "udl", "attributes");
 	}
 	cmd$mmodsotable() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "table");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "table", "attributes");
 	}
 	cmd$mmodsosrc() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "source");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "source", "attributes");
 	}
 	cmd$mmodsofilter() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "filter");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "filter", "attributes");
 	}
 	cmd$mmodsosort() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "sort");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "sort", "attributes");
 	}
 	cmd$mmodsofldmpdata() {
 		this.curGroup = new FieldMap(this.curGroup.parent);
 	}
 	cmd$mmodsoname() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "name");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "name", "attributes");
 	}
 	cmd$mmodsomappedname() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "mappedName");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "mappedName", "attributes");
 	}
 	cmd$mmodsofmcolumn(val) {
 		this.curGroup.attributes.columnIndex = val;
@@ -1868,7 +1915,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.column = val;
 	}
 	cmd$mmodsouniquetag() {
-		this.curGroup = new ParameterGroup(this.curgroup.parent.attributes, "uniqueTag");
+		this.curGroup = new ParameterGroup(this.curgroup.parent, "uniqueTag", "attributes");
 	}
 
 	cmd$mmfttypenull() {
@@ -2418,32 +2465,33 @@ class LargeRTFSubunit extends Writable{
 
 	/* Headers, Footers */
 	cmd$header() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "header");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "header", "style");
 	}
 	cmd$footer() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footer");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footer", "style");
 	}
 	cmd$headerl() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerLeft");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "headerLeft", "style");
 	}
 	cmd$headerr() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerRight");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "headerRight", "style");
 	}
 	cmd$headerf() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "headerFirst");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "headerFirst", "style");
 	}
 	cmd$footerl() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerLeft");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footerLeft", "style");
 	}
 	cmd$footerr() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerRight");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footerRight", "style");
 	}
 	cmd$footerf() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent.style, "footerFirst");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "footerFirst", "style");
 	}
 
 	/* Paragraphs */
 	cmd$par() {
+
 		if (this.paraTypes.includes(this.curGroup.type)) {
 			let prevStyle = this.curGroup.curstyle;
 			if (prevStyle.contextualspace) {

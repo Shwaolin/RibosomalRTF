@@ -50,16 +50,26 @@ class RTFGroup extends RTFObj {
 }
 
 class ParameterGroup extends RTFObj {
-	constructor (destination, parameter) {
-		super(destination);
+	constructor (destination, parameter, address = false, parent = destination) {
+		super(parent);
+		this.destination = destination
 		this.param = parameter;
+		this.address = address;
+		this.parent = parent;
 	}
 	dumpContents() {
+		console.log("PARAMETER: " + this.param);
+		console.log("DESTINATION: " + this.destination.type);
 		if (this.contents[1] && this.contents.every(entry => typeof entry === "string")) {
 			this.contents = this.contents.join("");
 		}
 		if (this.contents[0]) {
-			this.parent[this.param] = this.contents[0].replace(/["]/g,"");
+			if (!this.address) {
+				this.destination[this.param] = this.contents[0].replace(/["]/g,"");
+			} else {
+				this.destination[this.address][this.param] = this.contents[0].replace(/["]/g,"");
+			}
+			
 		}		
 	}
 }
@@ -67,9 +77,11 @@ class ParameterGroup extends RTFObj {
 class Default extends RTFObj {
 	constructor(parent, writer, styletype) {
 		super(parent);
+		this.styletype = styletype;
 	}
 	dumpContents() {
-		this.parent.tables.defaults[styletype] = {
+		this.parent.tables.defaults = {};
+		this.parent.tables.defaults[this.styletype] = {
 			style: this.curstyle,
 			attributes: this.curattributes
 		}
@@ -77,15 +89,16 @@ class Default extends RTFObj {
 }
 
 class DocTable {
-	constructor(doc) {
+	constructor(doc, parent) {
 		this.doc = doc;
+		this.parent = parent;
 		this.table = [];
 	}
 }
 
 class ColourTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.listType = true;
 		this.red = null;
 		this.blue = null;
@@ -112,8 +125,8 @@ class ColourTable extends DocTable {
 }
 
 class FontTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.attributes = {};
 		this.contents = [];
 	}
@@ -141,8 +154,8 @@ class Font extends RTFObj{
 }
 
 class FileTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.fileTable = this.table;	
@@ -163,8 +176,8 @@ class File extends RTFObj {
 }
 
 class Stylesheet extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.sheet = {};
 		this.contents = [];
 	}
@@ -188,8 +201,8 @@ class Style extends RTFObj {
 }
 
 class StyleRestrictions extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.attributes = {};
 		this.lockedexceptions = "";
 	}
@@ -205,8 +218,8 @@ class StyleRestrictions extends DocTable {
 }
 
 class ListTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.listTable = this.table;
@@ -246,8 +259,8 @@ class ListLevel extends RTFObj{
 }
 
 class ListOverrideTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.listOverrideTable = this.table;
@@ -270,8 +283,8 @@ class ListOverride extends RTFObj {
 }
 
 class ParagraphGroupTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.paragraphGroupTable = this.table;
@@ -291,8 +304,8 @@ class ParagraphGroup extends RTFObj {
 }
 
 class RevisionTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.revisionTable = this.table;
@@ -300,8 +313,8 @@ class RevisionTable extends DocTable {
 }
 
 class RSIDTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.rsidTable = this.table;
@@ -309,8 +322,8 @@ class RSIDTable extends DocTable {
 }
 
 class ProtectedUsersTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.contents = [];
 	}
 	dumpContents() {
@@ -336,8 +349,8 @@ class UserProperty extends RTFObj {
 }
 
 class XMLNamespaceTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 	}
 	dumpContents() {
 		this.doc.tables.xmlNamespaceTable = this.table;
@@ -358,8 +371,8 @@ class XMLNamespace extends RTFObj {
 }
 
 class MailMergeTable extends DocTable {
-	constructor(doc) {
-		super(doc);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.attributes = {};
 		this.mmodso = [];
 		this.mmodrecip = [];
@@ -374,8 +387,8 @@ class MailMergeTable extends DocTable {
 }
 
 class Odso extends DocTable {
-	constructor(parent) {
-		super(parent);
+	constructor(doc, parent) {
+		super(doc, parent);
 		this.attributes = {};
 	}
 	dumpContents() {
