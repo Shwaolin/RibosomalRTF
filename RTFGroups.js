@@ -52,7 +52,7 @@ class RTFGroup extends RTFObj {
 class ParameterGroup extends RTFObj {
 	constructor (destination, parameter, address = false, parent = destination) {
 		super(parent);
-		this.destination = destination
+		this.destination = destination;
 		this.param = parameter;
 		this.address = address;
 		this.parent = parent;

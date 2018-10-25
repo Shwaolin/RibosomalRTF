@@ -72,6 +72,8 @@ class LargeRTFSubunit extends Writable{
 			alignment:"left",
 			direction: 'ltr'
 		}
+		this.lastPar = {style:this.defParState, attributes:{}};
+		this.lastSect = {style:{}, attributes:{}};
 		this.doc = {};
 		this.curGroup = {};
 		this.paraTypes = ["paragraph", "listitem"];
@@ -93,6 +95,7 @@ class LargeRTFSubunit extends Writable{
 				} else {
 					this.newGroup("fragment");
 					this.curGroup.contents.push(instruction.value);
+					this.endGroup();
 				}
 				break;
 			case "groupStart":
@@ -111,9 +114,8 @@ class LargeRTFSubunit extends Writable{
 				if (this.curGroup.type === "fragment") {this.endGroup();}
 				break;
 			case "documentStart":
-				this.newGroup("span");
-				this.curGroup = new RTFDoc;
-				this.doc = this.curGroup;
+				this.doc = new RTFDoc;
+				this.curGroup = this.doc;
 				break;
 			case "documentEnd":
 				while (this.curGroup !== this.doc) {this.endGroup();}
@@ -154,6 +156,14 @@ class LargeRTFSubunit extends Writable{
 			console.log("SUCCESSFUL DUMP");	
 		} else {
 			console.log("NO DUMP");	
+		}
+
+		if (this.curGroup.type === "paragraph") {
+			this.lastPar.style = this.curGroup.style;
+			this.lastPar.attributes = this.curGroup.attributes;
+		} else if (this.curGroup.type === "section") {
+			this.lastSect.style = this.curGroup.style;
+			this.lastSect.attributes = this.curGroup.attributes;
 		}
 			
 		if (this.curGroup.parent) {
@@ -656,13 +666,13 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.bias = val;
 	}
 	cmd$falt() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "alternate");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "alternate", "attributes");
 	}
 	cmd$panose() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "panose");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "panose", "attributes");
 	}
 	cmd$fname() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "taggedName");
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "taggedName", "attributes");
 	}
 	cmd$fnil() {
 		this.curGroup.attributes.family = "nil";
@@ -1996,13 +2006,11 @@ class LargeRTFSubunit extends Writable{
 	/* Sections */
 	cmd$sect() {
 		if (this.curGroup.type === "section") {
-			const prevStyle = this.curGroup.curstyle;
 			this.endGroup();
-			this.newGroup("section");
-			this.curGroup.style = prevStyle;
-		} else {
-			this.newGroup("section");
-		}	
+		}
+		this.newGroup("section");
+		this.curGroup.style = this.lastSect.style;
+		this.curGroup.attributes = this.lastSect.attributes;
 	}
 	cmd$sectd() {
 		let defSectStyle = {};
@@ -2495,33 +2503,27 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Paragraphs */
-	cmd$par() {
-
-		if (this.paraTypes.includes(this.curGroup.type)) {
-			let prevStyle = this.curGroup.curstyle;
-			if (prevStyle.contextualspace) {
-				const spacings = [
-				"spaceBefore",
-				"spaceAfter",
-				"autoSpaceBefore",
-				"autoSpaceAfter",
-				"spaceBeforeChar",
-				"spaceAfterChar",
-				];
-				Object.keys(prevStyle).forEach(key => {
-					if (spacings.includes(key)) {
-						prevStyle[key] = false;
-					}	
-				});
-			}
-			const prevAtt = this.curGroup.curattributes;
-			this.endGroup();
-			this.newGroup("paragraph");
-			this.curGroup.style = prevStyle;
-			this.curGroup.attributes = prevAtt;
-		} else {
-			this.newGroup("paragraph");
-		}	
+	cmd$par() {	
+		while(this.curGroup.type !== "document" && this.curGroup.type !== "section" ) {this.endGroup();}
+		this.newGroup("paragraph");
+		if (this.lastPar.style.contextualspace) {
+			const spacings = [
+			"spaceBefore",
+			"spaceAfter",
+			"autoSpaceBefore",
+			"autoSpaceAfter",
+			"spaceBeforeChar",
+			"spaceAfterChar",
+			];
+			Object.keys(this.lastPar.style).forEach(key => {
+				if (spacings.includes(key)) {
+					this.lastPar.style[key] = false;
+				}	
+			});
+		}
+		this.curGroup.style = this.lastPar.style;
+		this.curGroup.attributes = this.lastPar.style;
+			
 	}
 	cmd$pard() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
