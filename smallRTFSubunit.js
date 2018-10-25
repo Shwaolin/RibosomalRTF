@@ -20,6 +20,7 @@ class SmallRTFSubunit extends Writable {
 		this.curChar = "";
 		this.output = new Readable({read() {}});
 		this.operation = this.parseText;
+		this.docGroup = false;
 	}
 	parseText(char) {
 		switch(char) {
@@ -28,7 +29,12 @@ class SmallRTFSubunit extends Writable {
 				break;
 			case "{": 
 				this.setInstruction();
-				this.setInstruction({type:"groupStart"});
+				if (this.docGroup) {
+					this.setInstruction({type:"groupStart"});
+				} else {
+					this.setInstruction({type:"documentStart"});
+					this.docGroup = true;
+				}
 				break;
 			case "}": 
 				this.setInstruction();

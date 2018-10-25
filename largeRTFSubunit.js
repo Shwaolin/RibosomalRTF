@@ -72,8 +72,8 @@ class LargeRTFSubunit extends Writable{
 			alignment:"left",
 			direction: 'ltr'
 		}
-		this.doc = new RTFDoc;
-		this.curGroup = this.doc;
+		this.doc = {};
+		this.curGroup = {};
 		this.paraTypes = ["paragraph", "listitem"];
 		this.textTypes = ["text", "listtext", "field", "fragment"];
 	}
@@ -109,6 +109,11 @@ class LargeRTFSubunit extends Writable{
 				break;
 			case "break":
 				if (this.curGroup.type === "fragment") {this.endGroup();}
+				break;
+			case "documentStart":
+				this.newGroup("span");
+				this.curGroup = new RTFDoc;
+				this.doc = this.curGroup;
 				break;
 			case "documentEnd":
 				while (this.curGroup !== this.doc) {this.endGroup();}
