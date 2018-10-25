@@ -80,7 +80,6 @@ class LargeRTFSubunit extends Writable{
 		this.textTypes = ["text", "listtext", "field", "fragment"];
 	}
 	followInstruction(instruction) {
-		console.log(instruction);
 		if (this.skip > 0) {
 			this.skip--;
 			return;
@@ -143,20 +142,8 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new RTFGroup(this.curGroup, type);
 		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defCharState;
 	}
-	endGroup() {
-		//console.log("<DUMP");
-		//console.log("GROUPTYPE: " + this.curGroup.type + ", " + this.curGroup.constructor.name);
-		/*console.log("CONTENTS: ");
-		if (this.curGroup.contents) {
-			this.curGroup.contents.forEach(item => console.log("-" + util.inspect(item)));
-		}*/
-		
-		if (this.curGroup.dumpContents) {
-			this.curGroup.dumpContents();
-			console.log("SUCCESSFUL DUMP");	
-		} else {
-			console.log("NO DUMP");	
-		}
+	endGroup() {		
+		if (this.curGroup.dumpContents) {this.curGroup.dumpContents();}
 
 		if (this.curGroup.type === "paragraph") {
 			this.lastPar.style = this.curGroup.style;
@@ -171,19 +158,6 @@ class LargeRTFSubunit extends Writable{
 		} else {
 			this.curGroup = this.doc;
 		}
-		
-		/*console.log("TO: " + this.curGroup.type);
-		let groupparent = true;
-		let group = this.curGroup.parent;
-		while (groupparent && group) {
-			console.log("-" + group.type);
-			if (group.parent) {
-				group = group.parent;
-			} else {
-				groupparent = false;
-			}	
-		}
-		console.log("END DUMP>\n");*/
 	}
 
 	cmd$datastore(val) {
@@ -2522,8 +2496,7 @@ class LargeRTFSubunit extends Writable{
 			});
 		}
 		this.curGroup.style = this.lastPar.style;
-		this.curGroup.attributes = this.lastPar.style;
-			
+		this.curGroup.attributes = this.lastPar.attributes;		
 	}
 	cmd$pard() {
 		if (this.paraTypes.includes(this.curGroup.type)) {

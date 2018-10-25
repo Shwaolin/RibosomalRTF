@@ -58,8 +58,6 @@ class ParameterGroup extends RTFObj {
 		this.parent = parent;
 	}
 	dumpContents() {
-		console.log("PARAMETER: " + this.param);
-		console.log("DESTINATION: " + this.destination.type);
 		if (this.contents[1] && this.contents.every(entry => typeof entry === "string")) {
 			this.contents = this.contents.join("");
 		}
