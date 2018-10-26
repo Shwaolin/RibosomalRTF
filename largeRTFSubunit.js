@@ -32,6 +32,7 @@ const {
 	FieldMap,
 	OdsoRecip,
 	ATab,
+	Pn,
 	Field, 
 	Fldrslt, 
 	Picture,
@@ -76,7 +77,7 @@ class LargeRTFSubunit extends Writable{
 		this.lastSect = {style:{}, attributes:{}};
 		this.doc = {};
 		this.curGroup = {};
-		this.paraTypes = ["paragraph", "listitem"];
+		this.paraTypes = ["paragraph", "listitem", "listtext"];
 		this.textTypes = ["text", "listtext", "field", "fragment"];
 	}
 	followInstruction(instruction) {
@@ -160,17 +161,8 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 
+	/* TEMPORARY, FOR DEBUGGING */
 	cmd$datastore(val) {
-		this.curGroup = new NonGroup(this.curGroup.parent);
-	}
-
-	cmd$pnstart(val) {
-		this.curGroup = new NonGroup(this.curGroup.parent);
-	}
-	cmd$pntxta() {
-		this.curGroup = new NonGroup(this.curGroup.parent);
-	}
-	cmd$pntxtb() {
 		this.curGroup = new NonGroup(this.curGroup.parent);
 	}
 
@@ -2012,7 +2004,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.printerBin = val;
 	}
 	cmd$pnseclvl(val) {
-		this.curGroup.style.listStyle = val;
+		this.curGroup = new Pn(this.curGroup.parent, val);
 	}
 	cmd$sectunlocked() {
 		this.curGroup.attributes.unlocked = true;
@@ -2503,6 +2495,7 @@ class LargeRTFSubunit extends Writable{
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 			this.curGroup.attributes = {};
 		} else {
+			while(this.curGroup.type !== "document" && this.curGroup.type !== "section" ) {this.endGroup();}
 			this.newGroup("paragraph");
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 			this.curGroup.attributes = {};
@@ -2829,9 +2822,227 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Bullets and Numbering */
+	/*-- Older Word (6.0, 95) --*/
+	cmd$pntext() {
+		this.curGroup.type = "pnlisttext";
+	}
+	cmd$pn() {
+		this.curGroup.type = "pnlistitem";
+	}
+	cmd$pnlvl(val) {
+		this.curGroup.style.pnlvl = val;
+	}
+	cmd$pnlvlblt() {
+		this.curGroup.style.pnBullet = true;
+	}
+	cmd$pnlvlbody() {
+		this.curGroup.style.pnBody = true;
+	}
+	cmd$pnlvlcont() {
+		this.curGroup.style.pnContinue = true;
+	}
+	cmd$pnnumonce() {
+		this.curGroup.style.pnNumberOnce = true;
+	}
+	cmd$pnacross() {
+		this.curGroup.style.pnNumberAcross = true;
+	}
+	cmd$pnhang() {
+		this.curGroup.style.pnHangingIndent = true;
+	}
+	cmd$pnrestart() {
+		this.curGroup.style.pnRestart = true;
+	}
+	cmd$pncard() {
+		this.curGroup.style.pnNumbering = "One";
+	}
+	cmd$pndec() {
+		this.curGroup.style.pnNumbering = "1";
+	}
+	cmd$pnucltr() {
+		this.curGroup.style.pnNumbering = "A";
+	}
+	cmd$pnucrm() {
+		this.curGroup.style.pnNumbering = "I";
+	}
+	cmd$pnlcltr() {
+		this.curGroup.style.pnNumbering = "a";
+	}
+	cmd$pnlcrm() {
+		this.curGroup.style.pnNumbering = "i";
+	}
+	cmd$pnord() {
+		this.curGroup.style.pnNumbering = "1st";
+	}
+	cmd$pnordt() {
+		this.curGroup.style.pnNumbering = "First";
+	}
+	cmd$pnbidia() {
+		this.curGroup.style.pnNumbering = "BIDIA";
+	}
+	cmd$pnbidib() {
+		this.curGroup.style.pnNumbering = "BIDIB";
+	}
+	cmd$pnaiu() {
+		this.curGroup.style.pnNumbering = "AIUEO";
+	}
+	cmd$pnaiud() {
+		this.curGroup.style.pnNumbering = "AIUEODBCHAR";
+	}
+	cmd$pnaiueo() {
+		this.curGroup.style.pnNumbering = "AIUEO"; //Alias for \pnaiu
+	}
+	cmd$pnaiueod() {
+		this.curGroup.style.pnNumbering = "AIUEO DBCHAR"; //Alias for \pnaiud
+	}
+	cmd$pnchosung() {
+		this.curGroup.style.pnNumbering = "CHOSUNG";
+	}
+	cmd$pncnum() {
+		this.curGroup.style.pnNumbering = "CIRCLENUM";
+	}
+	cmd$pndbnum() {
+		this.curGroup.style.pnNumbering = "DBNUM1";
+	}
+	cmd$pndbnumd() {
+		this.curGroup.style.pnNumbering = "DBNUM2";
+	}
+	cmd$pndbnuml() {
+		this.curGroup.style.pnNumbering = "DBNUM3";
+	}
+	cmd$pndbnumk() {
+		this.curGroup.style.pnNumbering = "DBNUM4";
+	}
+	cmd$pndbnumt() {
+		this.curGroup.style.pnNumbering = "DBNUM3"; //Alias for \pndbnuml
+	}
+	cmd$pndecd() {
+		this.curGroup.style.pnNumbering = "DBCHAR";
+	}
+	cmd$pnganada() {
+		this.curGroup.style.pnNumbering = "GANADA";
+	}
+	cmd$pngbnum() {
+		this.curGroup.style.pnNumbering = "GB1";
+	}
+	cmd$pngbnumd() {
+		this.curGroup.style.pnNumbering = "GB2";
+	}
+	cmd$pngbnuml() {
+		this.curGroup.style.pnNumbering = "GB3";
+	}
+	cmd$pngbnumk() {
+		this.curGroup.style.pnNumbering = "GB4";
+	}
+	cmd$pniroha() {
+		this.curGroup.style.pnNumbering = "IROHA";
+	}
+	cmd$pnirohad() {
+		this.curGroup.style.pnNumbering = "IROHA DBCHAR";
+	}
+	cmd$pnzodiac() {
+		this.curGroup.style.pnNumbering = "ZODIAC1";
+	}
+	cmd$pnzodiacd() {
+		this.curGroup.style.pnNumbering = "ZODIAC2";
+	}
+	cmd$pnzodiacl() {
+		this.curGroup.style.pnNumbering = "ZODIAC3";
+	}
+	cmd$pnb(val) {
+		this.curGroup.style.pnBold = val !== 0;
+	}
+	cmd$pni(val) {
+		this.curGroup.style.pnItalics = val !== 0;
+	}
+	cmd$pncaps(val) {
+		this.curGroup.style.pnCaps = val !== 0;
+	}
+	cmd$pnscaps(val) {
+		this.curGroup.style.pnSmallcaps = val !== 0;
+	}
+	cmd$pnul(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "continuous" : false;
+	}
+	cmd$pnuld(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "dot" : false;
+	}
+	cmd$pnuldash(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "dash" : false;
+	}
+	cmd$pnuldashdot(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "dashdot" : false;
+	}
+	cmd$pnuldashdd(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "dashdotdot" : false;
+	}
+	cmd$pnulhair(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "hairline" : false;
+	}
+	cmd$pnulth(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "thick" : false;
+	}
+	cmd$pnulwave(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "wave" : false;
+	}
+	cmd$pnuldb(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "double" : false;
+	}
+	cmd$pnulw(val) {
+		this.curGroup.style.pnUnderline = val !== 0 ? "word" : false;
+	}
+	cmd$pnulnone() {
+		this.curGroup.style.pnUnderline = false;
+	}
+	cmd$pnstrike(val) {
+		this.curGroup.style.pnStrikethrough = val !== 0;
+	}
+	cmd$pncf(val) {
+		this.curGroup.style.pnForeground = val;
+	}
+	cmd$pnf(val) {
+		this.curGroup.style.pnFont = val;
+	}
+	cmd$pnfs(val) {
+		this.curGroup.style.pnFontSize = val;
+	}
+	cmd$pnindent(val) {
+		this.curGroup.style.pnIndent = val;
+	}
+	cmd$pnsp(val) {
+		this.curGroup.style.pnDistance = val;
+	}
+	cmd$pnprev() {
+		this.curGroup.style.pnPrev = true;
+	}
+	cmd$pnqc() {
+		this.curGroup.style.pnAlignment = "center";
+	}
+	cmd$pnql() {
+		this.curGroup.style.pnAlignment = "left";
+	}
+	cmd$pnqr() {
+		this.curGroup.style.pnAlignment = "right";
+	}
+	cmd$pnstart(val) {
+		this.curGroup.style.pnStart = val;
+	}
+	cmd$pntxta() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "textAfter", "style");
+	}
+	cmd$pntxtb() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "textBefore", "style");
+	}
 
-
-
+	/*-- Newer Word (97-2007) --*/
+	cmd$listtext(val) {
+		this.curGroup.type = "listtext";
+	}
+	cmd$ilvl(val) {
+		this.curGroup.attributes.ilvl = val;
+		this.curGroup.type = "listitem";
+	}
+	
 
 
 	
@@ -2893,30 +3104,32 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.background = this.doc.tables.colourTable[val - 1];
 	}
 
-	/* Lists */
-	cmd$ilvl(val) {
-		this.curGroup.style.ilvl = val;
-		this.curGroup.type = "listitem";
-	}
-	cmd$listtext(val) {
-		this.curGroup.type = "listtext";
-	}
+	
 
 	/* Special Characters */
 	cmd$emdash() {
+		this.newGroup("text");
 		this.curGroup.contents.push("—");
+		this.endGroup();
 	}
 	cmd$endash() {
+		this.newGroup("text");
 		this.curGroup.contents.push("–");
+		this.endGroup();
 	}
 	cmd$tab() {
+		this.newGroup("text");
 		this.curGroup.contents.push("\t");
+		this.endGroup();
 	}
 	cmd$line() {
+		this.newGroup("text");
 		this.curGroup.contents.push("\n");
+		this.endGroup();
 	}
 	cmd$hrule() {
-		this.curGroup.contents.push({type:"hr"});
+		this.newGroup("hr");
+		this.endGroup();
 	}
 
 	/* Unicode Characters */

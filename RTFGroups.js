@@ -39,6 +39,8 @@ class RTFGroup extends RTFObj {
 		if (this.contents[0] && this.contents.every(entry => typeof entry === "string") && this.contents.every (entry => entry.style === this.contents[0].style)) {
 			this.contents = this.contents.join("");
 			if (this.type === "span") {this.type = "text";}
+		} else if (!this.contents[0]) {
+			return;
 		}
 		this.parent.contents.push({
 			contents: this.contents,
@@ -431,6 +433,18 @@ class ATab extends RTFObj {
 	}
 }
 
+class Pn extends RTFObj {
+	constructor(parent, lvl) {
+		super(parent);
+		this.type = "pn";
+		this.lvl = lvl;
+	}
+	dumpContents() {
+		if(!this.parent.style.pnsectlevels) {this.parent.style.pnsectlevels = [];}
+		this.parent.style.pnsectlevels.push({level:this.lvl, style:this.style})
+	}
+}
+
 class Field extends RTFObj {
 	constructor(parent) {
 		super(parent);
@@ -544,6 +558,7 @@ module.exports = {
 	FieldMap,
 	OdsoRecip,
 	ATab,
+	Pn,
 	Field, 
 	Fldrslt, 
 	Picture,
