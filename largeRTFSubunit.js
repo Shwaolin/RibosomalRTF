@@ -77,8 +77,8 @@ class LargeRTFSubunit extends Writable{
 		this.lastSect = {style:{}, attributes:{}};
 		this.doc = {};
 		this.curGroup = {};
-		this.paraTypes = ["paragraph", "listitem", "listtext"];
-		this.textTypes = ["text", "listtext", "field", "fragment"];
+		this.paraTypes = ["paragraph", "list-item", "list-text"];
+		this.textTypes = ["text", "list-text", "field", "fragment"];
 	}
 	followInstruction(instruction) {
 		if (this.skip > 0) {
@@ -238,10 +238,10 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.fMajor = "default";
 	}
 	cmd$fdbmajor() {
-		this.doc.attributes.fMajor = "eastasian";
+		this.doc.attributes.fMajor = "east-asian";
 	}
 	cmd$fbimajor() {
-		this.doc.attributes.fMajor = "complexscripts";
+		this.doc.attributes.fMajor = "complex-scripts";
 	}
 	cmd$flominor() {
 		this.doc.attributes.fMinor = "ascii";
@@ -250,10 +250,10 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.fMinor = "default";
 	}
 	cmd$fdbminor() {
-		this.doc.attributes.fMinor = "eastasian";
+		this.doc.attributes.fMinor = "east-asian";
 	}
 	cmd$fbiminor() {
-		this.doc.attributes.fMinor = "complexscripts";
+		this.doc.attributes.fMinor = "complex-scripts";
 	}
 
 	/* Code Page */
@@ -316,52 +316,52 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.shade = val;
 	}
 	cmd$cmaindarkone() {
-		this.curGroup.attributes.themeColour = "maindarkone";
+		this.curGroup.attributes.themeColour = "main-dark-one";
 	}
 	cmd$cmaindarktwo() {
-		this.curGroup.attributes.themeColour = "maindarktwo";
+		this.curGroup.attributes.themeColour = "main-dark-two";
 	}
 	cmd$cmainlightone() {
-		this.curGroup.attributes.themeColour = "mainlightone";
+		this.curGroup.attributes.themeColour = "main-light-one";
 	}
 	cmd$cmainlighttwo() {
-		this.curGroup.attributes.themeColour = "mainlighttwo";
+		this.curGroup.attributes.themeColour = "main-light-two";
 	}
 	cmd$caccentone() {
-		this.curGroup.attributes.themeColour = "accentone";
+		this.curGroup.attributes.themeColour = "accent-one";
 	}
 	cmd$caccenttwo() {
-		this.curGroup.attributes.themeColour = "accenttwo";
+		this.curGroup.attributes.themeColour = "accent-two";
 	}
 	cmd$caccentthree() {
-		this.curGroup.attributes.themeColour = "accentthree";
+		this.curGroup.attributes.themeColour = "accent-three";
 	}
 	cmd$caccentfour() {
-		this.curGroup.attributes.themeColour = "accentfour";
+		this.curGroup.attributes.themeColour = "accent-four";
 	}
 	cmd$caccentfive() {
-		this.curGroup.attributes.themeColour = "accentfive";
+		this.curGroup.attributes.themeColour = "accent-five";
 	}
 	cmd$caccentsix() {
-		this.curGroup.attributes.themeColour = "accentsix";
+		this.curGroup.attributes.themeColour = "accent-six";
 	}
 	cmd$chyperlink() {
 		this.curGroup.attributes.themeColour = "hyperlink";
 	}
 	cmd$cfollowedhyperlink() {
-		this.curGroup.attributes.themeColour = "followedhyperlink";
+		this.curGroup.attributes.themeColour = "followed-hyperlink";
 	}
 	cmd$cbackgroundone() {
-		this.curGroup.attributes.themeColour = "backgroundone";
+		this.curGroup.attributes.themeColour = "background-one";
 	}
 	cmd$cbackgroundtwo() {
-		this.curGroup.attributes.themeColour = "backgroundtwo";
+		this.curGroup.attributes.themeColour = "background-two";
 	}
 	cmd$ctextone() {
-		this.curGroup.attributes.themeColour = "textone";
+		this.curGroup.attributes.themeColour = "text-one";
 	}
 	cmd$ctexttwo() {
-		this.curGroup.attributes.themeColour = "texttwo";
+		this.curGroup.attributes.themeColour = "text-two";
 	}
 
 	/* Defaults */
@@ -511,28 +511,28 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.shadingPercentage = val;
 	}
 	cmd$tsbgbdiag() {
-		this.curGroup.style.shadingPattern = "backwardsdiagonal";
+		this.curGroup.style.shadingPattern = "backwards-diagonal";
 	}
 	cmd$tsbgfdiag() {
-		this.curGroup.style.shadingPattern = "forwardsdiagonal";
+		this.curGroup.style.shadingPattern = "forwards-diagonal";
 	}
 	cmd$tsbgdkbdiag() {
-		this.curGroup.style.shadingPattern = "darkbackwardsdiagonal";
+		this.curGroup.style.shadingPattern = "dark-backwards-diagonal";
 	}
 	cmd$tsbgdkfdiag() {
-		this.curGroup.style.shadingPattern = "darkforwardsdiagonal";
+		this.curGroup.style.shadingPattern = "dark-forwards-diagonal";
 	}
 	cmd$tsbgcross() {
 		this.curGroup.style.shadingPattern = "cross";
 	}
 	cmd$tsbgdcross() {
-		this.curGroup.style.shadingPattern = "diagonalcross";
+		this.curGroup.style.shadingPattern = "diagonal-cross";
 	}
 	cmd$tsbgdkcross() {
-		this.curGroup.style.shadingPattern = "darkcross";
+		this.curGroup.style.shadingPattern = "dark-cross";
 	}
 	cmd$tsbgdkdcross() {
-		this.curGroup.style.shadingPattern = "darkdiagonalcross";
+		this.curGroup.style.shadingPattern = "dark-diagonal-cross";
 	}
 	cmd$tsbghoriz() {
 		this.curGroup.style.shadingPattern = "horizontal";
@@ -541,10 +541,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.shadingPattern = "vertical";
 	}
 	cmd$tsbgdkhor() {
-		this.curGroup.style.shadingPattern = "darkhorizontal";
+		this.curGroup.style.shadingPattern = "dark-horizontal";
 	}
 	cmd$tsbgdkvert() {
-		this.curGroup.style.shadingPattern = "darkvertical";
+		this.curGroup.style.shadingPattern = "dark-vertical";
 	}
 	cmd$tsbrdrt() {
 		this.curGroup.style.cellBorder = "top";
@@ -565,10 +565,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.cellBorder = "vertical";
 	}
 	cmd$tsbrdrdgl() {
-		this.curGroup.style.cellBorder = "diagonalullr";
+		this.curGroup.style.cellBorder = "diagonal-ul-lr";
 	}
 	cmd$tsbrdrdgr() {
-		this.curGroup.style.cellBorder = "diagonalllur";
+		this.curGroup.style.cellBorder = "diagonal-ll-ur";
 	}
 	cmd$tscbandsh(val) {
 		this.curGroup.style.rowBandCount = val;
@@ -820,33 +820,33 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$charrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidType = "characterformat";
+		this.curGroup.attributes.rsidType = "character-format";
 	}
 	cmd$sectrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidType = "sectionformat";
+		this.curGroup.attributes.rsidType = "section-format";
 	}
 	cmd$pararsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidType = "paragraphformat";
+		this.curGroup.attributes.rsidType = "paragraph-format";
 	}
 	cmd$tblrsid(val) {
 		this.curGroup.attributes.rsid = val;
-		this.curGroup.attributes.rsidType = "tableformat";
+		this.curGroup.attributes.rsidType = "table-format";
 	}
 
 	/* Old Properties */
 	cmd$oldcProps() {
-		this.curGroup.type = "oldcprop";
+		this.curGroup.type = "old-c-prop";
 	}
 	cmd$oldpProps() {
-		this.curGroup.type = "oldpprop";
+		this.curGroup.type = "old-p-prop";
 	}
 	cmd$oldtProps() {
-		this.curGroup.type = "oldtprop";
+		this.curGroup.type = "old-t-prop";
 	}
 	cmd$oldsProps() {
-		this.curGroup.type = "oldsprop";
+		this.curGroup.type = "old-s-prop";
 	}
 
 	/* User Protection Information */
@@ -1165,13 +1165,13 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.footnoteposition = "pages";
 	}
 	cmd$enddoc() {
-		this.doc.attributes.footnoteposition = "endDoc";
+		this.doc.attributes.footnoteposition = "end-doc";
 	}
 	cmd$ftntj() {
-		this.doc.attributes.footnoteposition = "beneathTextTj";
+		this.doc.attributes.footnoteposition = "beneath-text-tj";
 	}
 	cmd$ftnbj() {
-		this.doc.attributes.footnoteposition = "bottomOfPageBj";
+		this.doc.attributes.footnoteposition = "bottom-of-page-bj";
 	}
 	cmd$apages() {
 		this.doc.attributes.pageposition = "pages";
@@ -1180,10 +1180,10 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.pageposition = "endDoc";
 	}
 	cmd$aftntj() {
-		this.doc.attributes.pageposition = "beneathTextTj";
+		this.doc.attributes.pageposition = "beneath-text-tj";
 	}
 	cmd$aftnbj() {
-		this.doc.attributes.pageposition = "bottomOfPageBj";
+		this.doc.attributes.pageposition = "bottom-of-page-bj";
 	}
 	cmd$ftnstart(val) {
 		this.curGroup.style.footnoteStart = val;
@@ -1903,7 +1903,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.dataType = "null";
 	}
 	cmd$mmfttypedbcolumn() {
-		this.curGroup.attributes.dataType = "databasecolumn";
+		this.curGroup.attributes.dataType = "database-column";
 	}
 	cmd$mmfttypeaddress() {
 		this.curGroup.attributes.dataType = "address";
@@ -1919,7 +1919,7 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$mmdestnewdoc() {
-		this.curGroup.attributes.destination = "newdocument";
+		this.curGroup.attributes.destination = "new-document";
 	}
 	cmd$mmdestprinter() {
 		this.curGroup.attributes.destination = "printer";
@@ -1957,7 +1957,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.connectionType = "dde-excel";
 	}
 	cmd$mmdatatypeqt() {
-		this.curGroup.attributes.connectionType = "externalquery";
+		this.curGroup.attributes.connectionType = "external-query";
 	}
 	cmd$mmdatatypeodbc() {
 		this.curGroup.attributes.connectionType = "odbc";
@@ -1966,7 +1966,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.connectionType = "odso";
 	}
 	cmd$mmdatatypefile() {
-		this.curGroup.attributes.connectionType = "dde-textfile";
+		this.curGroup.attributes.connectionType = "dde-text-file";
 	}
 
 	/* Sections */
@@ -2212,7 +2212,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.lineStarts = val;
 	}
 	cmd$linerestart() {
-		this.curGroup.style.lineRestart = "onlinestarts";
+		this.curGroup.style.lineRestart = "on-line-starts";
 	}
 	cmd$lineppage() {
 		this.curGroup.style.lineRestart = "page";
@@ -2262,7 +2262,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pageNumberRestart = "none";
 	}
 	cmd$pgnrestart() {
-		this.curGroup.style.pageNumberRestart = "onpagenumber";
+		this.curGroup.style.pageNumberRestart = "on-page-number";
 	}
 	cmd$pgnx(val) {
 		this.curGroup.style.pageNumberRight = val;
@@ -2298,10 +2298,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pageNumbering = "CIRCLENUM";
 	}
 	cmd$pgndbnum() {
-		this.curGroup.style.pageNumbering = "KANJINODIGIT";
+		this.curGroup.style.pageNumbering = "KANJI-NO-DIGIT";
 	}
 	cmd$pgndbnumd() {
-		this.curGroup.style.pageNumbering = "KANJIDIGIT";
+		this.curGroup.style.pageNumbering = "KANJI-DIGIT";
 	}
 	cmd$pgndbnumt() {
 		this.curGroup.style.pageNumbering = "DBNUM3";
@@ -2310,7 +2310,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pageNumbering = "DBNUM4";
 	}
 	cmd$pgndecd() {
-		this.curGroup.style.pageNumbering = "DOUBLEBYTE";
+		this.curGroup.style.pageNumbering = "DOUBLE-BYTE";
 	}
 	cmd$pgnganada() {
 		this.curGroup.style.pageNumbering = "GANADA";
@@ -2337,31 +2337,31 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pageNumbering = "ZODIAC3";
 	}
 	cmd$pgnhindia() {
-		this.curGroup.style.pageNumbering = "HINDIVOWEL";
+		this.curGroup.style.pageNumbering = "HINDI-VOWEL";
 	}	
 	cmd$pgnhindib() {
-		this.curGroup.style.pageNumbering = "HINDICONSONANT";
+		this.curGroup.style.pageNumbering = "HINDI-CONSONANT";
 	}
 	cmd$pgnhindic() {
-		this.curGroup.style.pageNumbering = "HINDIDIGIT";
+		this.curGroup.style.pageNumbering = "HINDI-DIGIT";
 	}
 	cmd$pgnhindid() {
-		this.curGroup.style.pageNumbering = "HINDIDESCRIPTIVE";
+		this.curGroup.style.pageNumbering = "HINDI-DESCRIPTIVE";
 	}
 	cmd$pgnthaia() {
-		this.curGroup.style.pageNumbering = "THAILETTER";
+		this.curGroup.style.pageNumbering = "THAI-LETTER";
 	}
 	cmd$pgnthaib() {
-		this.curGroup.style.pageNumbering = "THAIDIGIT";
+		this.curGroup.style.pageNumbering = "THAI-DIGIT";
 	}
 	cmd$pgnthaic() {
 		this.curGroup.style.pageNumbering = "THAIDESCRIPTIVE";
 	}
 	cmd$pgnvieta() {
-		this.curGroup.style.pageNumbering = "VIETNAMESEDESCRIPTIVE";
+		this.curGroup.style.pageNumbering = "VIETNAMESE-DESCRIPTIVE";
 	}
 	cmd$pgnid() {
-		this.curGroup.style.pageNumbering = "KOREANDASH";
+		this.curGroup.style.pageNumbering = "KOREAN-DASH";
 	}
 	cmd$pgnhn(val) {
 		this.curGroup.style.pageNumberHeaderLevel = val;
@@ -2731,7 +2731,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.textboxWrap = "always";
 	}
 	cmd$txbxtwfirstlast() {
-		this.curGroup.style.textboxWrap = "firstlast";
+		this.curGroup.style.textboxWrap = "first-last";
 	}
 	cmd$txbxtwfirst() {
 		this.curGroup.style.textboxWrap = "first";
@@ -2745,7 +2745,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.tabPosition = val;
 	}
 	cmd$tqr() {
-		this.curGroup.style.tabType = "flushright";
+		this.curGroup.style.tabType = "flush-right";
 	}
 	cmd$tqc() {
 		this.curGroup.style.tabType = "center";
@@ -2760,7 +2760,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.leader = "dots";
 	}
 	cmd$tlmdot() {
-		this.curGroup.style.leader = "middledots";
+		this.curGroup.style.leader = "middle-dots";
 	}
 	cmd$tlhyph() {
 		this.curGroup.style.leader = "hyphen";
@@ -2769,7 +2769,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.leader = "underline";
 	}
 	cmd$tlth() {
-		this.curGroup.style.leader = "thickline";
+		this.curGroup.style.leader = "thick-line";
 	}
 	cmd$tleq() {
 		this.curGroup.style.leader = "equalsign";
@@ -2798,36 +2798,36 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$pmartabql() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "lefttomargin";
+		this.curGroup.relativeTo = "left-to-margin";
 	}
 	cmd$pmartabqc() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "centertomargin";
+		this.curGroup.relativeTo = "center-to-margin";
 	}
 	cmd$pmartabqr() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "righttomargin";
+		this.curGroup.relativeTo = "right-to-margin";
 	}
 	cmd$pindtabql() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "lefttoindent";
+		this.curGroup.relativeTo = "left-to-indent";
 	}
 	cmd$pindtabqc() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "centertoindent";
+		this.curGroup.relativeTo = "center-to-indent";
 	}
 	cmd$pindtabqr() {
 		if (this.curGroup.type !== "atab") {this.curGroup = new ATab(this.curGroup.parent);}
-		this.curGroup.relativeTo = "righttoindent";
+		this.curGroup.relativeTo = "right-to-indent";
 	}
 
 	/* Bullets and Numbering */
 	/*-- Older Word (6.0, 95) --*/
 	cmd$pntext() {
-		this.curGroup.type = "pnlisttext";
+		this.curGroup.type = "pn-list-text";
 	}
 	cmd$pn() {
-		this.curGroup.type = "pnlistitem";
+		this.curGroup.type = "pn-list-item";
 	}
 	cmd$pnlvl(val) {
 		this.curGroup.style.pnlvl = val;
@@ -2893,7 +2893,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pnNumbering = "AIUEO"; //Alias for \pnaiu
 	}
 	cmd$pnaiueod() {
-		this.curGroup.style.pnNumbering = "AIUEO DBCHAR"; //Alias for \pnaiud
+		this.curGroup.style.pnNumbering = "AIUEO-DBCHAR"; //Alias for \pnaiud
 	}
 	cmd$pnchosung() {
 		this.curGroup.style.pnNumbering = "CHOSUNG";
@@ -2938,7 +2938,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pnNumbering = "IROHA";
 	}
 	cmd$pnirohad() {
-		this.curGroup.style.pnNumbering = "IROHA DBCHAR";
+		this.curGroup.style.pnNumbering = "IROHA-DBCHAR";
 	}
 	cmd$pnzodiac() {
 		this.curGroup.style.pnNumbering = "ZODIAC1";
@@ -2971,10 +2971,10 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.pnUnderline = val !== 0 ? "dash" : false;
 	}
 	cmd$pnuldashdot(val) {
-		this.curGroup.style.pnUnderline = val !== 0 ? "dashdot" : false;
+		this.curGroup.style.pnUnderline = val !== 0 ? "dash-dot" : false;
 	}
 	cmd$pnuldashdd(val) {
-		this.curGroup.style.pnUnderline = val !== 0 ? "dashdotdot" : false;
+		this.curGroup.style.pnUnderline = val !== 0 ? "dash-dot-dot" : false;
 	}
 	cmd$pnulhair(val) {
 		this.curGroup.style.pnUnderline = val !== 0 ? "hairline" : false;
@@ -3035,12 +3035,12 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/*-- Newer Word (97-2007) --*/
-	cmd$listtext(val) {
-		this.curGroup.type = "listtext";
+	cmd$list-text(val) {
+		this.curGroup.type = "list-text";
 	}
 	cmd$ilvl(val) {
 		this.curGroup.attributes.ilvl = val;
-		this.curGroup.type = "listitem";
+		this.curGroup.type = "list-item";
 	}
 
 	/*-- Revision Marks --*/
@@ -3093,8 +3093,140 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Paragraph Borders */
+	cmd$brdrt() {
+		this.curGroup.style.borderTop = true;
+	}
+	cmd$brdrb() {
+		this.curGroup.style.borderBottom = true;
+	}
+	cmd$brdrl() {
+		this.curGroup.style.borderLeft = true;
+	}
+	cmd$brdrr() {
+		this.curGroup.style.borderRight = true;
+	}
+	cmd$brdrbtw() {
+		this.curGroup.style.borderBetween = true;
+	}
+	cmd$brdrbar() {
+		this.curGroup.style.borderOutside = true;
+	}
+	cmd$box() {
+		this.curGroup.style.box = true;
+	}
+	cmd$brdrs() {
+		this.curGroup.style.borderStyle = "single-thick";
+	}
+	cmd$brdrth() {
+		this.curGroup.style.borderStyle = "double-thick";
+	}
+	cmd$brdrsh() {
+		this.curGroup.style.borderStyle = "shadowed";
+	}
+	cmd$brdrdb() {
+		this.curGroup.style.borderStyle = "double";
+	}
+	cmd$brdrdot() {
+		this.curGroup.style.borderStyle = "dotted";
+	}
+	cmd$brdrdash() {
+		this.curGroup.style.borderStyle = "dashed";
+	}
+	cmd$brdrhair() {
+		this.curGroup.style.borderStyle = "hairline";
+	}
+	cmd$brdrdashsm() {
+		this.curGroup.style.borderStyle = "dashed-small";
+	}
+	cmd$brdrdashd() {
+		this.curGroup.style.borderStyle = "dot-dashed";
+	}
+	cmd$brdrdashdd() {
+		this.curGroup.style.borderStyle = "dot-dot-dashed";
+	}
+	cmd$brdrdashdot() {
+		this.curGroup.style.borderStyle = "dot-dashed"; //Alias for \brdrdashd
+	}
+	cmd$brdrdashdotdot() {
+		this.curGroup.style.borderStyle = "dot-dot-dashed"; //Alias for \brdrdashdd
+	}
+	cmd$brdrinset() {
+		this.curGroup.style.borderStyle = "inset";
+	}
+	cmd$brdrnone() {
+		this.curGroup.style.borderStyle = "none";
+	}
+	cmd$brdroutset() {
+		this.curGroup.style.borderStyle = "outset";
+	}
+	cmd$brdrtriple() {
+		this.curGroup.style.borderStyle = "triple";
+	}
+	cmd$brdrtnthsg() {
+		this.curGroup.style.borderStyle = "thick-thin-small";
+	}
+	cmd$brdrthtnsg() {
+		this.curGroup.style.borderStyle = "thin-thick-small";
+	}
+	cmd$brdrtnthtnsg() {
+		this.curGroup.style.borderStyle = "thin-thick-thin-small";
+	}
+	cmd$brdrtnthmg() {
+		this.curGroup.style.borderStyle = "thick-thin-medium";
+	}
+	cmd$brdrthtnmg() {
+		this.curGroup.style.borderStyle = "thin-thick-medium";
+	}
+	cmd$brdrtnthtnmg() {
+		this.curGroup.style.borderStyle = "thin-thick-thin-medium";
+	}
+	cmd$brdrtnthlg() {
+		this.curGroup.style.borderStyle = "thick-thin-large";
+	}
+	cmd$brdrthtnlg() {
+		this.curGroup.style.borderStyle = "thin-thick-large";
+	}
+	cmd$brdrtnthtnlg() {
+		this.curGroup.style.borderStyle = "thin-thick-thin-large";
+	}
+	cmd$brdrwavy() {
+		this.curGroup.style.borderStyle = "wavy";
+	}
+	cmd$brdrwavydb() {
+		this.curGroup.style.borderStyle = "wavy-double";
+	}
+	cmd$brdrdashdotstr() {
+		this.curGroup.style.borderStyle = "striped";
+	}
+	cmd$brdremboss() {
+		this.curGroup.style.borderStyle = "embossed";
+	}
+	cmd$brdrengrave() {
+		this.curGroup.style.borderStyle = "engraved";
+	}
+	cmd$brdrframe() {
+		this.curGroup.style.borderStyle = "framed";
+	}
+	cmd$brdrw(val) {
+		this.curGroup.style.borderWidth = val;
+	}
+	cmd$brdrcf(val) {
+		this.curGroup.style.borderForeground = val;
+	}
+	cmd$brsp(val) {
+		this.curGroup.style.borderSpace = val;
+	}
+	cmd$brdrnil() {
+		this.curGroup.style.borderNil = true;
+	}
+	cmd$brdrtbl() {
+		this.curGroup.style.noBorderTable = true;
+	}
 
-	
+	/* Paragraph Shading */
+
+
+
 
 
 
@@ -3267,19 +3399,19 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.source = "QUICKDRAW";
 	}
 	cmd$pmmetafile(val) {
-		this.curGroup.attributes.source = "OS/2 METAFILE";
+		this.curGroup.attributes.source = "OS/2-METAFILE";
 		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wmetafile(val) {
-		this.curGroup.attributes.source = "WINDOWS METAFILE";
+		this.curGroup.attributes.source = "WINDOWS-METAFILE";
 		this.curGroup.attributes.mappingMode = val;
 	}
 	cmd$dibitmap(val) {
-		this.curGroup.attributes.source = "WINDOWS DI BITMAP";
+		this.curGroup.attributes.source = "WINDOWS-DI-BITMAP";
 		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wbitmap(val) {
-		this.curGroup.attributes.source = "WINDOWS DD BITMAP";
+		this.curGroup.attributes.source = "WINDOWS-DD-BITMAP";
 		this.curGroup.attributes.sourceType = val;
 	}
 	cmd$wbmbitspixel(val) {
