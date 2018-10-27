@@ -3224,6 +3224,53 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Paragraph Shading */
+	cmd$shading(val) {
+		this.curGroup.style.shading = val;
+	}
+	cmd$bghoriz() {
+		this.curGroup.style.backgroundPattern = "horizontal";
+	}
+	cmd$bgvert() {
+		this.curGroup.style.backgroundPattern = "vertical";
+	}
+	cmd$bgfdiag() {
+		this.curGroup.style.backgroundPattern = "diagonal-forwards";
+	}
+	cmd$bgbdiag() {
+		this.curGroup.style.backgroundPattern = "diagonal-backwards";
+	}
+	cmd$bgcross() {
+		this.curGroup.style.backgroundPattern = "cross";
+	}
+	cmd$bgdcross() {
+		this.curGroup.style.backgroundPattern = "cross-diagonal";
+	}
+	cmd$bgdkhoriz() {
+		this.curGroup.style.backgroundPattern = "dark-horizontal";
+	}
+	cmd$bgdkvert() {
+		this.curGroup.style.backgroundPattern = "dark-vertical";
+	}
+	cmd$bgdkfdiag() {
+		this.curGroup.style.backgroundPattern = "dark-diagonal-forwards";
+	}
+	cmd$bgdkbdiag() {
+		this.curGroup.style.backgroundPattern = "dark-diagonal-backwards";
+	}
+	cmd$bgdkcross() {
+		this.curGroup.style.backgroundPattern = "dark-cross";
+	}
+	cmd$bgdkdcross() {
+		this.curGroup.style.backgroundPattern = "dark-cross-diagonal";
+	}
+	cmd$cfpat(val) {
+		this.curGroup.style.backgroundFill = val;
+	}
+	cmd$cfpat(val) {
+		this.curGroup.style.backgroundPatternColour = val;
+	}
+
+	/* Positioned Objects and Frames */
 
 
 
