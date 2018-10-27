@@ -441,7 +441,11 @@ class Pn extends RTFObj {
 	}
 	dumpContents() {
 		if(!this.parent.style.pnsectlevels) {this.parent.style.pnsectlevels = [];}
-		this.parent.style.pnsectlevels.push({level:this.lvl, style:this.style})
+		this.parent.style.pnsectlevels.push({
+			level:this.lvl, 
+			style:this.style, 
+			attributes:this.attributes
+		});
 	}
 }
 

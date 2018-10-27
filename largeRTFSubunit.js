@@ -3042,8 +3042,57 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.ilvl = val;
 		this.curGroup.type = "listitem";
 	}
-	
 
+	/*-- Revision Marks --*/
+	cmd$pnauth(val) {
+		this.curGroup.attributes.pnRevisionAuthor = val;
+	}
+	cmd$pndate(val) {
+		this.curGroup.attributes.pnRevisionDate = val;
+	}
+	cmd$pnrnot() {
+		this.curGroup.style.pnInserted = true;
+	}
+	cmd$pnrxst(val) {
+		if (!this.curGroup.attributes.pnRXST) {this.curGroup.attributes.pnRXST = [];}
+		this.curGroup.attributes.pnRXST.push(val);
+	}
+	cmd$pnrrgb(val) {
+		if (!this.curGroup.attributes.pnRRGB) {this.curGroup.attributes.pnRRGB = [];}
+		this.curGroup.attributes.pnRRGB.push(val);
+	}
+	cmd$pnrnfc(val) {
+		if (!this.curGroup.attributes.pnRNFC) {this.curGroup.attributes.pnRNFC = [];}
+		this.curGroup.attributes.pnRNFC.push(val);
+	}
+	cmd$pnrpnbr(val) {
+		if (!this.curGroup.attributes.pnRPnBR) {this.curGroup.attributes.pnRPnBR = [];}
+		this.curGroup.attributes.pnRPnBR.push(val);
+	}
+	cmd$pnrstart(val) {
+		//Uneeded.
+	}
+	cmd$pnrstop(val) {
+		//Uneeded.
+	}
+	cmd$dfrauth(val) {
+		this.curGroup.attributes.dfRevisionAuthor = val;
+	}
+	cmd$dfrdate(val) {
+		this.curGroup.attributes.dfRevisionDate = val;
+	}
+	cmd$pnrxst(val) {
+		if (!this.curGroup.attributes.pnRXST) {this.curGroup.attributes.dfRXST = [];}
+		this.curGroup.attributes.pnRXST.push(val);
+	}
+	cmd$dfrstart(val) {
+		//Uneeded.
+	}
+	cmd$dfrstop(val) {
+		//Uneeded.
+	}
+
+	/* Paragraph Borders */
 
 	
 
