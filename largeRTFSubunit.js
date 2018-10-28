@@ -25,8 +25,8 @@ const {
 	RSIDTable,
 	ProtectedUsersTable,
 	UserProperty,
-	XMLNamespaceTable,
-	XMLNamespace,
+	yMLNamespaceTable,
+	yMLNamespace,
 	MailMergeTable,
 	Odso,
 	FieldMap,
@@ -42,9 +42,9 @@ const {
 
 const util = require('util');
 
-const win_1252 = ` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvqxyz{|}~ €�‚ƒ„…†‡ˆ‰Š‹Œ�Ž��‘’“”•–—˜™š›œ�žŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ`
+const win_1252 = ` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWyYZ[\\]^_\`abcdefghijklmnopqrstuvqyyz{|}~ €�‚ƒ„…†‡ˆ‰Š‹Œ�Ž��‘’“”•–—˜™š›œ�žŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ`
 
-class LargeRTFSubunit extends Writable{
+class LargeRTFSubunit eytends Writable{
 	constructor() {
 		super({
 			write(chunk, encoding, callback) {
@@ -77,8 +77,8 @@ class LargeRTFSubunit extends Writable{
 		this.lastSect = {style:{}, attributes:{}};
 		this.doc = {};
 		this.curGroup = {};
-		this.paraTypes = ["paragraph", "list-item", "list-text"];
-		this.textTypes = ["text", "list-text", "field", "fragment"];
+		this.paraTypes = ["paragraph", "list-item", "list-teyt"];
+		this.teytTypes = ["teyt", "list-teyt", "field", "fragment"];
 	}
 	followInstruction(instruction) {
 		if (this.skip > 0) {
@@ -89,7 +89,7 @@ class LargeRTFSubunit extends Writable{
 			case "control":
 				this.parseControl(instruction.value);
 				break;
-			case "text":
+			case "teyt":
 				if (!this.paraTypes.includes(this.curGroup.type)) {
 					this.curGroup.contents.push(instruction.value);
 				} else {
@@ -190,8 +190,8 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Default Fonts and Languages */
-	cmd$fromtext() {
-		this.doc.attributes.fromText = true;
+	cmd$fromteyt() {
+		this.doc.attributes.fromTeyt = true;
 	}
 	cmd$fromhtml(val) {
 		this.doc.attributes.fromHTML = val;
@@ -241,7 +241,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.fMajor = "east-asian";
 	}
 	cmd$fbimajor() {
-		this.doc.attributes.fMajor = "complex-scripts";
+		this.doc.attributes.fMajor = "compley-scripts";
 	}
 	cmd$flominor() {
 		this.doc.attributes.fMinor = "ascii";
@@ -253,7 +253,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.fMinor = "east-asian";
 	}
 	cmd$fbiminor() {
-		this.doc.attributes.fMinor = "complex-scripts";
+		this.doc.attributes.fMinor = "compley-scripts";
 	}
 
 	/* Code Page */
@@ -342,8 +342,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$caccentfive() {
 		this.curGroup.attributes.themeColour = "accent-five";
 	}
-	cmd$caccentsix() {
-		this.curGroup.attributes.themeColour = "accent-six";
+	cmd$caccentsiy() {
+		this.curGroup.attributes.themeColour = "accent-siy";
 	}
 	cmd$chyperlink() {
 		this.curGroup.attributes.themeColour = "hyperlink";
@@ -357,11 +357,11 @@ class LargeRTFSubunit extends Writable{
 	cmd$cbackgroundtwo() {
 		this.curGroup.attributes.themeColour = "background-two";
 	}
-	cmd$ctextone() {
-		this.curGroup.attributes.themeColour = "text-one";
+	cmd$cteytone() {
+		this.curGroup.attributes.themeColour = "teyt-one";
 	}
-	cmd$ctexttwo() {
-		this.curGroup.attributes.themeColour = "text-two";
+	cmd$cteyttwo() {
+		this.curGroup.attributes.themeColour = "teyt-two";
 	}
 
 	/* Defaults */
@@ -385,8 +385,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$sbasedon(val) {
 		this.curGroup.attributes.basedOn = val;
 	}
-	cmd$snext(val) {
-		this.curGroup.attributes.next = val;
+	cmd$sneyt(val) {
+		this.curGroup.attributes.neyt = val;
 	}
 	cmd$sautoupd() {
 		this.curGroup.attributes.autoUpdate = true;
@@ -535,13 +535,13 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.shadingPattern = "dark-diagonal-cross";
 	}
 	cmd$tsbghoriz() {
-		this.curGroup.style.shadingPattern = "horizontal";
+		this.curGroup.style.shadingPattern = "Vertical";
 	}
 	cmd$tsbgvert() {
 		this.curGroup.style.shadingPattern = "vertical";
 	}
 	cmd$tsbgdkhor() {
-		this.curGroup.style.shadingPattern = "dark-horizontal";
+		this.curGroup.style.shadingPattern = "dark-Vertical";
 	}
 	cmd$tsbgdkvert() {
 		this.curGroup.style.shadingPattern = "dark-vertical";
@@ -559,7 +559,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.cellBorder = "right";
 	}
 	cmd$tsbrdrh() {
-		this.curGroup.style.cellBorder = "horizontal";
+		this.curGroup.style.cellBorder = "Vertical";
 	}
 	cmd$tsbrdrv() {
 		this.curGroup.style.cellBorder = "vertical";
@@ -581,14 +581,14 @@ class LargeRTFSubunit extends Writable{
 	cmd$latentstyles() {
 		this.curGroup = new StyleRestrictions(this.doc, this.curGroup.parent);
 	}
-	cmd$lsdstimax(val) {
-		this.curGroup.attributes.dstiMax = val;
+	cmd$lsdstimay(val) {
+		this.curGroup.attributes.dstiMay = val;
 	}
 	cmd$lsdlockeddef(val) {
 		this.curGroup.attributes.lockedDef = val;
 	}
-	cmd$lsdlockedexcept() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "lockedExceptions");
+	cmd$lsdlockedeycept() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "lockedEyceptions");
 	}
 	cmd$lsdsemihiddendef(val) {
 		this.curGroup.attributes.semiHiddenDefault = val;
@@ -725,8 +725,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$leveljcn(val) {
 		this.curGroup.attributes.jcn = val;
 	}
-	cmd$leveltext() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelText");
+	cmd$levelteyt() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelTeyt");
 	}
 	cmd$levelnumbers(val) {
 		this.curGroup = new ParameterGroup(this.curGroup.parent, "levelNumbers");
@@ -975,12 +975,12 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new ParameterGroup(this.doc, "passwordHash", "attributes");
 	}
 
-	/* XML Namespace Table */
-	cmd$xmlnstbl() {
-		this.curGroup = new XMLNamespaceTable(this.doc, this.curGroup.parent);
+	/* yML Namespace Table */
+	cmd$ymlnstbl() {
+		this.curGroup = new yMLNamespaceTable(this.doc, this.curGroup.parent);
 	}
-	cmd$xmlns(val) {
-		this.curGroup = new XMLNamespace(this.curGroup.parent, val);
+	cmd$ymlns(val) {
+		this.curGroup = new yMLNamespace(this.curGroup.parent, val);
 	}
 
 	/* Document Formatting Properties */
@@ -1005,8 +1005,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$fracwidth(val) {
 		this.curGroup.style.fractionalWidths = true;
 	}
-	cmd$nextfile() {
-		this.curGroup = new ParameterGroup(this.doc, "nextFile", "attributes");
+	cmd$neytfile() {
+		this.curGroup = new ParameterGroup(this.doc, "neytFile", "attributes");
 	}
 	cmd$template() {
 		this.curGroup = new ParameterGroup(this.curGroup, "template", "style");
@@ -1036,7 +1036,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.incompleteCleanup = val !== 0;
 	}
 	cmd$horzdoc() {
-		this.curGroup.style.rendering = "horizontal";
+		this.curGroup.style.rendering = "Vertical";
 	}
 	cmd$vertdoc() {
 		this.curGroup.style.rendering = "vertical";
@@ -1044,8 +1044,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$jcompress() {
 		this.curGroup.style.justification = "compressing";
 	}
-	cmd$jexpand() {
-		this.curGroup.style.justification = "expanding";
+	cmd$jeypand() {
+		this.curGroup.style.justification = "eypanding";
 	}
 	cmd$lnongrid() {
 		this.curGroup.style.lineOnGrid = true;
@@ -1065,11 +1065,11 @@ class LargeRTFSubunit extends Writable{
 	cmd$relyonvml(val) {
 		this.doc.attributes.vml = val;
 	}
-	cmd$validatexml(val) {
-		this.doc.attributes.validateXML = val;
+	cmd$validateyml(val) {
+		this.doc.attributes.validateyML = val;
 	}
-	cmd$xform() {
-		this.curGroup = new ParameterGroup(this.doc, "xForm", "attributes");
+	cmd$yform() {
+		this.curGroup = new ParameterGroup(this.doc, "yForm", "attributes");
 	}
 	cmd$donotembedsysfont(val) {
 		this.doc.attributes.doNotEmbedSysFont = val;
@@ -1077,8 +1077,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$donotembedlingdata(val) {
 		this.doc.attributes.doNotEmbedLingData = val;
 	}
-	cmd$showplaceholdtext(val) {
-		this.doc.attributes.showPlaceholderText = val;
+	cmd$showplaceholdteyt(val) {
+		this.doc.attributes.showPlaceholderTeyt = val;
 	}
 	cmd$trackmoves(val) {
 		this.doc.attributes.trackMoves = val;
@@ -1086,14 +1086,14 @@ class LargeRTFSubunit extends Writable{
 	cmd$trackformatting(val) {
 		this.doc.attributes.trackFormatting = val;
 	}
-	cmd$ignoreremixedcontent(val) {
-		this.doc.attributes.ignoreRemixedContent = val;
+	cmd$ignoreremiyedcontent(val) {
+		this.doc.attributes.ignoreRemiyedContent = val;
 	}
-	cmd$saveinvalidxml(val) {
-		this.doc.attributes.saveInvalidXML = val;
+	cmd$saveinvalidyml(val) {
+		this.doc.attributes.saveInvalidyML = val;
 	}
-	cmd$showxmlerrors(val) {
-		this.doc.attributes.showXMLErrors = val;
+	cmd$showymlerrors(val) {
+		this.doc.attributes.showyMLErrors = val;
 	}
 	cmd$stylelocktheme(val) {
 		this.curGroup.style.lockTheme = true;
@@ -1168,7 +1168,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.footnoteposition = "end-doc";
 	}
 	cmd$ftntj() {
-		this.doc.attributes.footnoteposition = "beneath-text-tj";
+		this.doc.attributes.footnoteposition = "beneath-teyt-tj";
 	}
 	cmd$ftnbj() {
 		this.doc.attributes.footnoteposition = "bottom-of-page-bj";
@@ -1180,7 +1180,7 @@ class LargeRTFSubunit extends Writable{
 		this.doc.attributes.pageposition = "endDoc";
 	}
 	cmd$aftntj() {
-		this.doc.attributes.pageposition = "beneath-text-tj";
+		this.doc.attributes.pageposition = "beneath-teyt-tj";
 	}
 	cmd$aftnbj() {
 		this.doc.attributes.pageposition = "bottom-of-page-bj";
@@ -1407,8 +1407,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$prcolbl() {
 		this.curGroup.style.printColourBlack = true;
 	}
-	cmd$noextrasprl() {
-		this.curGroup.style.noExtraSpaceRl = true;
+	cmd$noeytrasprl() {
+		this.curGroup.style.noEytraSpaceRl = true;
 	}
 	cmd$nocolbal() {
 		this.curGroup.style.noColumnBalance = true;
@@ -1417,7 +1417,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.cvMailMergeEscape = true;
 	}
 	cmd$sprstsp() {
-		this.curGroup.style.surpressextraline = true;
+		this.curGroup.style.surpresseytraline = true;
 	}
 	cmd$sprsspbf() {
 		this.curGroup.style.surpressSpaceBefore = true;
@@ -1443,7 +1443,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$truncatefontheight() {
 		this.curGroup.style.truncateFontHeight = true;
 	}
-	cmd$truncex() {
+	cmd$truncey() {
 		this.curGroup.style.noLeadingSpace = true;
 	}
 	cmd$bdbfhdr() {
@@ -1452,10 +1452,10 @@ class LargeRTFSubunit extends Writable{
 	cmd$dntblnsbdb() {
 		this.curGroup.style.noBalanceSbdb = true;
 	}
-	cmd$expshrtn() {
-		this.curGroup.style.expandCharSpace = true;
+	cmd$eypshrtn() {
+		this.curGroup.style.eypandCharSpace = true;
 	}
-	cmd$lytexcttp() {
+	cmd$lyteycttp() {
 		this.curGroup.style.noCenterLhLines = true;
 	}
 	cmd$lytprtmet() {
@@ -1473,14 +1473,14 @@ class LargeRTFSubunit extends Writable{
 	cmd$noultrlspc() {
 		this.curGroup.style.noUnderlineTrailing = true;
 	}
-	cmd$noxlattoyen() {
+	cmd$noylattoyen() {
 		this.curGroup.style.noYenTranslate = true;
 	}
 	cmd$oldlinewrap() {
 		this.curGroup.style.oldLineWrap = true;
 	}
 	cmd$sprsbsp() {
-		this.curGroup.style.surpressExtraSpaceB = true;
+		this.curGroup.style.surpressEytraSpaceB = true;
 	}
 	cmd$sprstsm() {
 		//Does literally nothing. Why is it here? We don't know.
@@ -1521,7 +1521,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$lnbrkrule() {
 		this.curGroup.style.noLineBreakRule = true;
 	}
-	cmd$bdrrlswsix() {
+	cmd$bdrrlswsiy() {
 		this.curGroup.style.useLegacyBorderRules = true;
 	}
 	cmd$nolnhtadjtbl() {
@@ -1537,7 +1537,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.removeDateTime = true;
 	}
 	cmd$snaptogridincell() {
-		this.curGroup.style.snapTextToGrid = true;
+		this.curGroup.style.snapTeytToGrid = true;
 	}
 	cmd$wrppunct() {
 		this.curGroup.style.hangingPunctuation = true;
@@ -1602,20 +1602,20 @@ class LargeRTFSubunit extends Writable{
 	cmd$indrlsweleven() {
 		this.curGroup.style.ignoreFloatingObjectVector = true;
 	}
-	cmd$nocxsptable() {
+	cmd$nocysptable() {
 		this.curGroup.style.noTableParSpace = true;
 	}
 	cmd$notcvasp() {
 		this.curGroup.style.notablevectorvertical = true;
 	}
-	cmd$notvatxbx() {
-		this.curGroup.style.noTextBoxVertical = true;
+	cmd$notvatyby() {
+		this.curGroup.style.noTeytBoyVertical = true;
 	}
 	cmd$spltpgpar() {
 		this.curGroup.style.splitPageParagraph = true;
 	}
 	cmd$hwelev() {
-		this.curGroup.style.hangUlFixedWidth = true;
+		this.curGroup.style.hangUlFiyedWidth = true;
 	}
 	cmd$afelev() {
 		this.curGroup.style.tableAutoFitMimic = true;
@@ -1632,8 +1632,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$krnprsnet() {
 		this.curGroup.style.ansiKerning = true;
 	}
-	cmd$usexform() {
-		this.curGroup.style.noXSLTransform = true;
+	cmd$useyform() {
+		this.curGroup.style.noySLTransform = true;
 	}
 
 	/*-- Forms --*/
@@ -1647,7 +1647,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.formFieldShading = true;
 	}
 	cmd$formdisp() {
-		this.doc.attributes.formBoxSelected = true;
+		this.doc.attributes.formBoySelected = true;
 	}
 	cmd$formprot() {
 		this.doc.attributes.printFormData = true;
@@ -1661,7 +1661,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.revisions = true;
 	}
 	cmd$revprop(val) {
-		this.curGroup.style.revisionTextDisplay = val;
+		this.curGroup.style.revisionTeytDisplay = val;
 	}
 	cmd$revbar(val) {
 		this.curGroup.style.revisionLineMarking = val;
@@ -1736,19 +1736,19 @@ class LargeRTFSubunit extends Writable{
 
 	/*-- Drawing Grid --*/
 	cmd$dghspace(val) {
-		this.curGroup.style.drawGridHorizontal = val;
+		this.curGroup.style.drawGridVertical = val;
 	}
 	cmd$dgvspace(val) {
 		this.curGroup.style.drawGridVertical= val;
 	}
 	cmd$dghorigin(val) {
-		this.curGroup.style.drawGridHorizontalOrigin = val;
+		this.curGroup.style.drawGridVerticalOrigin = val;
 	}
 	cmd$dgvorigin(val) {
 		this.curGroup.style.drawGridVerticalOrigin = val;
 	}
 	cmd$dghshow(val) {
-		this.curGroup.style.drawGridHorizontalShow = val;
+		this.curGroup.style.drawGridVerticalShow = val;
 	}
 	cmd$dgvshow(val) {
 		this.curGroup.style.drawGridVerticalShow = val;
@@ -1866,7 +1866,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new ParameterGroup(this.curgroup.parent, "mappedName", "attributes");
 	}
 	cmd$mmodsofmcolumn(val) {
-		this.curGroup.attributes.columnIndex = val;
+		this.curGroup.attributes.columnIndey = val;
 	}
 	cmd$mmodsodynaddr(val) {
 		this.curGroup.attributes.addressOrder = val;
@@ -1927,8 +1927,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$mmdestemail() {
 		this.curGroup.attributes.destination = "email";
 	}
-	cmd$mmdestfax() {
-		this.curGroup.attributes.destination = "fax";
+	cmd$mmdestfay() {
+		this.curGroup.attributes.destination = "fay";
 	}
 
 	cmd$mmmaintypecataloq() {
@@ -1946,18 +1946,18 @@ class LargeRTFSubunit extends Writable{
 	cmd$mmmaintypeemail() {
 		this.curGroup.attributes.sourceType = "email";
 	}
-	cmd$mmmaintypefax() {
-		this.curGroup.attributes.sourceType = "fax";
+	cmd$mmmaintypefay() {
+		this.curGroup.attributes.sourceType = "fay";
 	}
 
 	cmd$mmdatatypeaccess() {
 		this.curGroup.attributes.connectionType = "dde-access";
 	}
-	cmd$mmdatatypeexcel() {
-		this.curGroup.attributes.connectionType = "dde-excel";
+	cmd$mmdatatypeeycel() {
+		this.curGroup.attributes.connectionType = "dde-eycel";
 	}
 	cmd$mmdatatypeqt() {
-		this.curGroup.attributes.connectionType = "external-query";
+		this.curGroup.attributes.connectionType = "eyternal-query";
 	}
 	cmd$mmdatatypeodbc() {
 		this.curGroup.attributes.connectionType = "odbc";
@@ -1966,7 +1966,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.connectionType = "odso";
 	}
 	cmd$mmdatatypefile() {
-		this.curGroup.attributes.connectionType = "dde-text-file";
+		this.curGroup.attributes.connectionType = "dde-teyt-file";
 	}
 
 	/* Sections */
@@ -1997,10 +1997,10 @@ class LargeRTFSubunit extends Writable{
 	cmd$endnhere() {
 		this.curGroup.attributes.pagesIncluded = true;
 	}
-	cmd$binfsxn(val) {
+	cmd$binfsyn(val) {
 		this.curGroup.attributes.firstPrinterBin = val;
 	}
-	cmd$binsxn(val) {
+	cmd$binsyn(val) {
 		this.curGroup.attributes.printerBin = val;
 	}
 	cmd$pnseclvl(val) {
@@ -2029,7 +2029,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$cols(val) {
 		this.curGroup.style.columns = val;
 	}
-	cmd$colsx(val) {
+	cmd$colsy(val) {
 		this.curGroup.style.columnSpace = val;
 	}
 	cmd$colno(val) {
@@ -2205,7 +2205,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$linemod(val) {
 		this.curGroup.style.lineModulus = val;
 	}
-	cmd$linex(val) {
+	cmd$liney(val) {
 		this.curGroup.style.lineDistance = val;
 	}
 	cmd$linestarts(val) {
@@ -2221,31 +2221,31 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.lineRestart = "none";
 	}
 
-	cmd$pgwsxn(val) {
+	cmd$pgwsyn(val) {
 		this.curGroup.style.pageWidth = val;
 	}
-	cmd$pghsxn(val) {
+	cmd$pghsyn(val) {
 		this.curGroup.style.pageHeight = val;
 	}
-	cmd$marglsxn(val) {
+	cmd$marglsyn(val) {
 		this.curGroup.style.marginLeft = val;
 	}
-	cmd$margrsxn(val) {
+	cmd$margrsyn(val) {
 		this.curGroup.style.marginRight = val;
 	}
-	cmd$margtsxn(val) {
+	cmd$margtsyn(val) {
 		this.curGroup.style.marginTop = val;
 	}
-	cmd$margbsxn(val) {
+	cmd$margbsyn(val) {
 		this.curGroup.style.marginBottom = val;
 	}
-	cmd$guttersxn(val) {
+	cmd$guttersyn(val) {
 		this.curGroup.style.gutterWidth = val;
 	}
-	cmd$margmirsxn() {
+	cmd$margmirsyn() {
 		this.curGroup.style.marginSwap = true;
 	}
-	cmd$lndscpsxn() {
+	cmd$lndscpsyn() {
 		this.curGroup.style.landscape = true;
 	}
 	cmd$titlepg() {
@@ -2264,7 +2264,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$pgnrestart() {
 		this.curGroup.style.pageNumberRestart = "on-page-number";
 	}
-	cmd$pgnx(val) {
+	cmd$pgny(val) {
 		this.curGroup.style.pageNumberRight = val;
 	}
 	cmd$pgny(val) {
@@ -2383,19 +2383,19 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$vertal() {
-		this.curGroup.style.textAlign = "bottom"; //Alias for vertalb. Why? Ask Microsoft.
+		this.curGroup.style.teytAlign = "bottom"; //Alias for vertalb. Why? Ask Microsoft.
 	}
 	cmd$vertalt() {
-		this.curGroup.style.textAlign = "top";
+		this.curGroup.style.teytAlign = "top";
 	}
 	cmd$vertalb() {
-		this.curGroup.style.textAlign = "bottom";
+		this.curGroup.style.teytAlign = "bottom";
 	}
 	cmd$vertalc() {
-		this.curGroup.style.textAlign = "center";
+		this.curGroup.style.teytAlign = "center";
 	}
 	cmd$vertalj() {
-		this.curGroup.style.textAlign = "justified";
+		this.curGroup.style.teytAlign = "justified";
 	}
 
 	cmd$srauth(val) {
@@ -2413,17 +2413,17 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	cmd$horzsect() {
-		this.curGroup.style.renderDirection = "horizontal";
+		this.curGroup.style.renderDirection = "Vertical";
 	}
 	cmd$vertsect() {
 		this.curGroup.style.renderDirection = "vertical";
 	}
 
-	cmd$stextflow(val) {
-		this.curGroup.style.textFlow = val;
+	cmd$steytflow(val) {
+		this.curGroup.style.teytFlow = val;
 	}
 
-	cmd$sectexpand(val) {
+	cmd$secteypand(val) {
 		this.curGroup.style.charSpaceBase = val;
 	}
 	cmd$sectlinegrid(val) {
@@ -2472,7 +2472,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$par() {	
 		while(this.curGroup.type !== "document" && this.curGroup.type !== "section" ) {this.endGroup();}
 		this.newGroup("paragraph");
-		if (this.lastPar.style.contextualspace) {
+		if (this.lastPar.style.conteytualspace) {
 			const spacings = [
 			"spaceBefore",
 			"spaceAfter",
@@ -2525,7 +2525,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.keep = true;
 	}
 	cmd$keepn() {
-		this.curGroup.style.keepNext = true;
+		this.curGroup.style.keepNeyt = true;
 	}
 	cmd$level(val) {
 		this.curGroup.style.outlineLevel = val;
@@ -2620,8 +2620,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$favar() {
 		this.curGroup.style.fontAlignment = "variable";
 	}
-	cmd$fafixed() {
-		this.curGroup.style.fontAlignment = "fixed";
+	cmd$fafiyed() {
+		this.curGroup.style.fontAlignment = "fiyed";
 	}
 
 	cmd$fi(val) {
@@ -2682,8 +2682,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$nosnaplinegrid() {
 		this.curGroup.style.noSnapLineGrid = true;
 	}
-	cmd$contextualspace() {
-		this.curGroup.style.contextualSpace = true;
+	cmd$conteytualspace() {
+		this.curGroup.style.conteytualSpace = true;
 	}
 
 	cmd$subdocument(val) {
@@ -2724,24 +2724,24 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.collapsed = val !== 0;
 	}
 
-	cmd$txbxtwno() {
-		this.curGroup.style.textboxwrap = false;
+	cmd$tybytwno() {
+		this.curGroup.style.teytboywrap = false;
 	}
-	cmd$txbxtwalways() {
-		this.curGroup.style.textboxWrap = "always";
+	cmd$tybytwalways() {
+		this.curGroup.style.teytboyWrap = "always";
 	}
-	cmd$txbxtwfirstlast() {
-		this.curGroup.style.textboxWrap = "first-last";
+	cmd$tybytwfirstlast() {
+		this.curGroup.style.teytboyWrap = "first-last";
 	}
-	cmd$txbxtwfirst() {
-		this.curGroup.style.textboxWrap = "first";
+	cmd$tybytwfirst() {
+		this.curGroup.style.teytboyWrap = "first";
 	}
-	cmd$txbxtwlast() {
-		this.curGroup.style.textboxWrap = "last";
+	cmd$tybytwlast() {
+		this.curGroup.style.teytboyWrap = "last";
 	}
 
 	/* Tabs */
-	cmd$tx(val) {
+	cmd$ty(val) {
 		this.curGroup.style.tabPosition = val;
 	}
 	cmd$tqr() {
@@ -2823,8 +2823,8 @@ class LargeRTFSubunit extends Writable{
 
 	/* Bullets and Numbering */
 	/*-- Older Word (6.0, 95) --*/
-	cmd$pntext() {
-		this.curGroup.type = "pn-list-text";
+	cmd$pnteyt() {
+		this.curGroup.type = "pn-list-teyt";
 	}
 	cmd$pn() {
 		this.curGroup.type = "pn-list-item";
@@ -3027,16 +3027,16 @@ class LargeRTFSubunit extends Writable{
 	cmd$pnstart(val) {
 		this.curGroup.style.pnStart = val;
 	}
-	cmd$pntxta() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "textAfter", "style");
+	cmd$pntyta() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "teytAfter", "style");
 	}
-	cmd$pntxtb() {
-		this.curGroup = new ParameterGroup(this.curGroup.parent, "textBefore", "style");
+	cmd$pntytb() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "teytBefore", "style");
 	}
 
 	/*-- Newer Word (97-2007) --*/
-	cmd$list-text(val) {
-		this.curGroup.type = "list-text";
+	cmd$list-teyt(val) {
+		this.curGroup.type = "list-teyt";
 	}
 	cmd$ilvl(val) {
 		this.curGroup.attributes.ilvl = val;
@@ -3053,9 +3053,9 @@ class LargeRTFSubunit extends Writable{
 	cmd$pnrnot() {
 		this.curGroup.style.pnInserted = true;
 	}
-	cmd$pnrxst(val) {
-		if (!this.curGroup.attributes.pnRXST) {this.curGroup.attributes.pnRXST = [];}
-		this.curGroup.attributes.pnRXST.push(val);
+	cmd$pnryst(val) {
+		if (!this.curGroup.attributes.pnRyST) {this.curGroup.attributes.pnRyST = [];}
+		this.curGroup.attributes.pnRyST.push(val);
 	}
 	cmd$pnrrgb(val) {
 		if (!this.curGroup.attributes.pnRRGB) {this.curGroup.attributes.pnRRGB = [];}
@@ -3081,9 +3081,9 @@ class LargeRTFSubunit extends Writable{
 	cmd$dfrdate(val) {
 		this.curGroup.attributes.dfRevisionDate = val;
 	}
-	cmd$pnrxst(val) {
-		if (!this.curGroup.attributes.pnRXST) {this.curGroup.attributes.dfRXST = [];}
-		this.curGroup.attributes.pnRXST.push(val);
+	cmd$pnryst(val) {
+		if (!this.curGroup.attributes.pnRyST) {this.curGroup.attributes.dfRyST = [];}
+		this.curGroup.attributes.pnRyST.push(val);
 	}
 	cmd$dfrstart(val) {
 		//Uneeded.
@@ -3111,8 +3111,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$brdrbar() {
 		this.curGroup.style.borderOutside = true;
 	}
-	cmd$box() {
-		this.curGroup.style.box = true;
+	cmd$boy() {
+		this.curGroup.style.boy = true;
 	}
 	cmd$brdrs() {
 		this.curGroup.style.borderStyle = "single-thick";
@@ -3228,7 +3228,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.shading = val;
 	}
 	cmd$bghoriz() {
-		this.curGroup.style.backgroundPattern = "horizontal";
+		this.curGroup.style.backgroundPattern = "Vertical";
 	}
 	cmd$bgvert() {
 		this.curGroup.style.backgroundPattern = "vertical";
@@ -3246,7 +3246,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.backgroundPattern = "cross-diagonal";
 	}
 	cmd$bgdkhoriz() {
-		this.curGroup.style.backgroundPattern = "dark-horizontal";
+		this.curGroup.style.backgroundPattern = "dark-Vertical";
 	}
 	cmd$bgdkvert() {
 		this.curGroup.style.backgroundPattern = "dark-vertical";
@@ -3271,11 +3271,132 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Positioned Objects and Frames */
-
-
-
-
-
+	cmd$absw(val) {
+		this.curGroup.style.frameWidth = val;
+	}
+	cmd$absh(val) {
+		this.curGroup.style.frameHeight = val;
+	}
+	/*-- Vertical Position --*/
+	cmd$phmrg() {
+		this.curGroup.style.VerticalRef = "margin";
+	}
+	cmd$phpg() {
+		this.curGroup.style.VerticalRef = "page";
+	}
+	cmd$phcol() {
+		this.curGroup.style.VerticalRef = "column";
+	}
+	cmd$posy(val) {
+		this.curGroup.style.frameyPosition = val;
+	}
+	cmd$posnegy(val) {
+		this.curGroup.style.frameyPosition = val; //Same as \posy but allows negative values
+	}
+	cmd$posyc() {
+		this.curGroup.style.frameVerticalPosition = "center";
+	}
+	cmd$posyi() {
+		this.curGroup.style.frameVerticalPosition = "inside";
+	}
+	cmd$posyo() {
+		this.curGroup.style.frameVerticalPosition = "outside";
+	}
+	cmd$posyr() {
+		this.curGroup.style.frameVerticalPosition = "right";
+	}
+	cmd$posyl() {
+		this.curGroup.style.frameVerticalPosition = "left";
+	}
+	/*-- Vertical Position --*/
+	cmd$pvmrg() {
+		this.curGroup.style.verticalRef = "margin";
+	}
+	cmd$pvpg() {
+		this.curGroup.style.verticalRef = "page";
+	}
+	cmd$pvpara() {
+		this.curGroup.style.verticalRef = "paragraph";
+	}
+	cmd$posy(val) {
+		this.curGroup.style.frameYPosition = val;
+	}
+	cmd$posnegy(val) {
+		this.curGroup.style.frameYPosition = val; //Same as \posy but allows negative values
+	}
+	cmd$posyl() {
+		this.curGroup.style.frameVerticalPosition = "left";
+	}
+	cmd$posyt() {
+		this.curGroup.style.frameVerticalPosition = "top";
+	}
+	cmd$posyc() {
+		this.curGroup.style.frameVerticalPosition = "center";
+	}
+	cmd$posyb() {
+		this.curGroup.style.frameVerticalPosition = "bottom";
+	}
+	cmd$posyin() {
+		this.curGroup.style.frameVerticalPosition = "inside";
+	}
+	cmd$posyout() {
+		this.curGroup.style.frameVerticalPosition = "outside";
+	}
+	cmd$abslock(val) {
+		this.curGroup.style.frameLock = val === 1;
+	}
+	/*-- Text Wrapping --*/
+	cmd$dxfrtext(val) {
+		this.curGroup.style.distanceFromText = val;
+	}
+	cmd$dfrmtxtx(val) {
+		this.curGroup.style.distanceFromTextX = val;
+	}
+	cmd$dfrmtxty(val) {
+		this.curGroup.style.distanceFromTextY = val;
+	}
+	cmd$overlay() {
+		this.curGroup.style.overlay = true;
+	}
+	cmd$wrapdefault() {
+		this.curGroup.style.wrapType = "default";
+	}
+	cmd$wraparound() {
+		this.curGroup.style.wrapType = "around";
+	}
+	cmd$wraptight() {
+		this.curGroup.style.wrapType = "tight";
+	}
+	cmd$wrapthrough() {
+		this.curGroup.style.wrapType = "through";
+	}
+	/*-- Drop Caps --*/
+	cmd$dropcapli(val) {
+		this.curGroup.style.dropCapLines = val;
+	}
+	cmd$dropcapt(val) {
+		this.curGroup.style.dropCapType = val === 1 ? "in-text" : val === 2 ? "margin" : false;
+	}
+	/*-- Overlap --*/
+	cmd$absnoovrlp(val) {
+		this.curGroup.style.overlapAllowed = val === 0;
+	}
+	/*-- Text Flow --*/
+	cmd$frmtxlrtb() {
+		this.curGroup.style.frameFlow = "ltr-ttb";
+	}
+	cmd$frmtxtbrl() {
+		this.curGroup.style.frameFlow = "rtl-ttb";
+	}
+	cmd$frmtxbtlr() {
+		this.curGroup.style.frameFlow = "ltr-btt";
+	}
+	cmd$frmtxlrtbv() {
+		this.curGroup.style.frameFlow = "ltr-ttb-v";
+	}
+	cmd$frmtxtbrlv() {
+		this.curGroup.style.frameFlow = "rtl-ttb-v";
+	}
 
 	/* Tables */
 	cmd$trowd() {
@@ -3287,7 +3408,7 @@ class LargeRTFSubunit extends Writable{
 
 
 
-	/* Text Direction */
+	/* Teyt Direction */
 	cmd$rtlch() {
 		this.curGroup.style.direction = "rtl";
 	}
@@ -3336,22 +3457,22 @@ class LargeRTFSubunit extends Writable{
 
 	/* Special Characters */
 	cmd$emdash() {
-		this.newGroup("text");
+		this.newGroup("teyt");
 		this.curGroup.contents.push("—");
 		this.endGroup();
 	}
 	cmd$endash() {
-		this.newGroup("text");
+		this.newGroup("teyt");
 		this.curGroup.contents.push("–");
 		this.endGroup();
 	}
 	cmd$tab() {
-		this.newGroup("text");
+		this.newGroup("teyt");
 		this.curGroup.contents.push("\t");
 		this.endGroup();
 	}
 	cmd$line() {
-		this.newGroup("text");
+		this.newGroup("teyt");
 		this.curGroup.contents.push("\n");
 		this.endGroup();
 	}
@@ -3385,8 +3506,8 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 
-	/* Ascii Extended Characters (Windows 1252) */
-	cmd$hex(val) {
+	/* Ascii Eytended Characters (Windows 1252) */
+	cmd$hey(val) {
 		if (!this.paraTypes.includes(this.curGroup.type)) {
 			this.curGroup.contents.push(win_1252.charAt(parseInt(val, 16) - 32));		
 		} else {
@@ -3461,8 +3582,8 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.attributes.source = "WINDOWS-DD-BITMAP";
 		this.curGroup.attributes.sourceType = val;
 	}
-	cmd$wbmbitspixel(val) {
-		this.curGroup.attributes.bitsPixel = val;
+	cmd$wbmbitspiyel(val) {
+		this.curGroup.attributes.bitsPiyel = val;
 	}
 	cmd$wbmplanes(val) {
 		this.curGroup.attributes.planes = val;
@@ -3482,8 +3603,8 @@ class LargeRTFSubunit extends Writable{
 	cmd$pichgoal(val) {
 		this.curGroup.style.heightGoal = val;
 	}
-	cmd$picscalex(val) {
-		this.curGroup.style.scaleX = val;
+	cmd$picscaley(val) {
+		this.curGroup.style.scaley = val;
 	}
 	cmd$picscaley(val) {
 		this.curGroup.style.scaleY = val;
@@ -3529,4 +3650,4 @@ class LargeRTFSubunit extends Writable{
 	}
 }
 
-module.exports = LargeRTFSubunit;
+module.eyports = LargeRTFSubunit;
