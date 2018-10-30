@@ -3035,7 +3035,7 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/*-- Newer Word (97-2007) --*/
-	cmd$list-text(val) {
+	cmd$listtext(val) {
 		this.curGroup.type = "list-text";
 	}
 	cmd$ilvl(val) {
@@ -3271,7 +3271,132 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Positioned Objects and Frames */
-
+	cmd$absw(val) {
+		this.curGroup.style.frameWidth = val;
+	}
+	cmd$absh(val) {
+		this.curGroup.style.frameHeight = val;
+	}
+	/*-- Horizontal Position --*/
+	cmd$phmrg() {
+		this.curGroup.style.horizontalRef = "margin";
+	}
+	cmd$phpg() {
+		this.curGroup.style.horizontalRef = "page";
+	}
+	cmd$phcol() {
+		this.curGroup.style.horizontalRef = "column";
+	}
+	cmd$posx(val) {
+		this.curGroup.style.frameXPosition = val;
+	}
+	cmd$posnegx(val) {
+		this.curGroup.style.frameXPosition = val; //Same as \posy but allows negative values
+	}
+	cmd$posxc() {
+		this.curGroup.style.frameHorizontalPosition = "center";
+	}
+	cmd$posxi() {
+		this.curGroup.style.frameHorizontalPosition = "inside";
+	}
+	cmd$posxo() {
+		this.curGroup.style.frameHorizontalPosition = "outside";
+	}
+	cmd$posxr() {
+		this.curGroup.style.frameHorizontalPosition = "right";
+	}
+	cmd$posxl() {
+		this.curGroup.style.frameHorizontalPosition = "left";
+	}
+	/*-- Vertical Position --*/
+	cmd$pvmrg() {
+		this.curGroup.style.verticalRef = "margin";
+	}
+	cmd$pvpg() {
+		this.curGroup.style.verticalRef = "page";
+	}
+	cmd$pvpara() {
+		this.curGroup.style.verticalRef = "paragraph";
+	}
+	cmd$posy(val) {
+		this.curGroup.style.frameYPosition = val;
+	}
+	cmd$posnegy(val) {
+		this.curGroup.style.frameYPosition = val; //Same as \posy but allows negative values
+	}
+	cmd$posyl() {
+		this.curGroup.style.frameVerticalPosition = "left";
+	}
+	cmd$posyt() {
+		this.curGroup.style.frameVerticalPosition = "top";
+	}
+	cmd$posyc() {
+		this.curGroup.style.frameVerticalPosition = "center";
+	}
+	cmd$posyb() {
+		this.curGroup.style.frameVerticalPosition = "bottom";
+	}
+	cmd$posyin() {
+		this.curGroup.style.frameVerticalPosition = "inside";
+	}
+	cmd$posyout() {
+		this.curGroup.style.frameVerticalPosition = "outside";
+	}
+	cmd$abslock(val) {
+		this.curGroup.style.frameLock = val === 1;
+	}
+	/*-- Text Wrapping --*/
+	cmd$dxfrtext(val) {
+		this.curGroup.style.distanceFromText = val;
+	}
+	cmd$dfrmtxtx(val) {
+		this.curGroup.style.distanceFromTextX = val;
+	}
+	cmd$dfrmtxty(val) {
+		this.curGroup.style.distanceFromTextY = val;
+	}
+	cmd$overlay() {
+		this.curGroup.style.overlay = true;
+	}
+	cmd$wrapdefault() {
+		this.curGroup.style.wrapType = "default";
+	}
+	cmd$wraparound() {
+		this.curGroup.style.wrapType = "around";
+	}
+	cmd$wraptight() {
+		this.curGroup.style.wrapType = "tight";
+	}
+	cmd$wrapthrough() {
+		this.curGroup.style.wrapType = "through";
+	}
+	/*-- Drop Caps --*/
+	cmd$dropcapli(val) {
+		this.curGroup.style.dropCapLines = val;
+	}
+	cmd$dropcapt(val) {
+		this.curGroup.style.dropCapType = val === 1 ? "in-text" : val === 2 ? "margin" : false;
+	}
+	/*-- Overlap --*/
+	cmd$absnoovrlp(val) {
+		this.curGroup.style.overlapAllowed = val === 0;
+	}
+	/*-- Text Flow --*/
+	cmd$frmtxlrtb() {
+		this.curGroup.style.frameFlow = "ltr-ttb";
+	}
+	cmd$frmtxtbrl() {
+		this.curGroup.style.frameFlow = "rtl-ttb";
+	}
+	cmd$frmtxbtlr() {
+		this.curGroup.style.frameFlow = "ltr-btt";
+	}
+	cmd$frmtxlrtbv() {
+		this.curGroup.style.frameFlow = "ltr-ttb-v";
+	}
+	cmd$frmtxtbrlv() {
+		this.curGroup.style.frameFlow = "rtl-ttb-v";
+	}
 
 
 
