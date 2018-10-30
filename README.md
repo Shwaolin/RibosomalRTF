@@ -1,4 +1,4 @@
-<h3 align="center"> --Current specification progress: 93/278 pages-- </h3>
+<h3 align="center"> --Current specification progress: 89/278 pages-- </h3>
 
 ## What is RibosomalRTF?
 RibosomalRTF is a parser designed to convert RTF documents into navigable document objects. This by itself is not that useful; however, it is a crucial step in extracting data from the format or converting it into other languages. Unlike HTML or XML, RTF is not a markup language, which can make it annoying to work with programmatically. RibosomalRTF aims to ease this process, and create a base on which other parsers can be built.
