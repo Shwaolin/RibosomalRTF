@@ -69,7 +69,7 @@ class SmallRTFSubunit extends Writable {
 		}
 	}
 	parseControl(char) {
-		if (char.search(/[ \\{}\t'\n;*]/) === -1) {
+		if (char.search(/[ \\{}\t'\n\r;*]/) === -1) {
 			this.curInstruction.type = "control";
 			this.curInstruction.value += char;
 		} else if (char === "*") {

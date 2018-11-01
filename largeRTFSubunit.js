@@ -79,6 +79,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = {};
 		this.paraTypes = ["paragraph", "list-item", "list-text"];
 		this.textTypes = ["text", "list-text", "field", "fragment"];
+		this.curRow = {style:{}, attributes:{}};
 	}
 	followInstruction(instruction) {
 		if (this.skip > 0) {
@@ -143,7 +144,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new RTFGroup(this.curGroup, type);
 		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defCharState;
 	}
-	endGroup() {		
+	endGroup() {	
 		if (this.curGroup.dumpContents) {this.curGroup.dumpContents();}
 
 		if (this.curGroup.type === "paragraph") {
@@ -2470,7 +2471,7 @@ class LargeRTFSubunit extends Writable{
 
 	/* Paragraphs */
 	cmd$par() {	
-		while(this.curGroup.type !== "document" && this.curGroup.type !== "section" ) {this.endGroup();}
+		while(this.curGroup.type !== "document" && this.curGroup.type !== "section" && this.curGroup.type !== "table-row") {this.endGroup();}
 		this.newGroup("paragraph");
 		if (this.lastPar.style.contextualspace) {
 			const spacings = [
@@ -2495,7 +2496,7 @@ class LargeRTFSubunit extends Writable{
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 			this.curGroup.attributes = {};
 		} else {
-			while(this.curGroup.type !== "document" && this.curGroup.type !== "section" ) {this.endGroup();}
+			while(this.curGroup.type !== "document" && this.curGroup.type !== "section" && this.curGroup.type !== "table-row") {this.endGroup();}
 			this.newGroup("paragraph");
 			this.curGroup.style = Object.assign(JSON.parse(JSON.stringify(this.defCharState)),JSON.parse(JSON.stringify(this.defParState)));
 			this.curGroup.attributes = {};
@@ -3398,16 +3399,52 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.frameFlow = "rtl-ttb-v";
 	}
 
-
-
-
-
 	/* Tables */
+	/* Tables are gosh-darned awful in RTF. 
+	From the docs, it seems simple enough; a table row is represented as a set of paragraphs between a /trowd and 
+	a \row, and a table is made up of subsequent rows.
+	It's not that simple, however, because *nobody actually seems to generate RTF this way*.
+	In particular, *Word itself* doesn't follow its own specifications. It likes to put the
+	actual content of the row after the \row command. As far as I can tell, this shouldn't even work.
+	As such, this implementation is functionally incomplete. I have not yet come up with a solution
+	that correctly parses tables in all contexts; the one here is hacky and effectively incomplete. The contents
+	of a table-entry group can be inconsistant. It also can't handle nested tables, and 
+	tables made by older RTF generators won't parse correctly either.
+
+	Please, *please*, if anyone is reading this, take a swing at this issue.*/
+
 	cmd$trowd() {
-		newGroup("tablerow");
+
+	}
+	cmd$irow(val) {
+		this.curRow.attributes.irow = val;
+	}
+	cmd$irowband(val) {
+		this.curRow.attributes.irowHeaderAdjusted = val;
 	}
 	cmd$row() {
-		if (this.curGroup.type === "tablerow") {endGroup()}
+
+	}
+	cmd$lastrow() {
+		this.curRow.lastRow = true;
+	}
+
+	cmd$intbl() {
+		this.curGroup.type = "table-entry";
+		this.curGroup.style = {...this.curGroup.style, row: {...this.curRow.style}}
+		this.curGroup.attributes = {...this.curGroup.attributes, row:{...this.curRow.attributes}}
+	}
+
+	cmd$cell() {
+		this.curGroup.type = "cell";
+		this.endGroup()
+		this.newGroup("cell");
+	}
+
+	cmd$nestcell() {
+		this.curGroup.type = "cell";
+		this.endGroup()
+		this.newGroup("cell");
 	}
 
 
