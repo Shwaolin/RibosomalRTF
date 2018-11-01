@@ -3400,18 +3400,13 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Tables */
-	/* Tables are gosh-darned awful in RTF. 
-	From the docs, it seems simple enough; a table row is represented as a set of paragraphs between a /trowd and 
-	a \row, and a table is made up of subsequent rows.
-	It's not that simple, however, because *nobody actually seems to generate RTF this way*.
-	In particular, *Word itself* doesn't follow its own specifications. It likes to put the
-	actual content of the row after the \row command. As far as I can tell, this shouldn't even work.
-	As such, this implementation is functionally incomplete. I have not yet come up with a solution
-	that correctly parses tables in all contexts; the one here is hacky and effectively incomplete. The contents
-	of a table-entry group can be inconsistant. It also can't handle nested tables, and 
-	tables made by older RTF generators won't parse correctly either.
+	/* See issue https://github.com/EndaHallahan/RibosomalRTF/issues/1 */
 
-	Please, *please*, if anyone is reading this, take a swing at this issue.*/
+	cmd$intbl() {
+		this.curGroup.type = "table-entry";
+		this.curGroup.style = {...this.curGroup.style, row: {...this.curRow.style}}
+		this.curGroup.attributes = {...this.curGroup.attributes, row:{...this.curRow.attributes}}
+	}
 
 	cmd$trowd() {
 
@@ -3428,24 +3423,79 @@ class LargeRTFSubunit extends Writable{
 	cmd$lastrow() {
 		this.curRow.lastRow = true;
 	}
+	cmd$tcelld() {
 
-	cmd$intbl() {
-		this.curGroup.type = "table-entry";
-		this.curGroup.style = {...this.curGroup.style, row: {...this.curRow.style}}
-		this.curGroup.attributes = {...this.curGroup.attributes, row:{...this.curRow.attributes}}
 	}
-
-	cmd$cell() {
-		this.curGroup.type = "cell";
-		this.endGroup()
-		this.newGroup("cell");
-	}
-
 	cmd$nestcell() {
 		this.curGroup.type = "cell";
 		this.endGroup()
 		this.newGroup("cell");
 	}
+	cmd$nestrow() {
+
+	}
+	cmd$nesttableprops() {
+		this.curGroup = new NonGroup(this.curGroup.parent);
+	}
+	cmd$nonesttables() {
+		this.curGroup = new ParameterGroup(this.curGroup.parent, "noNestTables", "attributes")
+	}
+	cmd$trgaph(val) {
+		this.curRow.style.rowGap = val;
+	}
+	cmd$cellx(val) {
+		this.curGroup.style.rightCellBoundry = val;
+	}
+	cmd$cell() {
+		this.curGroup.type = "cell";
+		this.endGroup()
+		this.newGroup("cell");
+	}
+	cmd$clmgf() {
+		this.curGroup.style.firstMergeCell = true;
+	}
+	cmd$clmrg() {
+		this.curGroup.style.mergeCell = true;
+	}
+	cmd$clvmgf() {
+		this.curGroup.style.firstMergeCellVertical = true;
+	}
+	cmd$clvmrg() {
+		this.curGroup.style.mergeCellVertical = true;
+	}
+	/*-- Table Row Revision Tracking --*/
+	cmd$trauth(val) {
+		this.curRow.attributes.revisionAuthor = val;
+	}
+	cmd$trdate(val) {
+		this.curRow.attributes.revisionDate = val;
+	}
+	/*-- Autoformatting Tags --*/
+
+	/*-- Row Formatting --*/
+
+	/*-- Compared Table Cells --*/
+
+	/*-- Bidirectional Controls --*/
+
+	/*-- Row Borders --*/
+
+	/*-- Cell Borders --*/
+
+	/*-- Cell Shading and Background Pattern --*/
+
+	/*-- Cell Vertical Text Alignment --*/
+
+	/*-- Cell Text Flow --*/
+
+
+
+	/* Mathematics */
+	
+
+
+	/* Character Text */
+
 
 
 
