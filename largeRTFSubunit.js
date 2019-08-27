@@ -82,6 +82,7 @@ class LargeRTFSubunit extends Writable{
 		this.curRow = {style:{}, attributes:{}};
 	}
 	followInstruction(instruction) {
+		//console.log(instruction)
 		if (this.skip > 0) {
 			this.skip--;
 			return;
@@ -96,7 +97,6 @@ class LargeRTFSubunit extends Writable{
 				} else {
 					this.newGroup("fragment");
 					this.curGroup.contents.push(instruction.value);
-					this.endGroup();
 				}
 				break;
 			case "groupStart":
@@ -112,7 +112,12 @@ class LargeRTFSubunit extends Writable{
 				if (this.curGroup.listType) {this.curGroup.flush();}
 				break;
 			case "break":
-				if (this.curGroup.type === "fragment") {this.endGroup();}
+				if (this.curGroup.type === "fragment") {
+					this.endGroup();
+				} else if (this.curGroup.type === "paragraph") {
+					this.endGroup();
+					this.newGroup("paragraph");
+				}
 				break;
 			case "documentStart":
 				this.doc = new RTFDoc;
@@ -125,6 +130,9 @@ class LargeRTFSubunit extends Writable{
 		}
 	}
 	parseControl(instruction) {
+		if (typeof this.curGroup.type === "undefined") {
+			this.newGroup("fragment");
+		}
 		if (this.curGroup.parent instanceof Stylesheet && !(this.curGroup instanceof Style)) {
 			this.curGroup = new Style(this.curGroup.parent, instruction);
 		} else {
@@ -154,12 +162,15 @@ class LargeRTFSubunit extends Writable{
 			this.lastSect.style = this.curGroup.style;
 			this.lastSect.attributes = this.curGroup.attributes;
 		}
+		
 			
 		if (this.curGroup.parent) {
 			this.curGroup = this.curGroup.parent;
 		} else {
 			this.curGroup = this.doc;
 		}
+
+
 	}
 
 	/* TEMPORARY, FOR DEBUGGING */

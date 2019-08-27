@@ -7,6 +7,5 @@
     "test": "node test/test.js"
   },
   "author": "RB",
-  "license": "ISC",
-  "private": "true"
+  "license": "ISC"
 }
