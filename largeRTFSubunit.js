@@ -816,7 +816,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup = new RSIDTable(this.doc, this.curGroup.parent);
 	}
 	cmd$rsid(val) {
-		this.curGroup.table.push(val);
+		this.curGroup.parent.table.push(val);
 	}
 	cmd$insrsid(val) {
 		this.curGroup.attributes.rsid = val;
