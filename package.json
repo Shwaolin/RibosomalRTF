@@ -1,5 +1,5 @@
 {
-  "name": "ribosomalrtf",
+  "name": "@shwaolin/ribosomalrtf",
   "version": "0.0.3",
   "description": "Parses .rtf files into navigatable objects.",
   "main": "index.js",
@@ -7,5 +7,16 @@
     "test": "node test/test.js"
   },
   "author": "RB",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shwaolin/RibosomalRTF.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shwaolin/RibosomalRTF/issues"
+  },
+  "homepage": "https://github.com/Shwaolin/RibosomalRTF#readme"
 }
