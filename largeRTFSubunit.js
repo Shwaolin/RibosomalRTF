@@ -1,26 +1,26 @@
 const Writable = require("stream").Writable;
 const {
-	RTFObj, 
-	RTFDoc, 
-	RTFGroup, 
-	ParameterGroup, 
-	DocTable, 
-	ColourTable, 
-	FontTable, 
-	Font, 
+	RTFObj,
+	RTFDoc,
+	RTFGroup,
+	ParameterGroup,
+	DocTable,
+	ColourTable,
+	FontTable,
+	Font,
 	FileTable,
 	File,
 	Default,
 	Stylesheet,
 	Style,
 	StyleRestrictions,
-	ListTable, 
-	List, 
-	ListLevel, 
-	ListOverrideTable, 
-	ListOverride, 
+	ListTable,
+	List,
+	ListLevel,
+	ListOverrideTable,
+	ListOverride,
 	ParagraphGroupTable,
-	ParagraphGroup, 
+	ParagraphGroup,
 	RevisionTable,
 	RSIDTable,
 	ProtectedUsersTable,
@@ -33,8 +33,8 @@ const {
 	OdsoRecip,
 	ATab,
 	Pn,
-	Field, 
-	Fldrslt, 
+	Field,
+	Fldrslt,
 	Picture,
 	DateGroup,
 	NonGroup
@@ -49,7 +49,7 @@ class LargeRTFSubunit extends Writable{
 		super({
 			write(chunk, encoding, callback) {
 				this.curInstruction = JSON.parse(chunk);
-				this.followInstruction(this.curInstruction);	
+				this.followInstruction(this.curInstruction);
 				callback();
 			}
 		});
@@ -136,23 +136,29 @@ class LargeRTFSubunit extends Writable{
 		if (this.curGroup.parent instanceof Stylesheet && !(this.curGroup instanceof Style)) {
 			this.curGroup = new Style(this.curGroup.parent, instruction);
 		} else {
-			const numPos = instruction.search(/\d|\-/);
 			let val = null;
-			if (numPos !== -1) {
-				val = parseFloat(instruction.substr(numPos).replace(/,/g,""));
-				instruction = instruction.substr(0,numPos);
+			if (instruction.substr(0, 3) === 'hex') {
+				val = instruction.substr(3);
+				instruction = 'hex';
+			}
+			else {
+				const numPos = instruction.search(/\d|\-/);
+				if (numPos !== -1) {
+					val = parseFloat(instruction.substr(numPos).replace(/,/g,""));
+					instruction = instruction.substr(0,numPos);
+				}
 			}
 			const command = "cmd$" + instruction;
 			if (this[command]) {
 				this[command](val);
 			}
-		}	
+		}
 	}
 	newGroup(type) {
 		this.curGroup = new RTFGroup(this.curGroup, type);
 		this.curGroup.style = this.curGroup.parent.style ? this.curGroup.parent.curstyle : this.defCharState;
 	}
-	endGroup() {	
+	endGroup() {
 		if (this.curGroup.dumpContents) {this.curGroup.dumpContents();}
 
 		if (this.curGroup.type === "paragraph") {
@@ -162,8 +168,8 @@ class LargeRTFSubunit extends Writable{
 			this.lastSect.style = this.curGroup.style;
 			this.lastSect.attributes = this.curGroup.attributes;
 		}
-		
-			
+
+
 		if (this.curGroup.parent) {
 			this.curGroup = this.curGroup.parent;
 		} else {
@@ -319,7 +325,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.blue = val
 	}
 	cmd$green(val) {
-		this.curGroup.green = val	
+		this.curGroup.green = val
 	}
 	cmd$ctint(val) {
 		this.curGroup.attributes.tint = val;
@@ -1121,7 +1127,7 @@ class LargeRTFSubunit extends Writable{
 			this.curGroup.style.styleFilters = val;
 		} else {
 			this.curGroup = new ParameterGroup(this.doc, "styleFilters", "style");
-		}	
+		}
 	}
 	cmd$readonlyrecommended() {
 		this.curGroup.style.readOnlyRecommended = true;
@@ -1715,7 +1721,7 @@ class LargeRTFSubunit extends Writable{
 	cmd$tsd(val) {
 		this.curGroup.style.defaultTableStyle = val;
 	}
-	
+
 	/*-- Bidirectional Controls --*/
 	cmd$rtldoc() {
 		this.doc.attributes.paginationDirection = "rtl";
@@ -2350,7 +2356,7 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$pgnhindia() {
 		this.curGroup.style.pageNumbering = "HINDI-VOWEL";
-	}	
+	}
 	cmd$pgnhindib() {
 		this.curGroup.style.pageNumbering = "HINDI-CONSONANT";
 	}
@@ -2481,7 +2487,7 @@ class LargeRTFSubunit extends Writable{
 	}
 
 	/* Paragraphs */
-	cmd$par() {	
+	cmd$par() {
 		while(this.curGroup.type !== "document" && this.curGroup.type !== "section" && this.curGroup.type !== "table-row") {this.endGroup();}
 		this.newGroup("paragraph");
 		if (this.lastPar.style.contextualspace) {
@@ -2496,11 +2502,11 @@ class LargeRTFSubunit extends Writable{
 			Object.keys(this.lastPar.style).forEach(key => {
 				if (spacings.includes(key)) {
 					this.lastPar.style[key] = false;
-				}	
+				}
 			});
 		}
 		this.curGroup.style = this.lastPar.style;
-		this.curGroup.attributes = this.lastPar.attributes;		
+		this.curGroup.attributes = this.lastPar.attributes;
 	}
 	cmd$pard() {
 		if (this.paraTypes.includes(this.curGroup.type)) {
@@ -2517,7 +2523,7 @@ class LargeRTFSubunit extends Writable{
 		Object.keys(this.defCharState).forEach(key => {
 			if (this.curGroup.style[key]) {
 				this.curGroup.style[key] = this.defCharState[key];
-			}	
+			}
 		});
 		this.curGroup.attributes = {};
 	}
@@ -3502,7 +3508,7 @@ class LargeRTFSubunit extends Writable{
 
 
 	/* Mathematics */
-	
+
 
 
 	/* Character Text */
@@ -3555,7 +3561,7 @@ class LargeRTFSubunit extends Writable{
 		this.curGroup.style.background = this.doc.tables.colourTable[val - 1];
 	}
 
-	
+
 
 	/* Special Characters */
 	cmd$emdash() {
@@ -3593,7 +3599,7 @@ class LargeRTFSubunit extends Writable{
 	}
 	cmd$u(val) {
 		if (!this.paraTypes.includes(this.curGroup.type)) {
-			this.curGroup.contents.push(String.fromCharCode(parseInt(val)));			
+			this.curGroup.contents.push(String.fromCharCode(parseInt(val)));
 		} else {
 			this.newGroup("fragment");
 			this.curGroup.contents.push(String.fromCharCode(parseInt(val)));
@@ -3611,7 +3617,7 @@ class LargeRTFSubunit extends Writable{
 	/* Ascii Extended Characters (Windows 1252) */
 	cmd$hex(val) {
 		if (!this.paraTypes.includes(this.curGroup.type)) {
-			this.curGroup.contents.push(win_1252.charAt(parseInt(val, 16) - 32));		
+			this.curGroup.contents.push(win_1252.charAt(parseInt(val, 16) - 32));
 		} else {
 			this.newGroup("fragment");
 			this.curGroup.contents.push(win_1252.charAt(parseInt(val, 16) - 32));
@@ -3626,7 +3632,7 @@ class LargeRTFSubunit extends Writable{
 		} else if (this.curGroup.parent instanceof FontTable) {
 			this.curGroup = new Font(this.curGroup.parent);
 			this.curGroup.attributes.font = val;
-		}	
+		}
 	}
 	cmd$fs(val) {
 		this.curGroup.style.fontSize = val;
